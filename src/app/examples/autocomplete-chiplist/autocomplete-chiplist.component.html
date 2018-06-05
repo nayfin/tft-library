@@ -1,0 +1,13 @@
+
+<ais-instantsearch [config]="searchConfig">
+
+  <tft-autocomplete (select)="handleSelect($event)">
+  </tft-autocomplete>
+
+  <tft-filter-chiplist attributeName="brand">
+  </tft-filter-chiplist>
+  
+</ais-instantsearch>
+<!-- <p>
+  {{ selected | json }}
+</p> -->

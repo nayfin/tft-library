@@ -1,0 +1,28 @@
+<!-- <select
+  (change)="state.refine($event.target.value)">
+  <option
+    *ngFor="let item of state.items"
+    [value]="item.value"
+    [selected]="item.isRefined">
+    {{item.label}}
+  </option>
+</select> -->
+
+<mat-form-field>
+  <mat-select 
+    [placeholder]="title" 
+    [multiple]="multiple">
+    <mat-option 
+      *ngFor="let item of state.items" 
+      [value]="item.value"     
+      (click)="refine($event, item)">
+      {{ item.label | titlecase }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!-- <button
+  *ngIf="state.canToggleShowMore"
+  (click)="state.toggleShowMore()">
+  {{state.isShowingMore ? showLessLabel : showMoreLabel}}
+</button> -->

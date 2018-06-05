@@ -1,0 +1,11 @@
+<mat-paginator
+  [length]="state.nbHits"
+  [pageSize]="state.pageSize"
+  [pageSizeOptions]="pageSizes"
+  (page)="refine($event, hitsPerPage)">
+</mat-paginator>
+
+<ais-hits-per-page 
+  [items]="pageSizeOptions" 
+  #hitsPerPage>
+</ais-hits-per-page>

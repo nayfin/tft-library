@@ -1,0 +1,102 @@
+
+<form 
+  [formGroup]="formContainer"
+  fxFlex
+  fxLayoutAlign="center center"
+  fxLayoutGap='8px'>
+
+  <mat-form-field
+    fxFlex>
+    <input 
+      matInput
+      autocapitalize="off"
+      autocorrect="off"
+      spellcheck="false" 
+      formControlName="autocomplete"
+      [placeholder]="placeholder"
+      [matAutocomplete]="auto"
+      [value]="state.query"
+      (input)="handleChange($event.target.value)">
+      
+    <mat-autocomplete 
+      (optionSelected)="handleSelect($event)"
+      [displayWith]="mapToName"
+      #auto="matAutocomplete">
+
+      <mat-option 
+        *ngFor="let hit of hits"  
+        [value]="hit">
+
+        <img 
+          *ngIf="hit[imageUrlParam]"
+          [src]="hit[imageUrlParam]" 
+          style="vertical-align:middle;" 
+          aria-hidden 
+          height="25"/>
+        <span> {{ hit.name }} </span>
+      </mat-option>
+          
+    </mat-autocomplete>
+    <mat-hint
+      *ngIf="algoliaAttribution">
+      <tft-algolia-attribution></tft-algolia-attribution>
+    </mat-hint>
+  </mat-form-field>
+
+  <div
+    fxHide.lt-sm>
+    <button
+      *ngIf="displaySelectButton" 
+      mat-raised-button
+      [disabled]="formContainer.invalid"
+      color="primary"
+      type="submit"
+      (click)="handleSubmit($event)">
+      <mat-icon>
+        add
+      </mat-icon>
+      {{ selectTitle }}
+    </button>
+
+    <button 
+      *ngIf="displayClearButton"
+      mat-raised-button
+      color="accent"
+      title="{{clearTitle}}"
+      type="button"
+      (click)="handleClear($event)">
+      <mat-icon>
+        close
+      </mat-icon>
+      {{ clearTitle }}
+    </button>
+  </div>
+
+  <div
+    fxHide.gt-xs>
+    <button mat-mini-fab
+      *ngIf="displaySelectButton"
+      [disabled]="formContainer.invalid"
+      color="primary"
+      type="submit"
+      (click)="handleSubmit($event)"
+      matTooltip="Select item">
+      <mat-icon>
+        add
+      </mat-icon>
+    </button>
+
+    <button 
+      *ngIf="displayClearButton"
+      mat-mini-fab
+      color="accent"
+      type="button"
+      (click)="handleClear($event)"
+      matTooltip="Clear searchbox">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+  </div>
+
+</form>

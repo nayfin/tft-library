@@ -1,0 +1,63 @@
+<form
+  [formGroup]="formContainer"
+  (submit)="handleSubmit($event)"
+  fxFlex
+  fxLayoutAlign="center center">
+   
+  <mat-form-field
+    fxFlex>
+    <mat-chip-list 
+      #chipList>
+      <mat-chip 
+        class="refinement-chip"
+        *ngFor="let chip of chips" 
+        [selectable]="chipSelectable" 
+        [removable]="areChipsRemovable" 
+        (removed)="removeChip(chip)">
+				{{chip.label}}
+				<mat-icon 
+          matChipRemove 
+          *ngIf="areChipsRemovable">
+          cancel
+        </mat-icon>
+			</mat-chip>
+
+      <!-- [value]="state.query" -->
+      <input 
+        role="textbox"
+        type="text"
+        formControlName="autocomplete" 
+        [placeholder]="placeholder"        
+        [matChipInputFor]="chipList" 
+        [matAutocomplete]="auto"            
+        [matChipInputAddOnBlur]="addChipOnBlur"
+        matInput
+        [value]="searchQuery"
+        (input)="handleChange($event.target.value)"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false" 
+        #chipInput/>
+      </mat-chip-list>
+      <mat-autocomplete 
+        #auto="matAutocomplete"
+        (optionSelected)="handleSelect($event)"
+        [displayWith]="mapToName">
+    
+        <mat-option 
+          *ngFor="let item of remainingItems"  
+          [value]="item">
+    
+          <img 
+            *ngIf="item[imageUrlParam]"
+            [src]="item[imageUrlParam]" 
+            style="vertical-align:middle;" 
+            aria-hidden 
+            height="25"/>
+          {{ item.label }}
+        </mat-option>
+      </mat-autocomplete>
+    
+    
+  </mat-form-field>
+</form>

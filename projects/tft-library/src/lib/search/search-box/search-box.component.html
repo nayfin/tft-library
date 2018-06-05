@@ -1,0 +1,50 @@
+<div 
+  fxFlex
+  fxLayoutAlign="center center">
+
+  <mat-form-field
+    fxFlex>
+    <input
+      matInput
+      autocapitalize="off"
+      autocorrect="off"
+      autocomplete="off"
+      [placeholder]="placeholder"
+      role="textbox"
+      spellcheck="false"
+      type="text"
+      [value]="state.query"
+      (input)="handleChange($event.target.value)"
+      #searchInput/>
+    <mat-hint
+      *ngIf="algoliaAttribution">
+      <tft-algolia-attribution></tft-algolia-attribution>
+    </mat-hint>
+  </mat-form-field>
+  
+  <button mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="handleSubmit($event, searchInput.value)">
+    <mat-icon>
+      search
+    </mat-icon>
+    {{ submitTitle }}
+  </button>
+  
+  <button 
+    *ngIf="displayResetButton"
+    mat-raised-button
+    color="accent"
+    type="reset"
+    title="{{resetTitle}}"
+    (click)="handleReset($event)">
+    <mat-icon>
+      close
+    </mat-icon>
+    {{ resetTitle }}
+  </button>
+  
+
+
+</div>

@@ -1,0 +1,18 @@
+ /* puts some space between name and count chip */
+
+/* tft-highlight {
+  padding-left: 8px;
+} */
+
+// default margin of -4px causes input to overflow
+// TODO: input is still wider than it should be though...
+::ng-deep div.mat-chip-list-wrapper {
+  margin: 0;
+}
+.mat-chip:not(.mat-basic-chip), .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+  margin: 0 0 8px 8px;
+}
+
+mat-form-field.mat-form-field {
+  margin: 0 8px 0 0;
+}
