@@ -35,7 +35,7 @@ then
   exit 1
 fi
 
-npm version "${update_type}"
+cd 'projects/tft-library' && npm version "${update_type}" && cd ../../
 
 npm run package
 
