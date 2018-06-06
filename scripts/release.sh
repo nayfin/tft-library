@@ -14,7 +14,7 @@ fi
 # TODO: Request git status and ask user to commit changes if needed
 #       Below code doesn't work as it checking dist folder, need to figure out why and change to check package.json of root folder
 # # read actual dist/package.json version
-actual_version=$(grep version 'package.json')
+actual_version=$(grep version 'projects/tft-library/package.json')
 
 # ask user for next version
 echo
