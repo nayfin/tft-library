@@ -29,7 +29,7 @@ export class FilterSelectComponent extends BaseWidget implements OnInit {
 
   @Input() title: string | null = 'Filter results';
   @Input() multiple = true;
-  @Input() attribute: string;
+  @Input() attributeName: string;
 
   state: {
     items: { label: string; value: string; isRefined?: boolean }[];
@@ -49,7 +49,7 @@ export class FilterSelectComponent extends BaseWidget implements OnInit {
   }
 
   public ngOnInit() {
-    this.createWidget(connectRefinementList, { attributeName: this.attribute });
+    this.createWidget(connectRefinementList, { attributeName: this.attributeName });
     super.ngOnInit();
   }
 
