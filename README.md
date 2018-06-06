@@ -1,27 +1,23 @@
-# TftLibraryApp
+# TftLibrary
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
+This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch. 
 
-## Development server
+This library is in pre-alpha. Breaking changes will accur often and documentation will be limited.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository 
 
-## Code scaffolding
+Modules:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- DesignModule: Imports and exports all `@angular/material` componenst and `@angular/flex-layout` to be used with components for this library. Can be used to import all components into the app code if desired.
 
-## Build
+- SearchModule: A library of customized `angular-instantsearch` components built with `@angular/material` library.
+  Components:
+  - search-box: Filters `<ais-hits>` using text search. Defaults to `"[searchOnKeyUp]="true"`. 
+  - pagination: Simple pagination interface to page through `<ais-hits>`.
+  - autocomplete: Emits selected item from autocompleting form input
+  - filter-select: Allows to easily refine search instance by binding to a facet (a facet can be created via algolia console). Pass `attributeName` as an input parameter, with the name of the facet on which you would like to filter. Pass `[multiple]="true"` to allow selection of multiple facet values on which to filter.
+  - filter-chiplist: Similar to `<tft-filter-select>` but consists of an autocompleting chiplist, with the results of `<ais-hits>` limited to items 
+  - algolia-attribution: 'Powered by Algolia' attribution to display where necesarry
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
