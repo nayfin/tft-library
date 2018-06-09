@@ -47,7 +47,7 @@ export class PaginationComponent extends BaseWidget implements OnInit {
   }
 
   ngOnInit() {
-    this.createWidget(connectPagination, {
+    super.createWidget(connectPagination, {
       maxPages: this.parseNumberInput(this.maxPages)
     });
     super.ngOnInit();
@@ -57,8 +57,6 @@ export class PaginationComponent extends BaseWidget implements OnInit {
   public refine(/*event: MouseEvent,*/ pageOptions: any, hitsPerPage: any) {
     // event.stopPropagation();
     // event.preventDefault();
-    console.log('hitsPerPage', hitsPerPage);
-
     const page = pageOptions.pageIndex;
     if (page <= this.state.nbPages && page >= 0) {
       // this.perPage.state.refine(pageOptions.pageSize);

@@ -29,7 +29,7 @@ export class SearchBoxComponent extends BaseWidget implements OnInit {
   }
 
   public ngOnInit() {
-    this.createWidget(connectSearchBox);
+    super.createWidget(connectSearchBox);
     super.ngOnInit();
   }
 

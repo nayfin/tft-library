@@ -21,15 +21,9 @@ export class AppComponent {
       path: 'autocomplete-chiplist',
       description: `Example of autocomplete chiplist`
     },
-    // {
-    //   title: 'Autocomplete Refinement List',
-    //   path: 'autocomplete-refinement-list',
-    //   description: `Very basic demonstration of autocomplete refinement list component.`
-    // },
   ];
 
   onLinkSelected(item: any) {
     this.sidenav.close();
-    // console.log("link item:", item);
   }
 }

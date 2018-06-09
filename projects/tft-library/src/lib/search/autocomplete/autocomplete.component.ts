@@ -72,13 +72,12 @@ export class AutocompleteComponent extends BaseWidget implements OnInit {
   }
 
   public ngOnInit() {
-    this.createWidget(connectAutocomplete);
+    super.createWidget(connectAutocomplete);
     super.ngOnInit();
   }
   public handleChange( query: string ) {
     this.formContainer.setErrors({'valueSelected': false});
     this.state.refine(query);
-    console.log(`this.state`, this.state);
     // const hits = this.state.instantSearchInstance ? this.state.instantSearchInstance.helper.lastResults.hits : [];
     // this.change.emit({query, hits});
   }

@@ -116,7 +116,7 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
     return this.items.filter( item => !this.selectedItems.includes(item) );
   }
   ngOnInit() {
-    this.createWidget(connectRefinementList, {
+    super.createWidget(connectRefinementList, {
       limit: this.parseNumberInput(this.limitMin),
       showMoreLimit: this.parseNumberInput(this.limitMax),
       attributeName: this.attributeName,
