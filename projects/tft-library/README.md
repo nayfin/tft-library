@@ -29,6 +29,60 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
+### DynamicFormModule
+A module design to generate forms when passed a JSON configuration. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
+
+#### Usage
+
+In template
+```html
+<div>
+  <tft-dynamic-form 
+    [config]="config"
+    (submitted)="formSubmitted($event)">
+  </tft-dynamic-form>
+</div>
+```
+In component.ts
+```javascript
+  config = [
+    {
+      type: 'input',
+      label: 'First name',
+      name: 'firstName',
+      placeholder: 'Enter your first name',
+    },
+    {
+      type: 'input',
+      label: 'Last name',
+      name: 'lastName',
+      placeholder: 'Enter your last name',
+    },
+    {
+      type: 'select',
+      label: 'Favourite food',
+      name: 'food',
+      options: [
+        {label: 'Pizza', value: 'pizza'},
+        {label: 'Coffee', value: 'coffee'},
+        {label: 'Curry', value: 'curry'},
+      ],
+      placeholder: 'Select an option',
+    },
+    {
+      label: 'Submit',
+      name: 'submit',
+      type: 'button',
+    },
+  ];
+  //...
+  formSubmitted(formValue) {
+    console.log('formValue', formValue);
+  }
+
+```
+
+
 ### Breaking Changes from V2
 
   This library started as a clone of Angular Instantsearch that had been modified to implement the `@angular/material` library, which had the benefit of being highly customizable but required a lot of maintenance to stay abreast of updates to dependencies. Recently, the Angular Instanstsearch team documented [how to create custom widgets](https://community.algolia.com/angular-instantsearch/guides/customize-widgets.html), which gives us the benifits of feature release and bug fixes performed by them as well as the ability to create costom Material Design components that easily utilize InstantSearch. Unfortunately, this created some break changes, but most are easy to fix with a simple find-replace from your IDE.

@@ -10,9 +10,15 @@ export class DynamicFormComponent implements OnInit {
   config = [
     {
       type: 'input',
-      label: 'Full name',
-      name: 'name',
-      placeholder: 'Enter your name',
+      label: 'First name',
+      name: 'firstName',
+      placeholder: 'Enter your first name',
+    },
+    {
+      type: 'input',
+      label: 'Last name',
+      name: 'lastName',
+      placeholder: 'Enter your last name',
     },
     {
       type: 'select',
@@ -37,4 +43,7 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  formSubmitted(formValue) {
+    console.log('formValue', formValue);
+  }
 }

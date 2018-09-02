@@ -15,9 +15,5 @@ export class FormButtonComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  handleSubmit() {
-    console.log('this.group', this.group);
-  }
-
+  
 }

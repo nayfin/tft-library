@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -7,8 +7,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: 'dynamic-form.component.html'
 })
 export class DynamicFormComponent implements OnInit {
-  @Input()
-  config: any[] = [];
+  @Input() config: any[] = [];
+
+  @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
 
@@ -22,5 +23,9 @@ export class DynamicFormComponent implements OnInit {
     const group = this.fb.group({});
     this.config.forEach(control => group.addControl(control.name, this.fb.control('')));
     return group;
+  }
+
+  handleSubmit() {
+    this.submitted.emit(this.form.value);
   }
 }
