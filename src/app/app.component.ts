@@ -21,6 +21,11 @@ export class AppComponent {
       path: 'autocomplete-chiplist',
       description: `Example of autocomplete chiplist`
     },
+    {
+      title: 'Dynamic Form',
+      path: 'dynamic-form',
+      description: `Example of dynamic form`
+    },
   ];
 
   onLinkSelected(item: any) {

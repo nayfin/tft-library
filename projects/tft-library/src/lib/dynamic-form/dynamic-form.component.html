@@ -1,0 +1,12 @@
+<form
+  class="dynamic-form"
+  [formGroup]="form">
+
+  <ng-container
+    *ngFor="let field of config;"
+    tftDynamicField
+    [config]="field"
+    [group]="form">
+  </ng-container>
+
+</form>

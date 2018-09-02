@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { NgAisModule } from 'angular-instantsearch';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { CoreModule } from 'tft-library';
-import { DesignModule } from 'projects/tft-library/src/public_api';
+import { CoreModule, DesignModule } from 'tft-library';
 import { ExamplesModule } from './examples/examples.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,6 +24,7 @@ import { ExamplesModule } from './examples/examples.module';
     // NgAisModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }
