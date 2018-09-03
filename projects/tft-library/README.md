@@ -51,6 +51,7 @@ In component.ts
       label: 'First name',
       controlName: 'firstName',
       placeholder: 'Enter your first name',
+      validators: [Validators.required]
     },
     {
       controlType: 'input',
@@ -60,14 +61,27 @@ In component.ts
     },
     {
       controlType: 'select',
-      label: 'Favourite food',
-      controlName: 'food',
+      label: 'Gender',
+      controlName: 'gender',
       options: [
-        {label: 'Pizza', value: 'pizza'},
-        {label: 'Coffee', value: 'coffee'},
-        {label: 'Curry', value: 'curry'},
+        {label: 'Male', value: 'male'},
+        {label: 'Female', value: 'female'}
       ],
       placeholder: 'Select an option',
+    },
+    {
+      controlType: 'select',
+      label: 'Are you pregnant',
+      controlName: 'pregnancy',
+      options: [
+        {label: 'Yes', value: 'y'},
+        {label: 'No', value: 'n'}
+      ],
+      placeholder: 'Select an option',
+      displayConfig: {
+        controlName: 'gender',
+        values: ['female']
+      }
     },
     {
       label: 'Submit',
@@ -75,6 +89,7 @@ In component.ts
       controlType: 'button',
     },
   ];
+
   //...
   formSubmitted(formValue) {
     console.log('formValue', formValue);
@@ -83,7 +98,8 @@ In component.ts
 ```
 #### Coming Soon To Dynamic Forms Module
 - more control types ( form arrays, radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
-- dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )
+- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~ 
+- ~~pass validators through config~~
 - dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not )
 
 

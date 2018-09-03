@@ -29,6 +29,80 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
+### DynamicFormModule
+A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto. Some parameter names have been changed from his guide to allow for future features, so this won't work as a drop in imlementation to following the guide. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
+
+#### Usage
+
+In template
+```html
+<div>
+  <tft-dynamic-form 
+    [config]="config"
+    (submitted)="formSubmitted($event)">
+  </tft-dynamic-form>
+</div>
+```
+In component.ts
+```javascript
+  config = [
+    {
+      controlType: 'input',
+      label: 'First name',
+      controlName: 'firstName',
+      placeholder: 'Enter your first name',
+      validators: [Validators.required]
+    },
+    {
+      controlType: 'input',
+      label: 'Last name',
+      controlName: 'lastName',
+      placeholder: 'Enter your last name',
+    },
+    {
+      controlType: 'select',
+      label: 'Gender',
+      controlName: 'gender',
+      options: [
+        {label: 'Male', value: 'male'},
+        {label: 'Female', value: 'female'}
+      ],
+      placeholder: 'Select an option',
+    },
+    {
+      controlType: 'select',
+      label: 'Are you pregnant',
+      controlName: 'pregnancy',
+      options: [
+        {label: 'Yes', value: 'y'},
+        {label: 'No', value: 'n'}
+      ],
+      placeholder: 'Select an option',
+      displayConfig: {
+        controlName: 'gender',
+        values: ['female']
+      }
+    },
+    {
+      label: 'Submit',
+      controlName: 'submit',
+      controlType: 'button',
+    },
+  ];
+
+  //...
+  formSubmitted(formValue) {
+    console.log('formValue', formValue);
+  }
+
+```
+#### Coming Soon To Dynamic Forms Module
+- more control types ( form arrays, radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
+- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~ 
+- ~~pass validators through config~~
+- dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not )
+
+
 ### Breaking Changes from V2
 
   This library started as a clone of Angular Instantsearch that had been modified to implement the `@angular/material` library, which had the benefit of being highly customizable but required a lot of maintenance to stay abreast of updates to dependencies. Recently, the Angular Instanstsearch team documented [how to create custom widgets](https://community.algolia.com/angular-instantsearch/guides/customize-widgets.html), which gives us the benifits of feature release and bug fixes performed by them as well as the ability to create costom Material Design components that easily utilize InstantSearch. Unfortunately, this created some break changes, but most are easy to fix with a simple find-replace from your IDE.
