@@ -9,7 +9,7 @@ const components = {
   button: FormButtonComponent,
   input: FormInputComponent,
   select: FormSelectComponent,
-}
+};
 
 @Directive({
   selector: '[tftDynamicField]'
@@ -27,7 +27,7 @@ export class DynamicFieldDirective implements OnInit {
   ) {}
 
   ngOnInit() {
-    const component = components[this.config.type];
+    const component = components[this.config.controlType];
     const factory = this.resolver.resolveComponentFactory<any>(component);
     this.component = this.container.createComponent(factory);
     this.component.instance.config = this.config;

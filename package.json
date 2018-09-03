@@ -29,6 +29,7 @@
     "@angular/router": "^6.1.6",
     "angular-instantsearch": "^2.0.4",
     "core-js": "^2.5.4",
+    "hammerjs": "^2.0.8",
     "lodash": "^4.17.10",
     "lodash-es": "^4.17.10",
     "rxjs": "^6.3.1",

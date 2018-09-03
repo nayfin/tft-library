@@ -1,8 +1,10 @@
 <!-- {{config.label}} -->
-<mat-form-field [formGroup]="group">
+<mat-form-field
+  [formGroup]="group"
+  *ngIf="displayControl">
   <input 
-    type="text"
+    type="config.inputType"
     matInput
     [placeholder]="config.placeholder"
-    [formControlName]="config.name">
+    [formControlName]="config.controlName">
 </mat-form-field>

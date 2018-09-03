@@ -1,9 +1,12 @@
 <!-- <label>{{ config.label }}</label> -->
+<!-- *ngIf="group | prerequisiteValueSelected : config.displayConfig" -->
+
 <mat-form-field
+  *ngIf="isControlDisplayed | async"
   [formGroup]="group">
   <mat-select 
-    [formControlName]="config.name"
-    placeholder="Favorite food">
+    [formControlName]="config.controlName"
+    [placeholder]="config.placeholder">
     <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
     <mat-option 
       *ngFor="let option of config.options" 

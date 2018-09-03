@@ -30,7 +30,7 @@ A library of customized `angular-instantsearch` components built with `@angular/
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
 ### DynamicFormModule
-A module design to generate forms when passed a JSON configuration. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
+A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto. Some parameter names have been changed from his guide to allow for future features, so this won't work as a drop in imlementation to following the guide. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
 
 #### Usage
 
@@ -47,21 +47,21 @@ In component.ts
 ```javascript
   config = [
     {
-      type: 'input',
+      controlType: 'input',
       label: 'First name',
-      name: 'firstName',
+      controlName: 'firstName',
       placeholder: 'Enter your first name',
     },
     {
-      type: 'input',
+      controlType: 'input',
       label: 'Last name',
-      name: 'lastName',
+      controlName: 'lastName',
       placeholder: 'Enter your last name',
     },
     {
-      type: 'select',
+      controlType: 'select',
       label: 'Favourite food',
-      name: 'food',
+      controlName: 'food',
       options: [
         {label: 'Pizza', value: 'pizza'},
         {label: 'Coffee', value: 'coffee'},
@@ -71,8 +71,8 @@ In component.ts
     },
     {
       label: 'Submit',
-      name: 'submit',
-      type: 'button',
+      controlName: 'submit',
+      controlType: 'button',
     },
   ];
   //...
@@ -81,6 +81,10 @@ In component.ts
   }
 
 ```
+#### Coming Soon To Dynamic Forms Module
+- more control types ( form arrays, radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
+- dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )
+- dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not )
 
 
 ### Breaking Changes from V2

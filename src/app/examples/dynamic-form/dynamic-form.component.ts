@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -9,32 +10,46 @@ export class DynamicFormComponent implements OnInit {
 
   config = [
     {
-      type: 'input',
+      controlType: 'input',
       label: 'First name',
-      name: 'firstName',
+      controlName: 'firstName',
       placeholder: 'Enter your first name',
+      validators: [Validators.required]
     },
     {
-      type: 'input',
+      controlType: 'input',
       label: 'Last name',
-      name: 'lastName',
+      controlName: 'lastName',
       placeholder: 'Enter your last name',
     },
     {
-      type: 'select',
-      label: 'Favourite food',
-      name: 'food',
+      controlType: 'select',
+      label: 'Gender',
+      controlName: 'gender',
       options: [
-        {label: 'Pizza', value: 'pizza'},
-        {label: 'Coffee', value: 'coffee'},
-        {label: 'Curry', value: 'curry'},
+        {label: 'Male', value: 'male'},
+        {label: 'Female', value: 'female'}
       ],
       placeholder: 'Select an option',
     },
     {
+      controlType: 'select',
+      label: 'Are you pregnant',
+      controlName: 'pregnancy',
+      options: [
+        {label: 'Yes', value: 'y'},
+        {label: 'No', value: 'n'}
+      ],
+      placeholder: 'Select an option',
+      displayConfig: {
+        controlName: 'gender',
+        values: ['female']
+      }
+    },
+    {
       label: 'Submit',
-      name: 'submit',
-      type: 'button',
+      controlName: 'submit',
+      controlType: 'button',
     },
   ];
 
