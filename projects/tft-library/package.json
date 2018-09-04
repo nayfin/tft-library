@@ -1,6 +1,6 @@
 {
   "name": "tft-library",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "peerDependencies": {
     "@angular/common": "^6.0.0",
     "@angular/core": "^6.0.0",
@@ -8,6 +8,7 @@
     "@angular/cdk": "^6.4.0",
     "@angular/flex-layout": "^6.0.0-beta.18",
     "@angular/router": "^6.0.3",
-    "rxjs": "^6.2.0"
+    "rxjs": "^6.2.0",
+    "lodash-es": "^4.17.10"
   }
 }
