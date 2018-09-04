@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputFieldConfig } from './input-field-config';
+import { DisplayConfig } from '../dynamic-field-config';
+import { Observable } from 'rxjs';
+import { ConditionalFieldsService } from '../conditional-fields.service';
 
 @Component({
   selector: 'tft-form-input',
@@ -13,22 +16,15 @@ export class FormInputComponent implements OnInit {
   config: InputFieldConfig;
   group: FormGroup;
 
-  get displayControl() {
-    // console.log('config', this.config.displayConfig);
-    const displayConfig = this.config.displayConfig;
-    if (!displayConfig ) {
-      return true;
-    } else {
-      this.checkControlForValues(displayConfig.controlName, displayConfig.values);
-    }
-  }
-  constructor() { }
+  isControlDisplayed: Observable<boolean>;
+
+  constructor(
+    public conditionalFields: ConditionalFieldsService
+  ) { }
 
   ngOnInit() {
     // console.log('group', this.group);
-  }
-
-  checkControlForValues(controlName: string, values: string[]) {
-    return values.includes(this.group.get(controlName).value);
+    const displayConfig: DisplayConfig = this.config.displayConfig;
+    this.isControlDisplayed = this.conditionalFields.createWatcher(displayConfig, this.group);
   }
 }

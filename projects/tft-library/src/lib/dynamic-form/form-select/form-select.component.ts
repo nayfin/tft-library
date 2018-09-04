@@ -19,7 +19,9 @@ export class FormSelectComponent implements OnInit {
 
   isControlDisplayed: Observable<boolean>;
 
-  constructor( public conditionalFields: ConditionalFieldsService ) {}
+  constructor(
+    public conditionalFields: ConditionalFieldsService
+  ) {}
   // TODO: maybe instead of dependent field waiting for change through internal logic and an *ngIf,
   // the prerequisite control can drive the change
 

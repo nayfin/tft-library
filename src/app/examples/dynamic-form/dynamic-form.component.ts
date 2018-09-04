@@ -30,20 +30,30 @@ export class DynamicFormComponent implements OnInit {
         {label: 'Male', value: 'male'},
         {label: 'Female', value: 'female'}
       ],
-      placeholder: 'Select an option',
+      placeholder: 'Select gender',
     },
     {
       controlType: 'select',
-      label: 'Are you pregnant',
+      label: 'Pregnancy Status',
       controlName: 'pregnancy',
       options: [
         {label: 'Yes', value: 'y'},
         {label: 'No', value: 'n'}
       ],
-      placeholder: 'Select an option',
+      placeholder: 'Are you pregnant',
       displayConfig: {
         controlName: 'gender',
         values: ['female']
+      }
+    },
+    {
+      controlType: 'input',
+      label: 'Pregnancy Duration',
+      controlName: 'pregnancyDuration',
+      placeholder: 'What trimester',
+      displayConfig: {
+        controlName: 'pregnancy',
+        values: ['y']
       }
     },
     {

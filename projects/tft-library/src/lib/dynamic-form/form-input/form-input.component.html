@@ -1,7 +1,7 @@
 <!-- {{config.label}} -->
 <mat-form-field
   [formGroup]="group"
-  *ngIf="displayControl">
+  *ngIf="isControlDisplayed | async">
   <input 
     type="config.inputType"
     matInput

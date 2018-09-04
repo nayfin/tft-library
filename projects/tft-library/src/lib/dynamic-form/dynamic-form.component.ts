@@ -31,10 +31,6 @@ export class DynamicFormComponent implements OnInit {
     return group;
   }
 
-  // controlValueIn( controlName: string, values: string[]) {
-  //   return values.includes(this.form.get(controlName).value);
-  // }
-
   handleSubmit() {
     this.submitted.emit(this.form.value);
   }
