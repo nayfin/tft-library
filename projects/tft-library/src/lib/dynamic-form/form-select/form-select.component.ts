@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DisplayConfig } from '../dynamic-field-config';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { SelectFieldConfig } from './select-field-config';
-import { ConditionalFieldsService } from '../conditional-fields.service';
+import { ConditionalFieldsService, WatchControlConfig } from '../conditional-fields.service';
 
 @Component({
   selector: 'tft-form-select',
@@ -26,8 +24,14 @@ export class FormSelectComponent implements OnInit {
   // the prerequisite control can drive the change
 
   ngOnInit() {
-    const displayConfig: DisplayConfig = this.config.displayConfig;
-    this.isControlDisplayed = this.conditionalFields.createWatcher(displayConfig, this.group);
+    // TODO: add other types here as new function make new configurations necessary
+    const displayConfig: WatchControlConfig = this.config.displayConfig;
+
+    this.isControlDisplayed = this.config.showField && this.config.displayConfig
+                            ? this.config.showField(displayConfig, this.group)
+                            : of(true);
+
+    // this.isControlDisplayed = this.conditionalFields.watchControlForValues(displayConfig, this.group);
     // if no config supplied then it is a static control and d
     // if (displayConfig ) {
     //   this.isControlDisplayed = this.group.get(displayConfig.controlName).valueChanges.pipe(

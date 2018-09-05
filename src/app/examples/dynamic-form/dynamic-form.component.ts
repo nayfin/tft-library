@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Validators, FormGroup } from '@angular/forms';
+import { ConditionalFieldsService, WatchControlConfig } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -36,6 +38,7 @@ export class DynamicFormComponent implements OnInit {
       controlType: 'select',
       label: 'Pregnancy Status',
       controlName: 'pregnancy',
+      showField: this.conditionalFields.watchControlForValues,
       options: [
         {label: 'Yes', value: 'y'},
         {label: 'No', value: 'n'}
@@ -63,7 +66,9 @@ export class DynamicFormComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private conditionalFields: ConditionalFieldsService,
+  ) { }
 
   ngOnInit() {
   }

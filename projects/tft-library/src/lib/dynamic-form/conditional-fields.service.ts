@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { DisplayConfig } from './dynamic-field-config';
 import { of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
+
+
+export interface WatchControlConfig {
+  controlName: string;
+  values: string[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +16,11 @@ export class ConditionalFieldsService {
 
   constructor() { }
 
-  createWatcher( displayConfig: DisplayConfig, form: FormGroup ): Observable<boolean> {
-    if (displayConfig ) {
-      return form.get(displayConfig.controlName).valueChanges.pipe(
+  watchControlForValues( config: WatchControlConfig, form: FormGroup ): Observable<boolean> {
+    if (config ) {
+      return form.get(config.controlName).valueChanges.pipe(
         map( (value) => {
-          return displayConfig.values.includes(value);
+          return config.values.includes(value);
         })
       );
     } else {
