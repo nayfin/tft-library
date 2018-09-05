@@ -38,12 +38,12 @@ export class DynamicFormComponent implements OnInit {
       controlType: 'select',
       label: 'Pregnancy Status',
       controlName: 'pregnancy',
-      showField: this.conditionalFields.watchControlForValues,
       options: [
         {label: 'Yes', value: 'y'},
         {label: 'No', value: 'n'}
       ],
       placeholder: 'Are you pregnant',
+      showField: this.conditionalFields.watchControlForValues,
       displayConfig: {
         controlName: 'gender',
         values: ['female']
@@ -54,9 +54,21 @@ export class DynamicFormComponent implements OnInit {
       label: 'Pregnancy Duration',
       controlName: 'pregnancyDuration',
       placeholder: 'What trimester',
+      showField: this.conditionalFields.watchControlForValues,
       displayConfig: {
         controlName: 'pregnancy',
         values: ['y']
+      }
+    },
+    {
+      controlType: 'input',
+      label: 'Comments',
+      controlName: 'comments',
+      placeholder: 'Comment here',
+      showField: this.conditionalFields.watchControlForValues,
+      displayConfig: {
+        controlName: 'pregnancyDuration',
+        values: ['first']
       }
     },
     {
