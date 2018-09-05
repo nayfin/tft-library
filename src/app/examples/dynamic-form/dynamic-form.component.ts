@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { ConditionalFieldsService, WatchControlConfig } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -23,6 +24,9 @@ export class DynamicFormComponent implements OnInit {
       label: 'Last name',
       controlName: 'lastName',
       placeholder: 'Enter your last name',
+      // using custom function from below
+      // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+      showField: this.firstNameIsNotBlank
     },
     {
       controlType: 'select',
@@ -87,5 +91,11 @@ export class DynamicFormComponent implements OnInit {
 
   formSubmitted(formValue) {
     console.log('formValue', formValue);
+  }
+  // example of how to pass a custom function that returns an Observable that resolves a boolean
+  firstNameIsNotBlank( form: FormGroup): Observable<boolean> {
+    return form.get('firstName').valueChanges.pipe(
+      map( value => !!value.length )
+    );
   }
 }

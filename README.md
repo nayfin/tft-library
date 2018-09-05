@@ -1,21 +1,21 @@
 # TftLibrary
 
-This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch. 
+This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.
 
 This library is in pre-alpha. Breaking changes will accur often and documentation will be limited.
 
-Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository 
+Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository
 
 ## Modules:
 
-### DesignModule: 
+### DesignModule:
 Imports and exports all `@angular/material` componenst and `@angular/flex-layout` to be used with components for this library. Can be used to import all components into the app code if desired.
 
 ### SearchModule:
 A library of customized `angular-instantsearch` components built with `@angular/material` library.
 
   #### Components:
-  - search-box: Filters `<ais-hits>` using text search. Defaults to `"[searchOnKeyUp]="true"`. 
+  - search-box: Filters `<ais-hits>` using text search. Defaults to `"[searchOnKeyUp]="true"`.
 
   - pagination: Simple pagination interface to page through `<ais-hits>`.
 
@@ -29,22 +29,34 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
-### DynamicFormModule
+### DynamicFormModule ( BETA: Regular breaking changes until stabilized. ETA: late October )
+
 A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto. Some parameter names have been changed from his guide to allow for future features, so this won't work as a drop in imlementation to following the guide. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
 
 #### Usage
 
-In template
-```html
-<div>
-  <tft-dynamic-form 
-    [config]="config"
-    (submitted)="formSubmitted($event)">
-  </tft-dynamic-form>
-</div>
-```
 In component.ts
 ```javascript
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormGroup } from '@angular/forms';
+import { ConditionalFieldsService, WatchControlConfig } from 'tft-library';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-dynamic-form',
+  templateUrl: `
+    <div>
+      <tft-dynamic-form
+        [config]="config"
+        (submitted)="formSubmitted($event)">
+      </tft-dynamic-form>
+    </div>
+  `,
+  styleUrls: ['./dynamic-form.component.scss']
+})
+export class DynamicFormComponent implements OnInit {
+
   config = [
     {
       controlType: 'input',
@@ -58,6 +70,9 @@ In component.ts
       label: 'Last name',
       controlName: 'lastName',
       placeholder: 'Enter your last name',
+      // using custom function from below
+      // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+      showField: this.firstNameIsNotBlank
     },
     {
       controlType: 'select',
@@ -67,20 +82,43 @@ In component.ts
         {label: 'Male', value: 'male'},
         {label: 'Female', value: 'female'}
       ],
-      placeholder: 'Select an option',
+      placeholder: 'Select gender',
     },
     {
       controlType: 'select',
-      label: 'Are you pregnant',
+      label: 'Pregnancy Status',
       controlName: 'pregnancy',
       options: [
         {label: 'Yes', value: 'y'},
         {label: 'No', value: 'n'}
       ],
-      placeholder: 'Select an option',
+      placeholder: 'Are you pregnant',
+      showField: this.conditionalFields.watchControlForValues,
       displayConfig: {
         controlName: 'gender',
         values: ['female']
+      }
+    },
+    {
+      controlType: 'input',
+      label: 'Pregnancy Duration',
+      controlName: 'pregnancyDuration',
+      placeholder: 'What trimester',
+      showField: this.conditionalFields.watchControlForValues,
+      displayConfig: {
+        controlName: 'pregnancy',
+        values: ['y']
+      }
+    },
+    {
+      controlType: 'input',
+      label: 'Comments',
+      controlName: 'comments',
+      placeholder: 'Comment here',
+      showField: this.conditionalFields.watchControlForValues,
+      displayConfig: {
+        controlName: 'pregnancyDuration',
+        values: ['first']
       }
     },
     {
@@ -90,17 +128,33 @@ In component.ts
     },
   ];
 
-  //...
+  constructor(
+    private conditionalFields: ConditionalFieldsService,
+  ) { }
+
+  ngOnInit() {
+  }
+
   formSubmitted(formValue) {
     console.log('formValue', formValue);
   }
+  // example of how to pass a custom function that returns an Observable that resolves a boolean
+  firstNameIsNotBlank( form: FormGroup): Observable<boolean> {
+    return form.get('firstName').valueChanges.pipe(
+      map( value => !!value.length )
+    );
+  }
+}
+
 
 ```
 #### Coming Soon To Dynamic Forms Module
-- more control types ( form arrays, radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
-- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~ 
+- abstract shared field logic to parent class somehow
+- handle configs with nested form groups and form arrays ( should form config be an object instead of array? )
+- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
 - ~~pass validators through config~~
-- dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not )
+- dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not. ??? remove control from formGroup on hide ??? )
+- more control types ( radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
 
 
 ### Breaking Changes from V2
@@ -116,6 +170,6 @@ In component.ts
 
   Please post an issue if you have difficulty upgrading se we can update documentation.
 
-  The old library is available [here](https://github.com/nayfin/tft-library-2.0.7). There are no plans to maintain as the structure of the library has made it overly difficult to test, debug, and integrate into applications. Moving forward we plan on providing bug fixes and light maintenance for each major release for two major release cycles e.g. v6 will be maintained until v8 is release. 
+  The old library is available [here](https://github.com/nayfin/tft-library-2.0.7). There are no plans to maintain as the structure of the library has made it overly difficult to test, debug, and integrate into applications. Moving forward we plan on providing bug fixes and light maintenance for each major release for two major release cycles e.g. v6 will be maintained until v8 is release.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7

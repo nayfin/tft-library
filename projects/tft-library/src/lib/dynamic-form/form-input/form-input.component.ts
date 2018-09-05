@@ -32,8 +32,8 @@ export class FormInputComponent implements OnInit {
     // console.log('group', this.group);
     const displayConfig: WatchControlConfig = this.config.displayConfig;
 
-    this.isControlDisplayed = this.config.displayConfig
-                            ? this.config.showField(displayConfig, this.group)
+    this.isControlDisplayed = this.config.showField
+                            ? this.config.showField(this.group, displayConfig)
                             : of(true);
 
   }

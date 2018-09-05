@@ -16,7 +16,7 @@ export class ConditionalFieldsService {
 
   constructor() { }
 
-  watchControlForValues( config: WatchControlConfig, form: FormGroup ): Observable<boolean> {
+  watchControlForValues( form: FormGroup, config: WatchControlConfig ): Observable<boolean> {
     if (config ) {
       return form.get(config.controlName).valueChanges.pipe(
         map( (value) => {

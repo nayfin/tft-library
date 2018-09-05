@@ -27,8 +27,8 @@ export class FormSelectComponent implements OnInit {
     // TODO: add other types here as new function make new configurations necessary
     const displayConfig: WatchControlConfig = this.config.displayConfig;
 
-    this.isControlDisplayed = this.config.showField && this.config.displayConfig
-                            ? this.config.showField(displayConfig, this.group)
+    this.isControlDisplayed = this.config.showField
+                            ? this.config.showField( this.group, displayConfig)
                             : of(true);
 
     // this.isControlDisplayed = this.conditionalFields.watchControlForValues(displayConfig, this.group);

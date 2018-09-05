@@ -6,7 +6,7 @@ export interface DynamicFieldConfig {
   controlType: ControlType;
   controlName: string;
   label?: string;
-  showField: (config: any, form: FormGroup, ) => Observable<boolean>;
+  showField: (form: FormGroup, config?: any ) => Observable<boolean>;
   displayConfig?: WatchControlConfig;
   validators?: Validator[];
   placeholder?: string;
