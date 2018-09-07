@@ -18,7 +18,11 @@ export class DynamicFormComponent implements OnInit {
       label: 'First name',
       controlName: 'firstName',
       placeholder: 'Enter your first name',
-      classes: ['blue-background'],
+      attrs: [{
+        name: 'value',
+        value: 'toads'
+      }],
+      classes: ['wide-field'],
       validators: [Validators.required],
     },
     {

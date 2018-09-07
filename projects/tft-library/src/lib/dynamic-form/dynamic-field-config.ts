@@ -6,11 +6,12 @@ export interface DynamicFieldConfig {
   controlType: ControlType;
   controlName: string;
   label?: string;
+  placeholder?: string;
   classes?: string[];
+  attrs?: Attr[];
   showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
   displayConfig?: WatchControlConfig;
   validators?: Validator[];
-  placeholder?: string;
   value?: string | number;
 }
 
@@ -19,6 +20,11 @@ export interface DynamicFieldConfig {
 //   controlName: string;
 //   values: string[];
 // }
+
+export interface Attr {
+  name: string;
+  value: string;
+}
 
 export enum ControlType {
   INPUT = 'input',

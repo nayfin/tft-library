@@ -2,7 +2,7 @@
 <!-- *ngIf="group | prerequisiteValueSelected : config.displayConfig" -->
 
 <mat-form-field
-  *ngIf="isControlDisplayed | async"
+  *ngIf="showField | async"
   [formGroup]="group"
   [ngClass]="config.classes">
   <mat-select

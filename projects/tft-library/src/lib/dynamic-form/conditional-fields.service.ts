@@ -27,4 +27,11 @@ export class ConditionalFieldsService {
       return of(true);
     }
   }
+
+  connectShowField( group: FormGroup, config) {
+    const displayConfig = config.displayConfig;
+    return config.showField
+    ? config.showField( group, displayConfig || null)
+    : of(true);
+  }
 }

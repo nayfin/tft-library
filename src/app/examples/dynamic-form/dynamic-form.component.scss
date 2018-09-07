@@ -1,5 +1,10 @@
 //!! ::ng-deep is required to pierce style encapsulation
 
-::ng-deep.blue-background {
-    background: blue !important;
+::ng-deep {
+  mat-form-field {
+  padding: 8px 16px;
+  }
+  .wide-field {
+    width: 400px;
+  }
 }

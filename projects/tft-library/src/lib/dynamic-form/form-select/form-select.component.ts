@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { SelectFieldConfig } from './select-field-config';
-import { ConditionalFieldsService, WatchControlConfig } from '../conditional-fields.service';
+import { ConditionalFieldsService } from '../conditional-fields.service';
+import { AttrsService } from '../attrs.service';
 
 @Component({
   selector: 'tft-form-select',
@@ -15,32 +16,19 @@ export class FormSelectComponent implements OnInit {
   config: SelectFieldConfig;
   group: FormGroup;
 
-  isControlDisplayed: Observable<boolean>;
+  showField: Observable<boolean>;
 
   constructor(
-    public conditionalFields: ConditionalFieldsService
-  ) {}
+    private conditionalFields: ConditionalFieldsService,
+    private el: ElementRef,
+    private attrs: AttrsService
+  ) { }
   // TODO: maybe instead of dependent field waiting for change through internal logic and an *ngIf,
   // the prerequisite control can drive the change
 
   ngOnInit() {
     // TODO: add other types here as new function make new configurations necessary
-    const displayConfig: WatchControlConfig = this.config.displayConfig;
-
-    this.isControlDisplayed = this.config.showField
-                            ? this.config.showField( this.group, displayConfig || null)
-                            : of(true);
-
-    // this.isControlDisplayed = this.conditionalFields.watchControlForValues(displayConfig, this.group);
-    // if no config supplied then it is a static control and d
-    // if (displayConfig ) {
-    //   this.isControlDisplayed = this.group.get(displayConfig.controlName).valueChanges.pipe(
-    //     map( (value) => {
-    //       return displayConfig.values.includes(value);
-    //     })
-    //   );
-    // } else {
-    //   this.isControlDisplayed = of(true);
-    // }
+    this.showField = this.conditionalFields.connectShowField(this.group, this.config);
+    this.attrs.setAttrs(this.conditionalFields, this.el);
   }
 }
