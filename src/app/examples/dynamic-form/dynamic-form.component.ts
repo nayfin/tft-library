@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import { ConditionalFieldsService, WatchControlConfig } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
+import { ConditionalFieldsService } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,13 +11,15 @@ import { map } from 'rxjs/operators';
 })
 export class DynamicFormComponent implements OnInit {
 
+  // TODO: Find good way to strongly type this
   config = [
     {
       controlType: 'input',
       label: 'First name',
       controlName: 'firstName',
       placeholder: 'Enter your first name',
-      validators: [Validators.required]
+      classes: ['blue-background'],
+      validators: [Validators.required],
     },
     {
       controlType: 'input',
@@ -47,7 +49,9 @@ export class DynamicFormComponent implements OnInit {
         {label: 'No', value: 'n'}
       ],
       placeholder: 'Are you pregnant',
+      // using a helper function from the conditionalFields service
       showField: this.conditionalFields.watchControlForValues,
+      // and the corresponding configuration
       displayConfig: {
         controlName: 'gender',
         values: ['female']
@@ -93,6 +97,7 @@ export class DynamicFormComponent implements OnInit {
     console.log('formValue', formValue);
   }
   // example of how to pass a custom function that returns an Observable that resolves a boolean
+  // notice lack of subcribe() call, the field component manages subcription for you
   firstNameIsNotBlank( form: FormGroup): Observable<boolean> {
     return form.get('firstName').valueChanges.pipe(
       map( value => !!value.length )

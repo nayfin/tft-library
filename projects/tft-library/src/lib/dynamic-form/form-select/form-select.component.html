@@ -3,13 +3,14 @@
 
 <mat-form-field
   *ngIf="isControlDisplayed | async"
-  [formGroup]="group">
-  <mat-select 
+  [formGroup]="group"
+  [ngClass]="config.classes">
+  <mat-select
     [formControlName]="config.controlName"
     [placeholder]="config.placeholder">
     <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
-    <mat-option 
-      *ngFor="let option of config.options" 
+    <mat-option
+      *ngFor="let option of config.options"
       [value]="option.value">
       {{ option.label }}
     </mat-option>

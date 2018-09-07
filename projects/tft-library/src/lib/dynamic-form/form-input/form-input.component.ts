@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputFieldConfig } from './input-field-config';
 import { Observable, of } from 'rxjs';
@@ -7,7 +7,7 @@ import { WatchControlConfig } from '../conditional-fields.service';
 @Component({
   selector: 'tft-form-input',
   templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.scss']
+  styleUrls: ['./form-input.component.scss'],
 })
 
 export class FormInputComponent implements OnInit {
@@ -17,15 +17,6 @@ export class FormInputComponent implements OnInit {
 
   isControlDisplayed: Observable<boolean>;
 
-  // get displayControl() {
-  //   // console.log('config', this.config.displayConfig);
-  //   const displayConfig = this.config.displayConfig;
-  //   if (!displayConfig ) {
-  //     return true;
-  //   } else {
-  //     this.checkControlForValues(displayConfig.controlName, displayConfig.values);
-  //   }
-  // }
   constructor() { }
 
   ngOnInit() {

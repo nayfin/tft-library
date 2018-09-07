@@ -28,7 +28,7 @@ export class FormSelectComponent implements OnInit {
     const displayConfig: WatchControlConfig = this.config.displayConfig;
 
     this.isControlDisplayed = this.config.showField
-                            ? this.config.showField( this.group, displayConfig)
+                            ? this.config.showField( this.group, displayConfig || null)
                             : of(true);
 
     // this.isControlDisplayed = this.conditionalFields.watchControlForValues(displayConfig, this.group);

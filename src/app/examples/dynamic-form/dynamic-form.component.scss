@@ -1,0 +1,5 @@
+//!! ::ng-deep is required to pierce style encapsulation
+
+::ng-deep.blue-background {
+    background: blue !important;
+}
