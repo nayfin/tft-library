@@ -19,7 +19,6 @@ export class DynamicFieldDirective implements OnInit {
   @Input() config;
   @Input() group: FormGroup;
 
-  @Input() customButton: any;
   component;
 
   constructor(
