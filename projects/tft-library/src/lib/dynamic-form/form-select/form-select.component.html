@@ -1,22 +1,24 @@
-<tft-field-container
-  [config]="config"
-  [group]="group"
-  [fxFlex]="config.flexLayoutConfig?.fxFlex">
+<ng-container [fxFlex]="config.flexLayoutConfig?.fxFlex">
 
-  <mat-form-field
-    [formGroup]="group"
-    fxFlexFill>
-    <mat-select
-      [formControlName]="config.controlName"
-      [placeholder]="config.placeholder">
-      <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
-      <mat-option
-        *ngFor="let option of config.options"
-        [value]="option.value">
-        {{ option.label }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <tft-field-container
+    [config]="config"
+    [group]="group">
 
-</tft-field-container>
+    <mat-form-field
+      [formGroup]="group"
+      fxFlexFill>
+      <mat-select
+        [formControlName]="config.controlName"
+        [placeholder]="config.placeholder">
+        <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
+        <mat-option
+          *ngFor="let option of config.options"
+          [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </tft-field-container>
+</ng-container>
 
