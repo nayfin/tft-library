@@ -1,0 +1,12 @@
+<div
+  *ngIf="showField | async"
+  [ngClass]="config.classes">
+
+  <label
+    *ngIf="!!config.label"
+    class="mat-h3">{{ config.label }}
+  </label>
+
+  <ng-content></ng-content>
+
+</div>

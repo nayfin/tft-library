@@ -1,11 +1,17 @@
-<!-- {{config.label}} -->
-<mat-form-field
-  [formGroup]="group"
-  *ngIf="showField | async"
-  [ngClass]="config.classes">
-  <input
-    type="config.inputType"
-    matInput
-    [placeholder]="config.placeholder"
-    [formControlName]="config.controlName">
-</mat-form-field>
+<tft-field-container
+  [config]="config"
+  [group]="group"
+  [fxFlex]="config.flexLayoutConfig?.fxFlex">
+
+  <mat-form-field
+    fxFlexFill
+    [formGroup]="group">
+    <input
+      [type]="config.inputType"
+      matInput
+      [placeholder]="config.placeholder"
+      [formControlName]="config.controlName">
+  </mat-form-field>
+
+
+</tft-field-container>

@@ -9,6 +9,7 @@ import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { DynamicFieldDirective } from './dynamic-field.directive';
+import { FieldContainerComponent } from './field-container/field-container.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
     FormSelectComponent,
     FormButtonComponent,
     DynamicFieldDirective,
+    FieldContainerComponent,
   ],
   exports: [
     DynamicFormComponent,

@@ -1,5 +1,5 @@
 import { DynamicFieldConfig } from '../dynamic-field-config';
 
 export interface InputFieldConfig extends DynamicFieldConfig {
-  inputType: 'number' | 'text';
+  inputType?: string;
 }

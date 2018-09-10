@@ -7,15 +7,15 @@ import { Attr } from './dynamic-field-config';
 export class AttrsService {
 
   constructor(
-    private renderer: Renderer2
+    // private renderer: Renderer2
   ) { }
 
-  setAttrs(config, el) {
+  setAttrs(config, el, renderer: Renderer2) {
     const attrs: Attr[] = config.attrs || [];
     if ( attrs.length > 0 ) {
       attrs.forEach( (attr, i) => {
         console.log('setting attr', i);
-        this.renderer.setAttribute(el.nativeElement, attr.name, attr.value );
+        renderer.setAttribute(el.nativeElement, attr.name, attr.value );
       });
     }
   }

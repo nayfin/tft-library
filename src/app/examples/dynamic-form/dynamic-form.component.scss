@@ -1,7 +1,7 @@
 //!! ::ng-deep is required to pierce style encapsulation
 
 ::ng-deep {
-  mat-form-field {
+  .field-container {
   padding: 8px 16px;
   }
   .wide-field {
