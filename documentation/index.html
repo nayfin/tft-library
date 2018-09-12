@@ -1,0 +1,256 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>tft-library-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">tft-library-app documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="tftlibrary">TftLibrary</h1>
+<p>This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.</p>
+<p>This library is in pre-alpha. Breaking changes will accur often and documentation will be limited.</p>
+<p>Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository</p>
+<h2 id="modules-">Modules:</h2>
+<h3 id="designmodule-">DesignModule:</h3>
+<p>Imports and exports all <code>@angular/material</code> componenst and <code>@angular/flex-layout</code> to be used with components for this library. Can be used to import all components into the app code if desired.</p>
+<h3 id="searchmodule-">SearchModule:</h3>
+<p>A library of customized <code>angular-instantsearch</code> components built with <code>@angular/material</code> library.</p>
+<h4 id="components-">Components:</h4>
+<ul>
+<li><p>search-box: Filters <code>&lt;ais-hits&gt;</code> using text search. Defaults to <code>&quot;[searchOnKeyUp]=&quot;true&quot;</code>.</p>
+</li>
+<li><p>pagination: Simple pagination interface to page through <code>&lt;ais-hits&gt;</code>.</p>
+</li>
+<li><p>autocomplete: Emits selected item from autocompleting form input.</p>
+</li>
+<li><p>filter-select: Allows to easily refine search instance by binding to a facet (a facet can be created via algolia console). Pass <code>attributeName</code> as an input parameter, with the name of the facet on which you would like to filter. Pass <code>[multiple]=&quot;true&quot;</code> to allow selection of multiple facet values on which to filter.</p>
+</li>
+<li><p>filter-chiplist: Similar to <code>&lt;tft-filter-select&gt;</code> but consists of an autocompleting chiplist, with the results of <code>&lt;ais-hits&gt;</code> limited to filter on values of selected chips.</p>
+</li>
+<li><p>algolia-attribution: &#39;Powered by Algolia&#39; attribution to display where necesarry</p>
+<p>Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the <a href="https://github.com/nayfin/tft-library">repository</a> under /src/app/examples.</p>
+</li>
+</ul>
+<h3 id="dynamicformmodule-beta-regular-breaking-changes-until-stabilized-eta-late-october-">DynamicFormModule ( BETA: Regular breaking changes until stabilized. ETA: late October )</h3>
+<p>A module design to generate forms when passed a JSON configuration. Created following this excellent <a href="https://toddmotto.com/angular-dynamic-components-forms">guide</a> by Todd Motto. Some parameter names have been changed from his guide to allow for future features, so this won&#39;t work as a drop in imlementation to following the guide. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.</p>
+<h4 id="usage">Usage</h4>
+<p>In component.ts</p>
+<div><pre class="line-numbers"><code class="language-javascript">import { Component, OnInit } from &#39;&#64;angular/core&#39;;
+import { Validators, FormGroup } from &#39;&#64;angular/forms&#39;;
+import { ConditionalFieldsService } from &#39;projects/tft-library/src/lib/dynamic-form/conditional-fields.service&#39;;
+import { Observable } from &#39;rxjs&#39;;
+import { map } from &#39;rxjs/operators&#39;;
+
+&#64;Component({
+  selector: &#39;app-dynamic-form&#39;,
+  templateUrl: &#39;./dynamic-form.component.html&#39;,
+  styleUrls: [&#39;./dynamic-form.component.scss&#39;]
+})
+export class DynamicFormComponent implements OnInit {
+
+  // TODO: Find good way to strongly type this
+  config = [
+    {
+      controlType: &#39;input&#39;,
+      label: &#39;First name&#39;,
+      controlName: &#39;firstName&#39;,
+      placeholder: &#39;Enter your first name&#39;,
+      validators: [Validators.required]
+    },
+    {
+      controlType: &#39;input&#39;,
+      label: &#39;Last name&#39;,
+      controlName: &#39;lastName&#39;,
+      placeholder: &#39;Enter your last name&#39;,
+      // using custom function from below
+      // note that because function doesn&#39;t require a displayConfig, control config doesn&#39;t have a displayConfig prop
+      showField: this.firstNameIsNotBlank
+    },
+    {
+      controlType: &#39;select&#39;,
+      label: &#39;Gender&#39;,
+      controlName: &#39;gender&#39;,
+      options: [
+        {label: &#39;Male&#39;, value: &#39;male&#39;},
+        {label: &#39;Female&#39;, value: &#39;female&#39;}
+      ],
+      placeholder: &#39;Select gender&#39;,
+    },
+    {
+      controlType: &#39;select&#39;,
+      label: &#39;Pregnancy Status&#39;,
+      controlName: &#39;pregnancy&#39;,
+      options: [
+        {label: &#39;Yes&#39;, value: &#39;y&#39;},
+        {label: &#39;No&#39;, value: &#39;n&#39;}
+      ],
+      placeholder: &#39;Are you pregnant&#39;,
+      // using a helper function from the conditionalFields service
+      showField: this.conditionalFields.watchControlForValues,
+      // and the corresponding configuration
+      displayConfig: {
+        controlName: &#39;gender&#39;,
+        values: [&#39;female&#39;]
+      }
+    },
+    {
+      controlType: &#39;input&#39;,
+      label: &#39;Pregnancy Duration&#39;,
+      controlName: &#39;pregnancyDuration&#39;,
+      placeholder: &#39;What trimester&#39;,
+      showField: this.conditionalFields.watchControlForValues,
+      displayConfig: {
+        controlName: &#39;pregnancy&#39;,
+        values: [&#39;y&#39;]
+      }
+    },
+    {
+      controlType: &#39;input&#39;,
+      label: &#39;Comments&#39;,
+      controlName: &#39;comments&#39;,
+      placeholder: &#39;Comment here&#39;,
+      showField: this.conditionalFields.watchControlForValues,
+      displayConfig: {
+        controlName: &#39;pregnancyDuration&#39;,
+        values: [&#39;first&#39;]
+      }
+    },
+    {
+      label: &#39;Submit&#39;,
+      controlName: &#39;submit&#39;,
+      controlType: &#39;button&#39;,
+    },
+  ];
+
+  constructor(
+    private conditionalFields: ConditionalFieldsService,
+  ) { }
+
+  ngOnInit() {
+  }
+
+  formSubmitted(formValue) {
+    console.log(&#39;formValue&#39;, formValue);
+  }
+  // example of how to pass a custom function that returns an Observable that resolves a boolean
+  // notice lack of subcribe() call, the field component manages subcription for you
+  firstNameIsNotBlank( form: FormGroup): Observable&lt;boolean&gt; {
+    return form.get(&#39;firstName&#39;).valueChanges.pipe(
+      map( value =&gt; !!value.length )
+    );
+  }
+}</code></pre></div><h4 id="coming-soon-to-dynamic-forms-module">Coming Soon To Dynamic Forms Module</h4>
+<ul>
+<li>abstract shared field logic to parent class or service</li>
+<li>handle configs with nested form groups and form arrays ( should form config be an object instead of array? )</li>
+<li>enable passing of styles, classes, flex-layout attributes through config to form</li>
+<li><del>dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )</del></li>
+<li><del>pass validators through config</del></li>
+<li>dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not. ??? remove control from formGroup on hide ??? )</li>
+<li>more control types ( radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )</li>
+</ul>
+<h3 id="breaking-changes-from-v2">Breaking Changes from V2</h3>
+<p>  This library started as a clone of Angular Instantsearch that had been modified to implement the <code>@angular/material</code> library, which had the benefit of being highly customizable but required a lot of maintenance to stay abreast of updates to dependencies. Recently, the Angular Instanstsearch team documented <a href="https://community.algolia.com/angular-instantsearch/guides/customize-widgets.html">how to create custom widgets</a>, which gives us the benifits of feature release and bug fixes performed by them as well as the ability to create costom Material Design components that easily utilize InstantSearch. Unfortunately, this created some break changes, but most are easy to fix with a simple find-replace from your IDE.</p>
+<h4 id="changes">Changes</h4>
+<ul>
+<li>Need to <code>import { NgAisModule } from &#39;angular-instantsearch&#39;</code> in modules that consume tft-search components and add to <code>imports</code> array of module</li>
+<li><code>&lt;tft-filter-list&gt;&lt;/tft-filter-list&gt;</code> -&gt; <code>&lt;tft-filter-select&gt;&lt;/tft-filter-select&gt;</code></li>
+<li><code>&lt;tft-refinement-list&gt;&lt;/tft-refinement-list&gt;</code> -&gt; <code>&lt;tft-filter-chiplist&gt;&lt;/tft-filter-chiplist&gt;</code></li>
+<li><p><code>&lt;tft-results&gt;&lt;/tft-results&gt;</code> -&gt; <code>&lt;ais-hits&gt;&lt;/ais-hits&gt;</code></p>
+<p>Please post an issue if you have difficulty upgrading se we can update documentation.</p>
+<p>The old library is available <a href="https://github.com/nayfin/tft-library-2.0.7">here</a>. There are no plans to maintain as the structure of the library has made it overly difficult to test, debug, and integrate into applications. Moving forward we plan on providing bug fixes and light maintenance for each major release for two major release cycles e.g. v6 will be maintained until v8 is release.</p>
+</li>
+</ul>
+<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 6.0.7</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <script src="./js/menu-wc.js"></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

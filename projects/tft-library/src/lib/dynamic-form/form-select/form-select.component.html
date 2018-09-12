@@ -2,10 +2,8 @@
   [config]="config"
   [group]="group"
   [fxFlex]="config.flexLayoutConfig?.fxFlex">
-
   <mat-form-field
-    [formGroup]="group"
-    fxFlexFill>
+    [formGroup]="group">
     <mat-select
       [formControlName]="config.controlName"
       [placeholder]="config.placeholder">
