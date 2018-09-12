@@ -7,3 +7,7 @@
 <pre>
   {{ config | json}}
 </pre>
+
+<ul>
+  <ul *ngFor="let obj of someObject | keyvalue">{{obj.key}} {{obj.value}} </ul>
+</ul>

@@ -100,6 +100,10 @@ export class DynamicFormComponent implements OnInit {
     },
   ];
 
+  someObject = {
+    keyOne: 'Hello',
+    keyTwo: 'Operator'
+  };
   constructor(
     private conditionalFields: ConditionalFieldsService,
   ) { }

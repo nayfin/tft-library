@@ -1,10 +1,8 @@
 <tft-field-container
   [config]="config"
   [group]="group">
-
   <mat-form-field
-    [formGroup]="group"
-    fxFlexFill>
+    [formGroup]="group">
     <mat-select
       [formControlName]="config.controlName"
       [placeholder]="config.placeholder">
@@ -16,5 +14,4 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
 </tft-field-container>

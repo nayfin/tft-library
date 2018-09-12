@@ -1,9 +1,8 @@
 <tft-field-container
   [config]="config"
-  [group]="group">
-
+  [group]="group"
+  [fxFlex]="config.flexLayoutConfig?.fxFlex">
   <mat-form-field
-    fxFlexFill
     [formGroup]="group">
     <input
       [type]="config.inputType"
