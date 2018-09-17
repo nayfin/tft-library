@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build_lib": "ng build --prod --watch tft-library",
-    "work": "npm run build_lib & ng serve --port 4201 wait",
+    "work": "bash ./scripts/work.sh",
     "npm_pack": "cd dist/tft-library && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
     "release": "bash ./scripts/release.sh",
