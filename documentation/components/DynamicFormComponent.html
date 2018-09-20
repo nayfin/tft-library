@@ -242,13 +242,16 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/examples/dynamic-form/dynamic-form.component.ts:119</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">src/app/examples/dynamic-form/dynamic-form.component.ts:124</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>example of how to pass a custom function that returns an Observable that resolves a boolean</p>
+<p>notice lack of subcribe() call, the field component manages subcription for you</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -258,6 +261,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -272,6 +276,10 @@
                                                     </td>
                                                     
 
+                                                        <td>
+                                                                <code><p>entire form, used to grab the firstName formControl and listen for changes</p>
+</code>
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -283,7 +291,8 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+                                    <p>an observable that listen for changes on the firstName formControl and resolves to true when value string is longer than zero</p>
+
                                 </div>
                     </td>
                 </tr>
@@ -304,7 +313,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>formSubmitted(formValue: )</code>
+<code>formSubmitted(formValue: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                     </td>
                 </tr>
 
@@ -325,12 +334,16 @@
                                         <thead>
                                             <tr>
                                                 <td>Name</td>
+                                                    <td>Type</td>
                                                 <td>Optional</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                                 <tr>
                                                         <td>formValue</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
                                                     
                                                     <td>
                                                             No
@@ -682,12 +695,17 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  formSubmitted(formValue) {
+  formSubmitted(formValue: any) {
     console.log(&#x27;formValue&#x27;, formValue);
   }
-  // example of how to pass a custom function that returns an Observable that resolves a boolean
-  // notice lack of subcribe() call, the field component manages subcription for you
-  firstNameIsNotBlank( form: FormGroup): Observable&lt;boolean&gt; {
+  /**
+   * example of how to pass a custom function that returns an Observable that resolves a boolean
+   *
+   * notice lack of subcribe() call, the field component manages subcription for you
+   * @param form entire form, used to grab the firstName formControl and listen for changes
+   * @returns an observable that listen for changes on the firstName formControl and resolves to true when value string is longer than zero
+   */
+  firstNameIsNotBlank(form: FormGroup): Observable&lt;boolean&gt; {
     return form.get(&#x27;firstName&#x27;).valueChanges.pipe(
       map( value &#x3D;&gt; !!value.length )
     );
