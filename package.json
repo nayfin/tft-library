@@ -13,7 +13,7 @@
     "npm_pack": "cd dist/tft-library && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
     "release": "bash ./scripts/release.sh",
-    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json"
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -s"
   },
   "private": true,
   "dependencies": {

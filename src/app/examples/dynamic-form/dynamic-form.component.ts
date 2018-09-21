@@ -111,12 +111,17 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  formSubmitted(formValue) {
+  formSubmitted(formValue: any) {
     console.log('formValue', formValue);
   }
-  // example of how to pass a custom function that returns an Observable that resolves a boolean
-  // notice lack of subcribe() call, the field component manages subcription for you
-  firstNameIsNotBlank( form: FormGroup): Observable<boolean> {
+  /**
+   * example of how to pass a custom function that returns an Observable that resolves a boolean
+   *
+   * notice lack of subcribe() call, the field component manages subcription for you
+   * @param form entire form, used to grab the firstName formControl and listen for changes
+   * @returns an observable that listen for changes on the firstName formControl and resolves to true when value string is longer than zero
+   */
+  firstNameIsNotBlank(form: FormGroup): Observable<boolean> {
     return form.get('firstName').valueChanges.pipe(
       map( value => !!value.length )
     );
