@@ -19,19 +19,37 @@ export class ConditionalFieldsService {
   watchControlForValues( form: FormGroup, config: WatchControlConfig ): Observable<boolean> {
     if (config ) {
       return form.get(config.controlName).valueChanges.pipe(
-        map( (value) => {
-          return config.values.includes(value);
-        })
+        this.checkForValues()
       );
     } else {
       return of(true);
     }
   }
-
+  /**
+   *
+   * used to pass formGroup and an optional configaration file to
+   *
+   * @param group used to get valueChanges from control
+   * @example group.get('<controlName>').values changes
+   * @param config configuration object used to
+   */
   connectShowField( group: FormGroup, config) {
     const displayConfig = config.displayConfig;
     return config.showField
-    ? config.showField( group, displayConfig || null)
-    : of(true);
+      ? config.showField( group, displayConfig || null)
+      : of(true);
   }
+  /**
+   *  first custom rxjs operator!!!
+   * @param config
+   * TODO: strongly type
+   */
+  checkForValues() {
+    map( (value: string) => {
+      console.log('value', value);
+      return ['yes'].includes(value);
+    });
+  }
+
+
 }
