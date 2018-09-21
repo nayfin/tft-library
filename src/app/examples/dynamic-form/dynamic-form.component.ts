@@ -7,6 +7,13 @@ import { map } from 'rxjs/operators';
 // import { InputFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-input/input-field-config';
 import { AnyFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/dynamic-field-config';
 
+/**
+ * Custom rxjs operator determines if string is blank after trim
+ *
+ * returns false if blank else true
+ */
+const isNotBlank = () => map( (value: string) => !!value.trim().length );
+
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
@@ -123,7 +130,11 @@ export class DynamicFormComponent implements OnInit {
    */
   firstNameIsNotBlank(form: FormGroup): Observable<boolean> {
     return form.get('firstName').valueChanges.pipe(
-      map( value => !!value.length )
+      isNotBlank()
     );
+  }
+
+  isNotBlank() {
+    return map( (value: string) => !!value.trim().length );
   }
 }

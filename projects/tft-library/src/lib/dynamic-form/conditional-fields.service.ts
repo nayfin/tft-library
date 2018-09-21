@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 
+import { valueIn } from './custom-operators';
+import { map } from 'rxjs/operators';
 
 export interface WatchControlConfig {
   controlName: string;
@@ -12,6 +13,7 @@ export interface WatchControlConfig {
 @Injectable({
   providedIn: 'root'
 })
+
 export class ConditionalFieldsService {
 
   constructor() { }
@@ -19,7 +21,7 @@ export class ConditionalFieldsService {
   watchControlForValues( form: FormGroup, config: WatchControlConfig ): Observable<boolean> {
     if (config ) {
       return form.get(config.controlName).valueChanges.pipe(
-        this.checkForValues()
+        valueIn(config.values)
       );
     } else {
       return of(true);
@@ -39,17 +41,4 @@ export class ConditionalFieldsService {
       ? config.showField( group, displayConfig || null)
       : of(true);
   }
-  /**
-   *  first custom rxjs operator!!!
-   * @param config
-   * TODO: strongly type
-   */
-  checkForValues() {
-    map( (value: string) => {
-      console.log('value', value);
-      return ['yes'].includes(value);
-    });
-  }
-
-
 }
