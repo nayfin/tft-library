@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
-import { valueIn } from './custom-operators';
+import { valueIn } from './conditional-fields.operators';
 import { map } from 'rxjs/operators';
 
 export interface WatchControlConfig {
@@ -26,19 +26,5 @@ export class ConditionalFieldsService {
     } else {
       return of(true);
     }
-  }
-  /**
-   *
-   * used to pass formGroup and an optional configaration file to
-   *
-   * @param group used to get valueChanges from control
-   * @example group.get('<controlName>').values changes
-   * @param config configuration object used to
-   */
-  connectShowField( group: FormGroup, config) {
-    const displayConfig = config.displayConfig;
-    return config.showField
-      ? config.showField( group, displayConfig || null)
-      : of(true);
   }
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AnyFieldConfig } from '../dynamic-field-config';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { ConditionalFieldsService } from '../conditional-fields.service';
+import { Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,18 +9,29 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./field-container.component.scss']
 })
 export class FieldContainerComponent implements OnInit {
-
+  // the configuration object for the field
   @Input() config: AnyFieldConfig;
+  // the parent formGroup
   @Input() group: FormGroup;
-
+  // used to determine whether or not field should be shown
   showField: Observable<boolean>;
 
-  constructor(
-    private conditionalFields: ConditionalFieldsService,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.showField = this.conditionalFields.connectShowField(this.group, this.config);
+    this.showField = this.connectShowField(this.group, this.config);
+  }
+  /**
+   * used to pass formGroup and an optional configaration file to the showField parameter
+   *
+   * if function exists on config then will pass it to parameter, else passes observable of true
+   * @param group used to get valueChanges from control
+   * @param config configuration object used to
+   */
+  connectShowField( group: FormGroup, config) {
+    return config.showField
+         ? config.showField( group, config.displayConfig || null)
+         : of(true);
   }
 
 }

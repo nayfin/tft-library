@@ -35,6 +35,16 @@ A module design to generate forms when passed a JSON configuration. Created foll
 
 #### Usage
 
+In component.html
+```html
+<div>
+      <tft-dynamic-form
+        [config]="config"
+        (submitted)="formSubmitted($event)">
+      </tft-dynamic-form>
+    </div>
+```
+
 In component.ts
 ```javascript
 import { Component, OnInit } from '@angular/core';
@@ -143,15 +153,23 @@ export class DynamicFormComponent implements OnInit {
   }
 }
 ```
+In component.scss if adding class to field config
+```css
+//!! ::ng-deep is required to pierce style encapsulation
+::ng-deep.blue-background {
+    background: blue !important;
+}
+```
 
 #### Coming Soon To Dynamic Forms Module
-- abstract shared field logic to parent class or service
-- handle configs with nested form groups and form arrays ( should form config be an object instead of array? )
+- abstract shared field logic to parent class somehow
+- should form config be an object instead of array?
 - enable passing of styles, classes, flex-layout attributes through config to form
-- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
-- ~~pass validators through config~~
 - dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not. ??? remove control from formGroup on hide ??? )
 - more control types ( radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
+- ~~handle configs with nested form groups and form arrays~~
+- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
+- ~~pass validators through config~~
 
 
 ### Breaking Changes from V2

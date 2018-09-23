@@ -163,12 +163,13 @@ In component.scss if adding class to field config
 
 #### Coming Soon To Dynamic Forms Module
 - abstract shared field logic to parent class somehow
-- handle configs with nested form groups and form arrays ( should form config be an object instead of array? )
+- should form config be an object instead of array?
 - enable passing of styles, classes, flex-layout attributes through config to form
-- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
-- ~~pass validators through config~~
 - dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not. ??? remove control from formGroup on hide ??? )
 - more control types ( radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
+- ~~handle configs with nested form groups and form arrays~~
+- ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
+- ~~pass validators through config~~
 
 
 ### Breaking Changes from V2

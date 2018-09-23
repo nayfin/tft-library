@@ -20,18 +20,32 @@ export class DynamicFormComponent implements OnInit {
   }
 
   createGroup() {
-    const group = this.fb.group({});
-    this.config.forEach(controlConfig => {
-      const control = this.fb.control(
-        controlConfig.value || null,
-        controlConfig.validators || null
-      );
-      group.addControl(controlConfig.controlName, control);
-    });
-    return group;
+    return this.loopThroughControls(this.config);
   }
 
   handleSubmit() {
     this.submitted.emit(this.form.value);
+  }
+
+  loopThroughControls(config) {
+    const group = this.fb.group({});
+
+    config.forEach(controlConfig => {
+
+      if ( Array.isArray(controlConfig) ) {
+        return this.loopThroughControls(controlConfig);
+      } else {
+        const control = this.fb.control(
+          controlConfig.value || null,
+          controlConfig.validators || null
+        );
+        group.addControl(controlConfig.controlName, control);
+      }
+    });
+    return group;
+  }
+
+  isFieldAnArray( field ) {
+    return Array.isArray(field);
   }
 }

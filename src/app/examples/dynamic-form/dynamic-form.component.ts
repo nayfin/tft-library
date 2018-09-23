@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import { SelectFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-select/select-field-config';
 // import { InputFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-input/input-field-config';
-import { AnyFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/dynamic-field-config';
+import { AnyFieldConfig, FormConfig } from 'projects/tft-library/src/lib/dynamic-form/dynamic-field-config';
 
 /**
  * Custom rxjs operator determines if string is blank after trim
@@ -22,7 +22,7 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 export class DynamicFormComponent implements OnInit {
 
   // the config holds an array of configurations for the fields you want to create
-  config: AnyFieldConfig[] = [
+  config: any[] = [
     // configuration will create an input field in the form with the following configuration
     {
       controlType: 'input',
@@ -49,6 +49,27 @@ export class DynamicFormComponent implements OnInit {
       // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
       showField: this.firstNameIsNotBlank
     },
+    [
+      {
+        controlType: 'input',
+        label: 'First name',
+        inputType: 'text',
+        controlName: 'firstName',
+        placeholder: 'Enter your first name',
+        classes: [],
+        flexLayoutConfig: {fxFlex: 40},
+        validators: [Validators.required],
+      },
+      {
+        controlType: 'input',
+        label: 'Last name',
+        controlName: 'lastName',
+        placeholder: 'Enter your last name',
+        flexLayoutConfig: {fxFlex: 40},
+        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+        showField: this.firstNameIsNotBlank
+      }
+    ],
     {
       controlType: 'select',
       label: 'Smoking History',

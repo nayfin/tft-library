@@ -27,10 +27,18 @@ export class DynamicFieldDirective implements OnInit {
   ) {}
 
   ngOnInit() {
-    const component = components[this.config.controlType];
-    const factory = this.resolver.resolveComponentFactory<any>(component);
-    this.component = this.container.createComponent(factory);
-    this.component.instance.config = this.config;
-    this.component.instance.group = this.group;
+
+    /**
+     * if the config is not an array than it represents a form group that needs to be created,
+     *
+     * if it is array it represents a formGroup and the directive doesn't have a component to create so we do nothing
+     */
+    if ( !Array.isArray(this.config) ) {
+      const component = components[this.config.controlType];
+      const factory = this.resolver.resolveComponentFactory<any>(component);
+      this.component = this.container.createComponent(factory);
+      this.component.instance.config = this.config;
+      this.component.instance.group = this.group;
+    }
   }
 }

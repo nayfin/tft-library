@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build_lib": "ng build --prod tft-library",
-    "watch_lib": "ng build --prod --watch tft-library",
+    "build-lib": "ng build --prod tft-library",
+    "watch-lib": "ng build --prod --watch tft-library",
     "work": "bash ./scripts/work.sh",
-    "npm_pack": "cd dist/tft-library && npm pack",
+    "npm-pack": "cd dist/tft-library && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
     "release": "bash ./scripts/release.sh",
     "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -s"

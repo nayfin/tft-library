@@ -22,6 +22,8 @@ export interface DynamicFieldConfig {
 
 export type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig;
 
+export type FormConfig = AnyFieldConfig[] | AnyFieldConfig[][];
+
 export interface Attr {
   name: string;
   value: string;

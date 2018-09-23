@@ -8,6 +8,11 @@
     tftDynamicField
     [config]="field"
     [group]="form">
+
+    <tft-dynamic-form *ngIf="isFieldAnArray(field)" [config]="field">
+
+    </tft-dynamic-form>
+
   </ng-container>
 
 </form>
