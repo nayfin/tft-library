@@ -1,7 +1,8 @@
 <form
   class="dynamic-form"
   [formGroup]="form"
-  (ngSubmit)="handleSubmit()">
+  (ngSubmit)="handleSubmit()"
+  *ngIf="true">
 
   <ng-container
     *ngFor="let field of config;"
@@ -9,7 +10,7 @@
     [config]="field"
     [group]="form">
 
-    <tft-dynamic-form *ngIf="isFieldAnArray(field)" [config]="field">
+    <tft-dynamic-form *ngIf="isConfigForFormGroup(field)" [config]="field">
 
     </tft-dynamic-form>
 

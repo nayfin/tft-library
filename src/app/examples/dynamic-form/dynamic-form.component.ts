@@ -22,6 +22,7 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 export class DynamicFormComponent implements OnInit {
 
   // the config holds an array of configurations for the fields you want to create
+  // TODO: was types as AnyControlConfig[] but recursive implementation broke the type. Figure out way to strongly type this recursively
   config: any[] = [
     // configuration will create an input field in the form with the following configuration
     {
@@ -49,6 +50,7 @@ export class DynamicFormComponent implements OnInit {
       // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
       showField: this.firstNameIsNotBlank
     },
+    // Example of group within a group. We can handle configs recursively now!!!
     [
       {
         controlType: 'input',
@@ -99,28 +101,6 @@ export class DynamicFormComponent implements OnInit {
         values: ['yes']
       }
     },
-    // {
-    //   controlType: 'input',
-    //   label: 'Pregnancy Duration',
-    //   controlName: 'pregnancyDuration',
-    //   placeholder: 'What trimester',
-    //   showField: this.conditionalFields.watchControlForValues,
-    //   displayConfig: {
-    //     controlName: 'pregnancy',
-    //     values: ['y']
-    //   }
-    // },
-    // {
-    //   controlType: 'input',
-    //   label: 'Comments',
-    //   controlName: 'comments',
-    //   placeholder: 'Comment here',
-    //   showField: this.conditionalFields.watchControlForValues,
-    //   displayConfig: {
-    //     controlName: 'pregnancyDuration',
-    //     values: ['first']
-    //   }
-    // },
     {
       label: 'Submit',
       controlName: 'submit',
@@ -128,10 +108,6 @@ export class DynamicFormComponent implements OnInit {
     },
   ];
 
-  someObject = {
-    keyOne: 'Hello',
-    keyTwo: 'Operator'
-  };
   constructor(
     private conditionalFields: ConditionalFieldsService,
   ) { }
@@ -143,7 +119,7 @@ export class DynamicFormComponent implements OnInit {
     console.log('formValue', formValue);
   }
   /**
-   * example of how to pass a custom function that returns an Observable that resolves a boolean
+   * example of how to build a custom function that returns an Observable that resolves a boolean
    *
    * notice lack of subcribe() call, the field component manages subcription for you
    * @param form entire form, used to grab the firstName formControl and listen for changes
@@ -151,11 +127,8 @@ export class DynamicFormComponent implements OnInit {
    */
   firstNameIsNotBlank(form: FormGroup): Observable<boolean> {
     return form.get('firstName').valueChanges.pipe(
+      // implementing custom rxjs operator from top of file
       isNotBlank()
     );
-  }
-
-  isNotBlank() {
-    return map( (value: string) => !!value.trim().length );
   }
 }
