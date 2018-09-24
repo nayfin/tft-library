@@ -37,6 +37,8 @@ export class DynamicFormComponent implements OnInit {
 
     config.forEach(controlConfig => {
       // if controlConfig isConfigForFormGroup then it represents another group of fields that need to be built out
+      // also notice we use the pipe isFormGroupConfig transform method here to check if the controlConfig is actually a group configuration
+      // seems weird but we need to use this in the template to improve performance so importing pipe this way let's us reuse that code
       if ( this.isFormGroupConfig.transform(controlConfig) ) {
         // so we dig in recursively and start cycling throug child group
         return this.buildFormGroupFromConfig(controlConfig);
