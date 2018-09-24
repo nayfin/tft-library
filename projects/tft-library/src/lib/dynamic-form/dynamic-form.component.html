@@ -10,7 +10,7 @@
     [config]="field"
     [group]="form">
 
-    <tft-dynamic-form *ngIf="isConfigForFormGroup(field)" [config]="field">
+    <tft-dynamic-form *ngIf="field | isFormGroupConfig" [config]="field">
 
     </tft-dynamic-form>
 

@@ -10,6 +10,7 @@ import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { DynamicFieldDirective } from './dynamic-field.directive';
 import { FieldContainerComponent } from './field-container/field-container.component';
+import { IsFormGroupConfigPipe } from './is-form-group-config.pipe';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { FieldContainerComponent } from './field-container/field-container.compo
     FormButtonComponent,
     DynamicFieldDirective,
     FieldContainerComponent,
+    IsFormGroupConfigPipe,
   ],
   exports: [
     DynamicFormComponent,

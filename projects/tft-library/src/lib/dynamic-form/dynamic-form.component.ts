@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AnyFieldConfig } from './dynamic-field-config';
+import { IsFormGroupConfigPipe } from './is-form-group-config.pipe';
 
 @Component({
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
-  templateUrl: 'dynamic-form.component.html'
+  templateUrl: 'dynamic-form.component.html',
+  providers: [IsFormGroupConfigPipe]
 })
 export class DynamicFormComponent implements OnInit {
   @Input() config: any[] = [];
@@ -14,7 +15,10 @@ export class DynamicFormComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private isFormGroupConfig: IsFormGroupConfigPipe
+  ) {}
 
   ngOnInit() {
     this.form = this.buildFormGroupFromConfig(this.config);
@@ -33,7 +37,7 @@ export class DynamicFormComponent implements OnInit {
 
     config.forEach(controlConfig => {
       // if controlConfig isConfigForFormGroup then it represents another group of fields that need to be built out
-      if ( this.isConfigForFormGroup(controlConfig) ) {
+      if ( this.isFormGroupConfig.transform(controlConfig) ) {
         // so we dig in recursively and start cycling throug child group
         return this.buildFormGroupFromConfig(controlConfig);
       } else {
@@ -48,12 +52,4 @@ export class DynamicFormComponent implements OnInit {
     });
     return group;
   }
-  /**
-   *
-   * @param field config field to check if should build out new formGroup
-   */
-  isConfigForFormGroup( field: AnyFieldConfig | AnyFieldConfig[] ): boolean {
-    return Array.isArray(field);
-  }
-
 }
