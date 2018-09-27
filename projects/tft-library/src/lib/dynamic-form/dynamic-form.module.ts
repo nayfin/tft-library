@@ -10,13 +10,14 @@ import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { DynamicFieldDirective } from './dynamic-field.directive';
 import { FieldContainerComponent } from './field-container/field-container.component';
-import { IsFormGroupConfigPipe } from './is-form-group-config.pipe';
+import { CoreModule } from '../core/public_api';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    DesignModule
+    DesignModule,
+    CoreModule,
   ],
   declarations: [
     DynamicFormComponent,
@@ -25,15 +26,17 @@ import { IsFormGroupConfigPipe } from './is-form-group-config.pipe';
     FormButtonComponent,
     DynamicFieldDirective,
     FieldContainerComponent,
-    IsFormGroupConfigPipe,
   ],
   exports: [
     DynamicFormComponent,
+    FormInputComponent,
+    FormSelectComponent,
+    FormButtonComponent,
   ],
   entryComponents: [
     FormInputComponent,
     FormSelectComponent,
-    FormButtonComponent
+    FormButtonComponent,
   ]
 })
 export class DynamicFormModule { }

@@ -6,10 +6,12 @@ import { DesignModule } from '../design/design.module';
 
 import { HeaderComponent } from './header/header.component';
 import { SidenavNavigationComponent } from './sidenav-navigation/sidenav-navigation.component';
+import { CallbackPipe } from './pipes/callback.pipe';
 
 const CORE_COMPONENTS = [
   HeaderComponent,
-  SidenavNavigationComponent
+  SidenavNavigationComponent,
+  CallbackPipe,
 ];
 
 @NgModule({
