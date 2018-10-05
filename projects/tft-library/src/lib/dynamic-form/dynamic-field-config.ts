@@ -5,7 +5,7 @@ import { SelectFieldConfig } from './form-select/select-field-config';
 import { WatchControlConfig } from './conditional-fields.service';
 import { InputFieldConfig } from './form-input/input-field-config';
 
-export interface DynamicFieldConfig {
+interface DynamicFieldConfig {
   controlType: string;
   controlName: string;
   label?: string;
@@ -20,17 +20,19 @@ export interface DynamicFieldConfig {
   value?: string | number;
 }
 
-export type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig;
+type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig;
 
-export type FormConfig = AnyFieldConfig[] | AnyFieldConfig[][];
+type FormConfig = AnyFieldConfig[] | AnyFieldConfig[][];
 
-export interface Attr {
+interface Attr {
   name: string;
   value: string;
 }
 
-export enum ControlType {
+enum ControlType {
   INPUT = 'input',
   SELECT = 'select',
   BUTTON = 'button'
 }
+
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormConfig, Attr};

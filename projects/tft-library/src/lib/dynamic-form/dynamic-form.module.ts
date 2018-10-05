@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 // custom modules
-import { DynamicFormComponent } from './dynamic-form.component';
+import { CoreModule } from '../core/public_api';
 import { DesignModule } from '../design/public_api';
 // components
+import { DynamicFormComponent } from './dynamic-form.component';
+import { FieldContainerComponent } from './field-container/field-container.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
+// directives
 import { DynamicFieldDirective } from './dynamic-field.directive';
-import { FieldContainerComponent } from './field-container/field-container.component';
-import { CoreModule } from '../core/public_api';
+// providers
+import { ConditionalFieldsService } from './conditional-fields.service';
 
 @NgModule({
   imports: [
@@ -25,7 +28,7 @@ import { CoreModule } from '../core/public_api';
     FormSelectComponent,
     FormButtonComponent,
     DynamicFieldDirective,
-    FieldContainerComponent,
+    FieldContainerComponent
   ],
   exports: [
     DynamicFormComponent,
@@ -39,4 +42,13 @@ import { CoreModule } from '../core/public_api';
     FormButtonComponent,
   ]
 })
-export class DynamicFormModule { }
+export class DynamicFormModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: DynamicFormModule,
+      providers: [
+        ConditionalFieldsService
+      ]
+    };
+  }
+ }
