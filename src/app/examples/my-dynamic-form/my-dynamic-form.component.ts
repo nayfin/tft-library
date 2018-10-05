@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import { ConditionalFieldsService } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
+import {  AnyFieldConfig,
+  //  ControlType,
+ } from 'tft-library';
+ import { ConditionalFieldsService } from 'tft-library';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-// import { SelectFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-select/select-field-config';
-// import { InputFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-input/input-field-config';
-import { AnyFieldConfig, FormConfig } from 'projects/tft-library/src/lib/dynamic-form/dynamic-field-config';
 
 /**
  * Custom rxjs operator determines if string is blank after trim
@@ -15,15 +15,15 @@ import { AnyFieldConfig, FormConfig } from 'projects/tft-library/src/lib/dynamic
 const isNotBlank = () => map( (value: string) => !!value.trim().length );
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss']
+  selector: 'app-my-dynamic-form',
+  templateUrl: './my-dynamic-form.component.html',
+  styleUrls: ['./my-dynamic-form.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class MyDynamicFormComponent implements OnInit {
 
   // the config holds an array of configurations for the fields you want to create
-  // TODO: was types as AnyControlConfig[] but recursive implementation broke the type. Figure out way to strongly type this recursively
-  config: any[] = [
+  // TODO: Figure out way to abstract the recursive types out of here
+  config: (AnyFieldConfig | AnyFieldConfig[])[] = [
     // configuration will create an input field in the form with the following configuration
     {
       controlType: 'input',
@@ -82,7 +82,7 @@ export class DynamicFormComponent implements OnInit {
       ],
       placeholder: 'Have you smoked in the last six months',
     },
-    // this control only shows when 'gender' control has value of 'female'
+    // this control only shows when 'isSmoker' control has value of 'yes'
     // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
     {
       controlType: 'input',
@@ -95,7 +95,8 @@ export class DynamicFormComponent implements OnInit {
       showField: this.conditionalFields.watchControlForValues,
       // and the corresponding configuration
       // when this function get called on the generated component,
-      // this configuration tells the service to watch 'gender' control for a value of 'female'
+      // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
+      // More values can be watched for, just add them to the array
       displayConfig: {
         controlName: 'isSmoker',
         values: ['yes']

@@ -11,27 +11,35 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 })
 export class AutocompleteComponent extends BaseWidget implements OnInit {
 
-  @Input() public placeholder = 'Type to search';
-  @Input() public algoliaAttribution = true;
+
 
   /*
-  **
-  ** IMPORTANT
-  ** autocomplete returns list of search results as user types
-  ** each of the result items is an object
-  ** if that object has a parameter for a url path to an image, then set imageUrlParam to the name of the parameter
-  ** e.g.
-  **
-  ** in your algolia index if you have an index of objects that look like this:
-  **
-  **    {id: "q3lk4fk", name: "itemName", imageUrl: "www.imagelibrary.com/the/location/of/my/image.png"}
-  **
-  ** then you would want to tft-autocomplete where to look
-  **
-  **    <tft-autocomplete [imageUrlParam]="imageUrl"></tft-autocomplete>
-  **
+  *
+  *  IMPORTANT: if you want to use an image in the header of the list
+  *  autocomplete returns list of search results as user types. but you shape the objects that get returned.
+  *  so if you want to use an image from the items in that list, you can store its url in a parameter of those items
+  *  but you have to tell us where to look
+  *  if that object has a parameter for a url path to an image, then set imageUrlParam a string of the name of the
+  *  e.g.
+  *
+  * in your algolia index if you have an index of objects that look like this:
+  *   [
+  *    {id: "q3lk4fk", name: "cold-turkey", **imageUrl** : "www.imagelibrary.com/the/location/of/my/image.png"},
+  *    {id: "q33k4f4", name: "tomato", **imageUrl**: "www.imagelibrary.com/the/location/of/your/image.png"},
+  *     ...
+  *   ]
+  *
+  *  then you need to tell tft-autocomplete where to look, by passing it the parameter name as a string to the
+  *  imageUrlParam input
+  *
+  *    <tft-autocomplete [imageUrlParam]="'imageUrl'"></tft-autocomplete>
+  *
+  *
+  *
   */
   @Input() public imageUrlParam = 'image';
+  @Input() public placeholder = 'Type to search';
+  @Input() public algoliaAttribution = true;
   @Input() public selectTitle = 'SELECT';
   // Text insid of clear button
   @Input() public clearTitle = 'CLEAR';

@@ -7,19 +7,19 @@ import { TftSearchModule, DynamicFormModule } from 'tft-library';
 // TODO: can I pull these from here since I am importing in router module
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AutocompleteChiplistComponent } from './autocomplete-chiplist/autocomplete-chiplist.component';
-import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { MyDynamicFormComponent } from './my-dynamic-form/my-dynamic-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
     TftSearchModule,
-    DynamicFormModule,
+    DynamicFormModule.forRoot(),
     NgAisModule.forRoot(),
   ],
   declarations: [
     LandingPageComponent,
     AutocompleteChiplistComponent,
-    DynamicFormComponent
+    MyDynamicFormComponent
   ]
 })
 
