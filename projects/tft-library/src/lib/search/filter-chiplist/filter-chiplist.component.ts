@@ -3,6 +3,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { BaseWidget, NgAisInstantSearch } from 'angular-instantsearch';
 // import { parseNumberInput } from 'angular-instantsearch';
 import { connectRefinementList } from 'instantsearch.js/es/connectors';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 // import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 export interface RefinementListState {
@@ -65,18 +67,11 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
   // TODO: what options do we get with sortBy?
   @Input() public sortBy: string[] | ((item: object) => number);
 
-  // TODO: replace this with something less expensive e.g. only listen for changes on change to input element
-
-  // get hits() {
-  //   return !!this.state && !!this.state.indices ? this.state.indices[0].hits : []; // this.state.indices[0].hits;
-  // }
-
-  // selected: any;
-
   searchQuery = '';
   chips = [];
 
   formContainer: FormGroup;
+  remainingItems$: Observable<any[]>;
 
   public state: RefinementListState = {
     canRefine: false,
@@ -100,22 +95,9 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
     });
   }
 
-  // public ngOnInit() {
-  //   this.createWidget(connectRefinementList);
-  //   super.ngOnInit();
-  // }
-  get items() {
-    return this.transformItems instanceof Function
-      ? this.transformItems(this.state.items)
-      : this.state.items;
-  }
-  get selectedItems() {
-    return this.items.filter( item => item.isRefined );
-  }
-  get remainingItems() {
-    return this.items.filter( item => !this.selectedItems.includes(item) );
-  }
+
   ngOnInit() {
+
     super.createWidget(connectRefinementList, {
       limit: this.parseNumberInput(this.limitMin),
       showMoreLimit: this.parseNumberInput(this.limitMax),
@@ -124,6 +106,14 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
       escapeFacetValues: true
     });
     super.ngOnInit();
+
+    this.remainingItems$ = this.formContainer.get('autocomplete').valueChanges.pipe(
+      filter( (inputVal) => typeof inputVal === 'string' ),
+      map( inputVal => {
+        this.handleChange(inputVal);
+        return this.state.items.filter( (item: any) => !item.isRefined);
+      })
+    );
   }
 
   public refine(
@@ -158,6 +148,7 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
     this.refine(chip);
     this.chips.splice(this.chips.indexOf(chip), 1);
   }
+  // TODO: this is used all over the place. Abstract it into a utils
   mapToName(val) {
     return val ? val.name : '';
   }

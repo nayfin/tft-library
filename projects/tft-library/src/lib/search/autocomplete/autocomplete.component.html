@@ -1,5 +1,5 @@
 
-<form 
+<form
   [formGroup]="formContainer"
   fxFlex
   fxLayoutAlign="center center"
@@ -7,35 +7,34 @@
 
   <mat-form-field
     fxFlex>
-    <input 
+    <input
       matInput
       autocapitalize="off"
       autocorrect="off"
-      spellcheck="false" 
+      spellcheck="false"
       formControlName="autocomplete"
       [placeholder]="placeholder"
       [matAutocomplete]="auto"
-      [value]="state.query"
-      (input)="handleChange($event.target.value)">
-      
-    <mat-autocomplete 
+      [value]="state.query">
+
+    <mat-autocomplete
       (optionSelected)="handleSelect($event)"
       [displayWith]="mapToName"
       #auto="matAutocomplete">
 
-      <mat-option 
-        *ngFor="let hit of hits"  
+      <mat-option
+        *ngFor="let hit of hits | async"
         [value]="hit">
 
-        <img 
+        <img
           *ngIf="hit[imageUrlParam]"
-          [src]="hit[imageUrlParam]" 
-          style="vertical-align:middle;" 
-          aria-hidden 
+          [src]="hit[imageUrlParam]"
+          style="vertical-align:middle;"
+          aria-hidden
           height="25"/>
         <span> {{ hit.name }} </span>
       </mat-option>
-          
+
     </mat-autocomplete>
     <mat-hint
       *ngIf="algoliaAttribution">
@@ -46,7 +45,7 @@
   <div
     fxHide.lt-sm>
     <button
-      *ngIf="displaySelectButton" 
+      *ngIf="displaySelectButton"
       mat-raised-button
       [disabled]="formContainer.invalid"
       color="primary"
@@ -58,7 +57,7 @@
       {{ selectTitle }}
     </button>
 
-    <button 
+    <button
       *ngIf="displayClearButton"
       mat-raised-button
       color="accent"
@@ -86,7 +85,7 @@
       </mat-icon>
     </button>
 
-    <button 
+    <button
       *ngIf="displayClearButton"
       mat-mini-fab
       color="accent"

@@ -3,61 +3,60 @@
   (submit)="handleSubmit($event)"
   fxFlex
   fxLayoutAlign="center center">
-   
+
   <mat-form-field
     fxFlex>
-    <mat-chip-list 
+    <mat-chip-list
       #chipList>
-      <mat-chip 
+      <mat-chip
         class="refinement-chip"
-        *ngFor="let chip of chips" 
-        [selectable]="chipSelectable" 
-        [removable]="areChipsRemovable" 
+        *ngFor="let chip of chips"
+        [selectable]="chipSelectable"
+        [removable]="areChipsRemovable"
         (removed)="removeChip(chip)">
 				{{chip.label}}
-				<mat-icon 
-          matChipRemove 
+				<mat-icon
+          matChipRemove
           *ngIf="areChipsRemovable">
           cancel
         </mat-icon>
 			</mat-chip>
 
       <!-- [value]="state.query" -->
-      <input 
+      <input
         role="textbox"
         type="text"
-        formControlName="autocomplete" 
-        [placeholder]="placeholder"        
-        [matChipInputFor]="chipList" 
-        [matAutocomplete]="auto"            
+        formControlName="autocomplete"
+        [placeholder]="placeholder"
+        [matChipInputFor]="chipList"
+        [matAutocomplete]="auto"
         [matChipInputAddOnBlur]="addChipOnBlur"
         matInput
         [value]="searchQuery"
-        (input)="handleChange($event.target.value)"
         autocapitalize="off"
         autocorrect="off"
-        spellcheck="false" 
+        spellcheck="false"
         #chipInput/>
       </mat-chip-list>
-      <mat-autocomplete 
+      <mat-autocomplete
         #auto="matAutocomplete"
         (optionSelected)="handleSelect($event)"
         [displayWith]="mapToName">
-    
-        <mat-option 
-          *ngFor="let item of remainingItems"  
+
+        <mat-option
+          *ngFor="let item of remainingItems$ | async"
           [value]="item">
-    
-          <img 
+
+          <img
             *ngIf="item[imageUrlParam]"
-            [src]="item[imageUrlParam]" 
-            style="vertical-align:middle;" 
-            aria-hidden 
+            [src]="item[imageUrlParam]"
+            style="vertical-align:middle;"
+            aria-hidden
             height="25"/>
           {{ item.label }}
         </mat-option>
       </mat-autocomplete>
-    
-    
+
+
   </mat-form-field>
 </form>

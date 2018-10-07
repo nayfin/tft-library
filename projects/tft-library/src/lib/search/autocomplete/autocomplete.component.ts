@@ -3,6 +3,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { BaseWidget, NgAisInstantSearch } from 'angular-instantsearch';
 import { connectAutocomplete } from 'instantsearch.js/es/connectors';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'tft-autocomplete',
@@ -52,14 +54,9 @@ export class AutocompleteComponent extends BaseWidget implements OnInit {
   @Input() public validators: Validators[] = [];
 
   @Output() select = new EventEmitter();
-
-  // TODO: replace this with something less expensive e.g. only listen for changes on change to input element
-  get hits() {
-    return !!this.state && !!this.state.indices ? this.state.indices[0].hits : []; // this.state.indices[0].hits;
-  }
-
+  // will listen for changes on formControl then fire refine off with the controls value
+  hits: Observable<any>;
   selected: any;
-
   formContainer: FormGroup;
 
   public state: {
@@ -82,11 +79,15 @@ export class AutocompleteComponent extends BaseWidget implements OnInit {
   public ngOnInit() {
     super.createWidget(connectAutocomplete);
     super.ngOnInit();
+
+    this.hits = this.formContainer.get('autocomplete').valueChanges.pipe( map(val => {
+      return this.handleChange(val);
+    }) );
   }
-  public handleChange( query: string ) {
+  public handleChange( query: string ): any[] {
     this.formContainer.setErrors({'valueSelected': false});
-    this.state.refine(query);
-    // const hits = this.state.instantSearchInstance ? this.state.instantSearchInstance.helper.lastResults.hits : [];
+    const refinement: any = this.state.refine(query);
+    return refinement.lastResults.hits;
     // this.change.emit({query, hits});
   }
 
@@ -112,10 +113,8 @@ export class AutocompleteComponent extends BaseWidget implements OnInit {
 
   public handleClear(event: MouseEvent | KeyboardEvent) {
     // send reset event to parent component
-
     // this.reset.emit(event);
-
-    // reset search
+    // TODO: should be able to kill the following line, enable clear button and test
     this.state.refine('');
     this.clearValue();
   }
