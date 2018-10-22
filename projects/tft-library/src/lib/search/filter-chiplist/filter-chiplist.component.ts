@@ -95,7 +95,6 @@ export class FilterChiplistComponent extends BaseWidget implements OnInit {
     });
   }
 
-
   ngOnInit() {
 
     super.createWidget(connectRefinementList, {

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import {  AnyFieldConfig,
-  //  ControlType,
- } from 'tft-library';
- import { ConditionalFieldsService } from 'tft-library';
+import { AnyFieldConfig } from 'tft-library';
+import { ConditionalFieldsService } from 'tft-library';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -20,9 +20,6 @@ export class BaseField implements OnInit {
     const attrs: Attr[] = config.attrs || [];
     if ( attrs.length > 0 ) {
       attrs.forEach( (attr, i) => {
-        console.log('setting attr', i);
-        console.log('form-select renderer', renderer);
-
         renderer.setAttribute(el.nativeElement, attr.name, attr.value );
       });
     }
