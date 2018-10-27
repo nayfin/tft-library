@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
  * for each set of transformation logic to improve performance. also useful for when same logic needed in template and component.ts
  * @param value the value to transform
  * @param callback the transformation function to run on value
- * @param config optionally accept configuration object that can be passed to callback function when it runs.
  * useful if callback passed needs more data than just the value
  * @example
  * // if we were to run this callback directly in the template performance would suffer. YAY pipes!!!
@@ -16,10 +15,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CallbackPipe implements PipeTransform {
 
-  transform(value: any, callback: PipeCallback, config: any = null ): any {
-    return callback(value, config);
+  transform(value: any | any[], callback: PipeCallback ): any {
+    // check that parameters exist
+    if (!value || !callback) { return ''; }
+    // if value is an array, spread into callback arguments
+    if (Array.isArray(value)) {
+      return callback(...value);
+    }
+    return callback(value);
   }
 
 }
 
-export type PipeCallback = (value: any, config?: any) => any;
+export type PipeCallback = (...value: any[]) => any;

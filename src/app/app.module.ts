@@ -7,8 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { CoreModule, DesignModule } from 'tft-library';
+import { CoreModule, DesignModule, CallbackPipe } from 'tft-library';
 import { ExamplesModule } from './examples/examples.module';
+import {  } from 'tft-library';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { ExamplesModule } from './examples/examples.module';
     ExamplesModule,
     // NgAisModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    CallbackPipe
+  ],
   bootstrap: [AppComponent],
   exports: []
 })

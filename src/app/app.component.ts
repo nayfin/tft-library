@@ -26,6 +26,12 @@ export class AppComponent {
       path: 'dynamic-form',
       description: `Example of dynamic form`
     },
+    {
+      title: 'Utilities',
+      path: 'utilities',
+      description: `Examples library utilities`
+    },
+
   ];
 
   onLinkSelected(item: any) {
