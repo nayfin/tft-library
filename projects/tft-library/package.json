@@ -1,6 +1,6 @@
 {
   "name": "tft-library",
-  "version": "6.4.4",
+  "version": "6.4.5",
   "peerDependencies": {
     "@angular/common": "^6.1.7",
     "@angular/core": "^6.1.7",

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // custom modules
 import { CoreModule } from '../core/public_api';
 import { DesignModule } from '../design/public_api';
+import { PipesModule } from '../pipes/pipes.module';
 // components
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
@@ -21,6 +22,7 @@ import { ConditionalFieldsService } from './conditional-fields.service';
     ReactiveFormsModule,
     DesignModule,
     CoreModule,
+    PipesModule,
   ],
   declarations: [
     DynamicFormComponent,
@@ -28,7 +30,7 @@ import { ConditionalFieldsService } from './conditional-fields.service';
     FormSelectComponent,
     FormButtonComponent,
     DynamicFieldDirective,
-    FieldContainerComponent
+    FieldContainerComponent,
   ],
   exports: [
     DynamicFormComponent,
