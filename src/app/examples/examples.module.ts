@@ -10,7 +10,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AutocompleteChiplistComponent } from './autocomplete-chiplist/autocomplete-chiplist.component';
 import { MyDynamicFormComponent } from './my-dynamic-form/my-dynamic-form.component';
 import { UtilsComponent } from './utils/utils.component';
-// import { CallbackPipe } from 'projects/tft-library/src/public_api';
 
 @NgModule({
   imports: [

@@ -1,17 +1,18 @@
 <form
   class="dynamic-form"
   [formGroup]="form"
-  (ngSubmit)="handleSubmit()"
-  *ngIf="true">
+  (ngSubmit)="handleSubmit()">
 
   <ng-container
     *ngFor="let field of config;"
     tftDynamicField
     [config]="field"
     [group]="form">
-
-    <tft-dynamic-form *ngIf="field | callback : isGroupConfig" [config]="field">
-
+    <!-- {{ field | json}}
+    {{ field | callback : isGroupConfig}} -->
+    <tft-dynamic-form
+      *ngIf="field | isGroupConfig"
+      [config]="field">
     </tft-dynamic-form>
 
   </ng-container>

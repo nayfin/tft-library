@@ -1,4 +1,4 @@
-import { Validators, FormGroup } from '@angular/forms';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { SelectFieldConfig } from './form-select/select-field-config';
@@ -16,7 +16,7 @@ interface DynamicFieldConfig {
   // function that returns an observable that resolves to a boolean
   showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
   displayConfig?: WatchControlConfig | any; // any is required for user defined configes, TODO: maybe offer way to add type to config
-  validators?: Validators[];
+  validators?: ValidatorFn[];
   value?: string | number;
 }
 

@@ -1,18 +1,24 @@
 <div fxLayout="column" fxFill>
-  <tft-header 
+
+  <tft-header
     role="header"
     (menuClicked)="sidenav.toggle()"
     [subtitle]="'Component Library'">
   </tft-header>
+
   <mat-sidenav-container fxFlex aria-live="main content">
+
     <mat-sidenav #sidenav>
-      <tft-sidenav-navigation 
+      <tft-sidenav-navigation
         [links]="linksToExamples"
         (itemClicked)="onLinkSelected($event)">
       </tft-sidenav-navigation>
     </mat-sidenav>
+
     <mat-sidenav-content class="main-container">
+
       <router-outlet></router-outlet>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
-</div>   
+</div>

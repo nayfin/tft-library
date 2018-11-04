@@ -15,6 +15,7 @@ import { FormButtonComponent } from './form-button/form-button.component';
 import { DynamicFieldDirective } from './dynamic-field.directive';
 // providers
 import { ConditionalFieldsService } from './conditional-fields.service';
+import { IsGroupConfigPipe } from './is-group-config.pipe';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ConditionalFieldsService } from './conditional-fields.service';
     FormButtonComponent,
     DynamicFieldDirective,
     FieldContainerComponent,
+    IsGroupConfigPipe,
   ],
   exports: [
     DynamicFormComponent,
