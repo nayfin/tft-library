@@ -21,7 +21,6 @@ export class AutocompleteChiplistComponent implements OnInit {
   }
 
   handleSelect(selected: any) {
-    console.log('handleSelect selected:', selected);
     this.selected = selected;
   }
 }

@@ -7,14 +7,7 @@ import { AnyFieldConfig } from './dynamic-field-config';
 export class IsGroupConfigPipe implements PipeTransform {
 
   transform(field: AnyFieldConfig | AnyFieldConfig[]): any {
-    const isConfig = !('controlName' in field);
-    // console.log(isConfig, field);
-    return isConfig;  }
-
-  // isGroupConfig( field: AnyFieldConfig | AnyFieldConfig[] ): boolean {
-  //   const isConfig = !('controlName' in field);
-  //   console.log(isConfig, field);
-  //   return isConfig;
-  // }
-
+    // checks for controlName key to determine if configuration is for a field or group of fields
+    return !('controlName' in field);
+  }
 }
