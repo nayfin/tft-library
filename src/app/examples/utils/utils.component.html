@@ -1,49 +1,62 @@
-<h3>Basic String Transformation</h3>
-<section>
-  {{ 'this is ground control to ' | callback : addMajorTom }}
-</section>
+<mat-card>
+  <h1>Pipes:</h1>
+  <h2>Callback Pipe</h2>
+  <h3>Basic String Transformation</h3>
+    <section>
+      <code ngNonBindable>  {{ 'this is ground control to ' | callback : addMajorTom }} </code>
+      <br>
+      {{ 'this is ground control to ' | callback : addMajorTom }}
+    </section>
 
-<h3> Make a calculation on multiple dynamic template values</h3>
-a <input type="number" [(ngModel)]="a" > <br>
-b <input type="number" [(ngModel)]="b" > <br>
-<!-- {{ multiply([a,b]) }} <br> -->
-a * b = {{ [a,b] | callback : multiply }}
+    <h3> Make a calculation on multiple dynamic template values</h3>
+    a <input type="number" [(ngModel)]="a" > <br>
+    b <input type="number" [(ngModel)]="b" > <br>
+    <!-- {{ multiply([a,b]) }} <br> -->
+    a * b = <code ngNonBindable>{{ [a,b] | callback : multiply }}</code>
+    <br>
+    a * b = {{ [a,b] | callback : multiply }}
 
-<h2> Callback pipe examples </h2>
-<h3>List of number: {{ numbers | json }}</h3>
-<p>Add more numbers to list here to get a sense of the performance benefits gained by using the callback pipe. You will see that the piped function runs once for every ten times the function used directly in the template does.</p>
-<input type="number" #numberToAdd>
-<button (click)="addNextNumber(numberToAdd.value)">Add to numbers</button>
-<h3>Filter with template directive</h3>
-<ul>
-  <ng-container *ngFor="let number of numbers">
-    <!-- this is nice and easy to read -->
-	  <li *ngIf="[number, 'isEven piped'] | callback : isEven"> {{ number }}   </li>
-  </ng-container>
-</ul>
+    <h2> Callback pipe examples </h2>
+    <h3>List of number: {{ numbers | json }}</h3>
+    <p>Add more numbers to list here to get a sense of the performance benefits gained by using the callback pipe. You will see that the piped function runs once for every ten times the function used directly in the template does.</p>
+    <input type="number" #numberToAdd>
+    <button (click)="addNextNumber(numberToAdd.value)">Add to numbers</button>
+    <h3>Filter with template directive</h3>
+    <ul>
+      <ng-container *ngFor="let number of numbers">
+        <!-- this is nice and easy to read -->
+        <li *ngIf="[number, 'isEven piped'] | callback : isEven"> {{ number }}   </li>
+      </ng-container>
+    </ul>
 
-<h3>Using function directly in template</h3>
-Check console to compare performance. You'll notice that function is triggered even when unrelated values are changed.
-<ul>
-  <ng-container *ngFor="let number of numbers">
-	  <li *ngIf="isEven(number, 'isEven function in template')"> {{ number }}   </li>
-  </ng-container>
-</ul>
+    <h3>Using function directly in template</h3>
+    Check console to compare performance. You'll notice that function is triggered even when unrelated values are changed.
+    <ul>
+      <ng-container *ngFor="let number of numbers">
+        <li *ngIf="isEven(number, 'isEven function in template')"> {{ number }}   </li>
+      </ng-container>
+    </ul>
 
-<h3>Used to filter a list in an *ngIf and taking a secondary argument </h3>
-<ul>
-  <ng-container *ngFor="let number of numbers">
-    <!-- so is this -->
-	  <li *ngIf="[number, 3] | callback : isDivisableBy"> {{ number }}   </li>
-  </ng-container>
-</ul>
-<h3 class="warning">WARNING: Callback pipe is a pure pipe, so it doesn't update on change when watching a referenced variable</h3>
-<h3> someObject: {{ obj | json }}
-  <button (click)="updateObject(8)" >Update Object</button>
-  <button (click)="updateObject(1)" >Revert Object</button>
-</h3>
+    <h3>Used to filter a list in an *ngIf and taking a secondary argument </h3>
+    <ul>
+      <ng-container *ngFor="let number of numbers">
+        <!-- so is this -->
+        <li *ngIf="[number, 3] | callback : isDivisableBy"> {{ number }}   </li>
+      </ng-container>
+    </ul>
+    <h3 class="warning">WARNING: Callback pipe is a pure pipe. It does NOT update on change when watching a referenced variable</h3>
+    <h3> someObject: {{ obj | json }}
+      <button (click)="updateObject(8)" >Update Object</button>
+      <button (click)="updateObject(1)" >Revert Object</button>
+    </h3>
+    <code ngNonBindable>{{ obj | callback : sumObject }} </code>
+    <br>
+    Sum of all values in someObject: {{ obj | callback : sumObject }}
+    <br>
+    <code ngNonBindable>{{ [numbers] | callback : sumArray }}</code>
+    <br>
+    Sum of all numbers in list from above: {{ [numbers] | callback : sumArray }}
 
-Sum of all values in someObject: {{ obj | callback : sumObject }} <br>
-Sum of all numbers in list from above: {{ [numbers] | callback : sumArray }}
+</mat-card>
 
 

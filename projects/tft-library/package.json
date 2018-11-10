@@ -9,6 +9,7 @@
     "@angular/flex-layout": "^7.0.0-beta.19",
     "@angular/router": "^7.0.2",
     "@angular/fire": "~5.1.0",
+    "firebase": "5.5.3",
     "rxjs": "^6.2.2",
     "lodash-es": "^4.17.10"
   }

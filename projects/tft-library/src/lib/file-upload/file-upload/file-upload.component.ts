@@ -2,8 +2,15 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
+
+export enum ImageQuality {
+  THUMBNAIL = 48,
+  LOW = 256,
+  MED = 512,
+  HIGH = 1024
+}
 
 @Component({
   selector: 'tft-file-upload',
@@ -11,7 +18,10 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent {
+
   @Input() rootPath = 'undefined/';
+  @Input() quality: ImageQuality | number = ImageQuality.LOW;
+
   @Output() uploadComplete = new EventEmitter<Observable<string>>();
   // Main task
   task: AngularFireUploadTask;

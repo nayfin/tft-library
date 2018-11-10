@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
+import { environment } from '../environments/environment';
 // import { NgAisModule } from 'angular-instantsearch';
 
 
@@ -21,7 +26,10 @@ import { ExamplesModule } from './examples/examples.module';
     BrowserAnimationsModule,
     DesignModule,
     ExamplesModule,
-    PipesModule
+    PipesModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    AngularFirestoreModule
   ],
   bootstrap: [AppComponent],
   exports: []

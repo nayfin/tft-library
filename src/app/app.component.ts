@@ -31,6 +31,11 @@ export class AppComponent {
       path: 'utilities',
       description: `Examples library utilities`
     },
+    {
+      title: 'File Upload',
+      path: 'file-upload',
+      description: `Example of file upload`
+    },
 
   ];
 

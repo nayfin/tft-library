@@ -5,6 +5,7 @@ import { LandingPageComponent } from './examples/landing-page/landing-page.compo
 import { AutocompleteChiplistComponent } from './examples/autocomplete-chiplist/autocomplete-chiplist.component';
 import { MyDynamicFormComponent } from './examples/my-dynamic-form/my-dynamic-form.component';
 import { UtilsComponent } from './examples/utils/utils.component';
+import { MyFileUploadComponent } from './examples/my-file-upload/my-file-upload.component';
 
 const routes: Routes = [
   { path: ''    , redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'autocomplete-chiplist',  component: AutocompleteChiplistComponent },
   { path: 'dynamic-form',           component: MyDynamicFormComponent },
   { path: 'utilities',              component: UtilsComponent },
+  { path: 'file-upload',            component: MyFileUploadComponent },
   { path: '**'  , redirectTo: 'home' },
 ];
 
