@@ -40,4 +40,4 @@ testem.log
 Thumbs.db
 
 # prod / dev configs
-#/src/environments
+/src/environments
