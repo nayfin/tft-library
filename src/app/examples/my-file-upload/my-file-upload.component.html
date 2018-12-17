@@ -1,1 +1,10 @@
-<tft-file-upload></tft-file-upload>
+
+<img src="https://www.googleapis.com/storage/v1/b/tft-library.appspot.com/o/undefined%2Fthumb@512_2011-11-25-586.jpg" alt="">
+
+<div style="width:70%; margin: auto;">
+  <tft-file-upload tftDropZone [quality]="'512'" (uploadComplete)="handleDownloadComplete($event)"></tft-file-upload>
+
+  <h3>
+    {{ downloadUrl | async }}
+  </h3>
+</div>

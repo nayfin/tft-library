@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {MatSnackBar} from '@angular/material';
 
-import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { finalize, tap, map, switchMap } from 'rxjs/operators';
 
 export enum ImageQuality {
-  THUMBNAIL = 48,
-  LOW = 256,
-  MED = 512,
-  HIGH = 1024
+  THUMBNAIL = '48',
+  LOW = '256',
+  MED = '512',
+  HIGH = '1024'
 }
 
 @Component({
@@ -17,10 +18,11 @@ export enum ImageQuality {
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements OnDestroy {
 
   @Input() rootPath = 'undefined/';
-  @Input() quality: ImageQuality | number = ImageQuality.LOW;
+  @Input() expectCompression = false;
+  @Input() quality: ImageQuality | string | null = null;
 
   @Output() uploadComplete = new EventEmitter<Observable<string>>();
   // Main task
@@ -32,12 +34,20 @@ export class FileUploadComponent {
   snapshot$: Observable<any>;
 
   // Download URL
-  downloadURL$: Observable<string>;
+  downloadURL$: Observable<any>;
 
+  subscriptions: Subscription[] = [];
   // State for dropzone CSS toggling
   isHovering: boolean;
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) { }
+  constructor(
+    private storage: AngularFireStorage,
+    private db: AngularFirestore,
+    private snackBar: MatSnackBar,
+  ) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
   toggleHover(event: boolean) {
     this.isHovering = event;
   }
@@ -49,7 +59,7 @@ export class FileUploadComponent {
 
     // Client-side validation example
     if (file.type.split('/')[0] !== 'image') {
-      console.error('unsupported file type :( ');
+      this.snackBar.open('Unsupported file type');
       return;
     }
 
@@ -57,23 +67,26 @@ export class FileUploadComponent {
     // TODO: this should be an input
     const path = `${this.rootPath}/${file.name}`;
 
-    // Totally optional metadata
-    const customMetadata = { app: 'My AngularFire-powered PWA!' };
+    // You can pass image compression quality if you backend is set up to compress
+    const customMetadata = { quality: this.quality };
 
     // The main task
-    this.task = this.storage.upload(path, file, { customMetadata });
+    this.task = this.storage.upload(path, file, {customMetadata});
+    console.log({task: this.task});
 
     // Progress monitoring
     this.percentage$ = this.task.percentageChanges();
     this.snapshot$ = this.task.snapshotChanges();
 
     // The file's download URL
-    this.task.snapshotChanges().pipe(
-      tap( (snap) => console.log({snap})),
-      finalize(() => {
-        this.downloadURL$ = this.storage.ref(path).getDownloadURL();
-        this.uploadComplete.emit(this.downloadURL$);
-      })
+    this.subscriptions.push(
+      this.task.snapshotChanges().pipe(
+        tap( (snap) => console.log({snap})),
+        finalize(() => {
+          this.downloadURL$ = this.storage.ref(path).getDownloadURL();
+          this.uploadComplete.emit(this.downloadURL$);
+        }),
+      ).subscribe()
     );
   }
 

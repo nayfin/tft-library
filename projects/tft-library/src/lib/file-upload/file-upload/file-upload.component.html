@@ -34,7 +34,7 @@
   </progress>
   {{ pct | number }}%
 </div>
-
+{{ downloadURL$ | async | json }}
 <div *ngIf="snapshot$ | async as snap">
   {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
 
