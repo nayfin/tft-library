@@ -1,5 +1,6 @@
 import { Directive, Input, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IsGroupConfigPipe } from './is-group-config.pipe';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
@@ -23,7 +24,8 @@ export class DynamicFieldDirective implements OnInit {
 
   constructor(
     private resolver: ComponentFactoryResolver,
-    private container: ViewContainerRef
+    private container: ViewContainerRef,
+    private isGroupConfig: IsGroupConfigPipe
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class DynamicFieldDirective implements OnInit {
      *
      * if it is array it represents a formGroup and the directive doesn't have a component to create so we do nothing
      */
-    if ( !Array.isArray(this.config) ) {
+    if ( !this.isGroupConfig.transform(this.config) ) {
       const component = components[this.config.controlType];
       const factory = this.resolver.resolveComponentFactory<any>(component);
       this.component = this.container.createComponent(factory);

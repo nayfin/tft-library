@@ -15,5 +15,4 @@ export class FormButtonComponent implements OnInit {
 
   ngOnInit() {
   }
-  
 }

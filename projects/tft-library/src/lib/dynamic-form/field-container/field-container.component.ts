@@ -29,7 +29,7 @@ export class FieldContainerComponent implements OnInit {
    * @param config configuration object used to
    */
   connectShowField( group: FormGroup, config) {
-    return config.showField
+    return config.showField && config.showField instanceof Function
          ? config.showField( group, config.displayConfig || null)
          : of(true);
   }
