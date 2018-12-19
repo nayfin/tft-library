@@ -1,7 +1,8 @@
 <div
   *ngIf="showField | async"
   [ngClass]="config.classes"
-  class="field-container">
+  class="field-container"
+  [fxFlex]="40">
 
   <label
     *ngIf="!!config.label"

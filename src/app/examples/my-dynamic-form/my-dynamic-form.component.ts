@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { AnyFieldConfig } from 'tft-library';
 import { ConditionalFieldsService } from 'tft-library';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -48,37 +48,32 @@ export class MyDynamicFormComponent implements OnInit {
       // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
       showField: this.firstNameIsNotBlank
     },
-    // Example of group within a group. We can handle configs recursively now!!!
-    [
-      {
-        controlType: 'input',
-        label: 'First name',
-        inputType: 'text',
-        controlName: 'firstName',
-        placeholder: 'Enter your first name',
-        classes: [],
-        flexLayoutConfig: {fxFlex: 40},
-        validators: [Validators.required],
-      },
-      {
-        controlType: 'input',
-        label: 'Last name',
-        controlName: 'lastName',
-        placeholder: 'Enter your last name',
-        flexLayoutConfig: {fxFlex: 40},
-        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-        showField: this.firstNameIsNotBlank
-      }
-    ],
     {
       controlType: 'select',
       label: 'Smoking History',
       controlName: 'isSmoker',
-      options: [
-        {label: 'Yes', value: 'yes'},
-        {label: 'No', value: 'no'},
-      ],
+      flexLayoutConfig: {fxFlex: 40},
       placeholder: 'Have you smoked in the last six months',
+      // options: [
+      //   {label: 'YES', value: 'yes'},
+      //   {label: 'NO',  value: 'no'}
+      // ]
+      // optionsCallback: () => {
+
+      //   return new Promise( (resolve, reject) => {
+      //     console.log('before running optionsCallback');
+      //     // window.setTimeout( () => {
+      //     //   console.log('running optionsCallback');
+      //     setTimeout( () => {
+      //       resolve([
+      //         {label: 'from callback', value: 'hello'}
+      //       ]);
+
+      //     }, 5000);
+      //     // });
+      //   });
+      // }
+      options$: of([{label: 'observable', value: 'do it'}])
     },
     // this control only shows when 'isSmoker' control has value of 'yes'
     // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
@@ -88,6 +83,7 @@ export class MyDynamicFormComponent implements OnInit {
       label: 'Smoking Regularity',
       controlName: 'smokingRegularity',
       placeholder: 'Packs per week',
+      flexLayoutConfig: {fxFlex: 40},
       // showField again but this time using a helper function from the conditionalFields service
       // this expects a form: FormGroup and config that descibes what control to watch
       showField: this.conditionalFields.watchControlForValues,

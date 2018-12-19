@@ -8,11 +8,21 @@
       [formControlName]="config.controlName"
       [placeholder]="config.placeholder">
       <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
-      <mat-option
-        *ngFor="let option of config.options"
-        [value]="option.value">
-        {{ option.label }}
-      </mat-option>
+      <ng-container *ngIf="config.options$ | async as obsOptions; else selectOptions">
+        <mat-option
+          *ngFor="let option of obsOptions"
+          [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </ng-container>
+      <ng-template #selectOptions>
+        <mat-option
+          *ngFor="let option of options"
+          [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+
+      </ng-template>
     </mat-select>
   </mat-form-field>
 
