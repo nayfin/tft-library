@@ -4,17 +4,10 @@
   (ngSubmit)="handleSubmit()">
 
   <ng-container
-    *ngFor="let field of config;"
+    *ngFor="let field of config.fields;"
     tftDynamicField
     [config]="field"
     [group]="form">
-    <!-- {{ field | json}}
-    {{ field | callback : isGroupConfig}} -->
-    <tft-dynamic-form
-      *ngIf="field | isGroupConfig"
-      [config]="field">
-    </tft-dynamic-form>
-
   </ng-container>
 
 </form>

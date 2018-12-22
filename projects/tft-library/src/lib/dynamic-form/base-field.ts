@@ -23,6 +23,12 @@ export class BaseField implements OnInit {
         renderer.setAttribute(el.nativeElement, attr.name, attr.value );
       });
     }
+    /**
+     * could be?
+     * !!config.attrs && attrs.forEach( (attr, i) => {
+        renderer.setAttribute(el.nativeElement, attr.name, attr.value );
+      });
+     */
   }
 
 }

@@ -3,7 +3,6 @@ import { of, Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 import { valueIn } from './conditional-fields.operators';
-import { map } from 'rxjs/operators';
 
 export interface WatchControlConfig {
   controlName: string;
@@ -19,7 +18,7 @@ export class ConditionalFieldsService {
   constructor() { }
 
   watchControlForValues( form: FormGroup, config: WatchControlConfig ): Observable<boolean> {
-    if (config ) {
+    if (config) {
       return form.get(config.controlName).valueChanges.pipe(
         valueIn(config.values)
       );

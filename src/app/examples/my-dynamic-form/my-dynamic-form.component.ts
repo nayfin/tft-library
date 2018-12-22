@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import { AnyFieldConfig } from 'tft-library';
+import { ControlType, FormConfig } from 'tft-library';
 import { ConditionalFieldsService } from 'tft-library';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,87 +21,120 @@ export class MyDynamicFormComponent implements OnInit {
 
   // the config holds an array of configurations for the fields you want to create
   // TODO: Figure out way to abstract the recursive types out of here
-  config: (AnyFieldConfig | AnyFieldConfig[])[] = [
-    // configuration will create an input field in the form with the following configuration
-    {
-      controlType: 'input',
-      label: 'First name',
-      inputType: 'text',
-      controlName: 'firstName',
-      placeholder: 'Enter your first name',
-      classes: [],
-      flexLayoutConfig: {fxFlex: 40},
-      validators: [Validators.required],
-    },
-    // another input with conditional display logic
-    // the showField parameter takes a function that that returns an observable that resolve to a boolean
-    // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
-    // ( form: FormGroup, config?: any ) => Observable<boolean>
-    // you get the observable from form.get('someControlName').valueChanges
-    // as demonstrated in this.firstnameIsNotBlank, and implement below
-    {
-      controlType: 'input',
-      label: 'Last name',
-      controlName: 'lastName',
-      placeholder: 'Enter your last name',
-      flexLayoutConfig: {fxFlex: 40},
-      // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-      showField: this.firstNameIsNotBlank
-    },
-    {
-      controlType: 'select',
-      label: 'Smoking History',
-      controlName: 'isSmoker',
-      flexLayoutConfig: {fxFlex: 40},
-      placeholder: 'Have you smoked in the last six months',
-      // options: [
-      //   {label: 'YES', value: 'yes'},
-      //   {label: 'NO',  value: 'no'}
-      // ]
-      // optionsCallback: () => {
+  config: FormConfig = {
+    controlType: 'group',
+    controlName: 'myForm',
+    fields: [
+      // configuration will create an input field in the form with the following configuration
 
-      //   return new Promise( (resolve, reject) => {
-      //     console.log('before running optionsCallback');
-      //     // window.setTimeout( () => {
-      //     //   console.log('running optionsCallback');
-      //     setTimeout( () => {
-      //       resolve([
-      //         {label: 'from callback', value: 'hello'}
-      //       ]);
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'nestedGroup',
+        fields: [
+          {
+            controlType: 'input',
+            label: 'Nested input',
+            controlName: 'nestedInput',
+            placeholder: 'Favorite band',
+            flexLayoutConfig: {fxFlex: 40},
+            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            // showField: this.firstNameIsNotBlank
+          },
+          {
+            controlType: ControlType.INPUT,
+            label: 'First name',
+            inputType: 'text',
+            controlName: 'firstName',
+            placeholder: 'Enter your first name',
+            classes: [],
+            flexLayoutConfig: {fxFlex: 40},
+            validators: [Validators.required],
+          },
+          // another input with conditional display logic
+          // the showField parameter takes a function that that returns an observable that resolve to a boolean
+          // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
+          // ( form: FormGroup, config?: any ) => Observable<boolean>
+          // you get the observable from form.get('someControlName').valueChanges
+          // as demonstrated in this.firstnameIsNotBlank, and implement below
+          {
+            controlType: ControlType.INPUT,
+            label: 'Last name',
+            controlName: 'lastName',
+            placeholder: 'Enter your last name',
+            flexLayoutConfig: {fxFlex: 40},
+            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            showField: this.firstNameIsNotBlank
+          },
+        ],
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as an array',
+        controlName: 'isSmokerArray',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        options: [
+          {label: 'YES', value: 'yes'},
+          {label: 'NO',  value: 'no'}
+        ]
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as observable',
+        controlName: 'isSmokerObservable',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        options$: of([
+          {label: 'Yes', value: 'yes'},
+          {label: 'No', value: 'no'}
+        ])
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in by a function that returns a promise that resolves to an array',
+        controlName: 'isSmokerPromis',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        optionsCallback: () => {
+          return new Promise( (resolve, reject) => {
+            setTimeout( () => {
+              resolve([
+                {label: 'Yes', value: 'yes'},
+                {label: 'No', value: 'no'}
+              ]);
 
-      //     }, 5000);
-      //     // });
-      //   });
-      // }
-      options$: of([{label: 'observable', value: 'do it'}])
-    },
-    // this control only shows when 'isSmoker' control has value of 'yes'
-    // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
-    {
-      controlType: 'input',
-      inputType: 'number',
-      label: 'Smoking Regularity',
-      controlName: 'smokingRegularity',
-      placeholder: 'Packs per week',
-      flexLayoutConfig: {fxFlex: 40},
-      // showField again but this time using a helper function from the conditionalFields service
-      // this expects a form: FormGroup and config that descibes what control to watch
-      showField: this.conditionalFields.watchControlForValues,
-      // and the corresponding configuration
-      // when this function get called on the generated component,
-      // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
-      // More values can be watched for, just add them to the array
-      displayConfig: {
-        controlName: 'isSmoker',
-        values: ['yes']
-      }
-    },
-    {
-      label: 'Submit',
-      controlName: 'submit',
-      controlType: 'button',
-    },
-  ];
+            }, 5000);
+          });
+        }
+      },
+      // this control only shows when 'isSmoker' control has value of 'yes'
+      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
+      {
+        controlType: ControlType.INPUT,
+        inputType: 'number',
+        label: 'Smoking Regularity',
+        controlName: 'smokingRegularity',
+        placeholder: 'Packs per week',
+        flexLayoutConfig: {fxFlex: 40},
+        // showField again but this time using a helper function from the conditionalFields service
+        // this expects a form: FormGroup and config that descibes what control to watch
+        showField: this.conditionalFields.watchControlForValues,
+        // and the corresponding configuration
+        // when this function get called on the generated component,
+        // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
+        // More values can be watched for, just add them to the array
+        displayConfig: {
+          controlName: 'isSmokerArray',
+          values: ['yes']
+        }
+      },
+      {
+        label: 'Submit',
+        controlName: 'submit',
+        controlType: ControlType.BUTTON,
+      },
+    ]
+  };
 
   constructor(
     private conditionalFields: ConditionalFieldsService,
@@ -110,7 +143,7 @@ export class MyDynamicFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  formSubmitted(formValue: any) {
+  formSubmitted(formValue: FormGroup) {
     console.log('formValue', formValue);
   }
   /**

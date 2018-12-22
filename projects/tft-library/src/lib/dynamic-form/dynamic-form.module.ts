@@ -39,6 +39,7 @@ import { IsGroupConfigPipe } from './is-group-config.pipe';
     FormButtonComponent,
   ],
   entryComponents: [
+    DynamicFormComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,

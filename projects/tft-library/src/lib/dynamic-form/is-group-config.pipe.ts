@@ -6,8 +6,8 @@ import { AnyFieldConfig } from './dynamic-field-config';
 })
 export class IsGroupConfigPipe implements PipeTransform {
 
-  transform(field: AnyFieldConfig | AnyFieldConfig[]): any {
+  transform(field: AnyFieldConfig): any {
     // checks for controlName key to determine if configuration is for a field or group of fields
-    return !('controlName' in field);
+    return field.controlType === 'group';
   }
 }

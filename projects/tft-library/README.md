@@ -35,30 +35,32 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
 ### DynamicFormModule ( BETA: Regular breaking changes until stabilized. ETA: late October )
 
-A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto. Some parameter names have been changed from his guide to allow for future features, so this won't work as a drop in imlementation to following the guide. Currently, this is only a very basic implementation, but we want to greatly expand the capabilities of this module.
+
+A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto, then expanded to enable recursively nested formGroups and conditionally showing form fields, and add Material Design components. More features to come
+
+#### Breaking changes in 7.1.0
+The shape of the group config object had to change to enable recursively checking for subgroups inside the main form group. So, now instead of being an array of control configs the FormConfig is an object with a controlName, controlGroup, and a fields array. New usage below. Additionally, instead of emitting the form.value on submission the the dynamic-form-component emits the whole form object. This gives the end developer the power to check form validity, disabled status and anything else available on the FormGroup object.
 
 #### Usage
 
 In component.html
 ```html
 <div>
-      <tft-dynamic-form
-        [config]="config"
-        (submitted)="formSubmitted($event)">
-      </tft-dynamic-form>
-    </div>
+  <tft-dynamic-form
+    [config]="config"
+    (submitted)="formSubmitted($event)">
+  </tft-dynamic-form>
+</div>
 ```
 
 In component.ts
 ```javascript
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import { ConditionalFieldsService } from 'projects/tft-library/src/lib/dynamic-form/conditional-fields.service';
-import { Observable } from 'rxjs';
+import { ControlType, FormConfig } from 'tft-library';
+import { ConditionalFieldsService } from 'tft-library';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-// import { SelectFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-select/select-field-config';
-// import { InputFieldConfig } from 'projects/tft-library/src/lib/dynamic-form/form-input/input-field-config';
-import { AnyFieldConfig, FormConfig } from 'projects/tft-library/src/lib/dynamic-form/dynamic-field-config';
 
 /**
  * Custom rxjs operator determines if string is blank after trim
@@ -73,40 +75,14 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
-
-  // the config holds an array of configurations for the fields you want to create
-  // TODO: was types as AnyControlConfig[] but recursive implementation broke the type. Figure out way to strongly type this recursively
-  config: any[] = [
-    // configuration will create an input field in the form with the following configuration
-    {
-      controlType: 'input',
-      label: 'First name',
-      inputType: 'text',
-      controlName: 'firstName',
-      placeholder: 'Enter your first name',
-      classes: [],
-      flexLayoutConfig: {fxFlex: 40},
-      validators: [Validators.required],
-    },
-    // another input with conditional display logic
-    // the showField parameter takes a function that that returns an observable that resolve to a boolean
-    // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
-    // ( form: FormGroup, config?: any ) => Observable<boolean>
-    // you get the observable from form.get('someControlName').valueChanges
-    // as demonstrated in this.firstnameIsNotBlank, and implement below
-    {
-      controlType: 'input',
-      label: 'Last name',
-      controlName: 'lastName',
-      placeholder: 'Enter your last name',
-      flexLayoutConfig: {fxFlex: 40},
-      // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-      showField: this.firstNameIsNotBlank
-    },
-    // Example of group within a group. We can handle configs recursively now!!!
-    [
+  // configuration object used to build out form
+  config: FormConfig = {
+    controlType: 'group',
+    controlName: 'myForm',
+    // the fields array holds an array of configurations for the fields you want to create, including nested form group configs
+    fields: [
       {
-        controlType: 'input',
+        controlType: ControlType.INPUT,
         label: 'First name',
         inputType: 'text',
         controlName: 'firstName',
@@ -115,51 +91,99 @@ export class DynamicFormComponent implements OnInit {
         flexLayoutConfig: {fxFlex: 40},
         validators: [Validators.required],
       },
+      // an input with conditional display logic
+      // the showField parameter takes a function that that returns an observable that resolve to a boolean
+      // you get the observable from form.get('someControlName').valueChanges
+      // as demonstrated in this.firstnameIsNotBlank defined below
       {
-        controlType: 'input',
+        controlType: ControlType.INPUT,
         label: 'Last name',
         controlName: 'lastName',
         placeholder: 'Enter your last name',
         flexLayoutConfig: {fxFlex: 40},
-        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
         showField: this.firstNameIsNotBlank
-      }
-    ],
-    {
-      controlType: 'select',
-      label: 'Smoking History',
-      controlName: 'isSmoker',
-      options: [
-        {label: 'Yes', value: 'yes'},
-        {label: 'No', value: 'no'},
-      ],
-      placeholder: 'Have you smoked in the last six months',
-    },
-    // this control only shows when 'gender' control has value of 'female'
-    // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
-    {
-      controlType: 'input',
-      inputType: 'number',
-      label: 'Smoking Regularity',
-      controlName: 'smokingRegularity',
-      placeholder: 'Packs per week',
-      // showField again but this time using a helper function from the conditionalFields service
-      // this expects a form: FormGroup and config that descibes what control to watch
-      showField: this.conditionalFields.watchControlForValues,
-      // and the corresponding configuration
-      // when this function get called on the generated component,
-      // this configuration tells the service to watch 'gender' control for a value of 'female'
-      displayConfig: {
-        controlName: 'isSmoker',
-        values: ['yes']
-      }
-    },
-    {
-      label: 'Submit',
-      controlName: 'submit',
-      controlType: 'button',
-    },
-  ];
+      },
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'nestedGroup',
+        fields: [
+          {
+            controlType: 'input',
+            label: 'Nested input',
+            controlName: 'nestedInput',
+            placeholder: 'Favorite band',
+            flexLayoutConfig: {fxFlex: 40},
+          }
+        ],
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as an array',
+        controlName: 'isSmokerArray',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        options: [
+          {label: 'YES', value: 'yes'},
+          {label: 'NO',  value: 'no'}
+        ]
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as observable',
+        controlName: 'isSmokerObservable',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        options$: of([
+          {label: 'Yes', value: 'yes'},
+          {label: 'No', value: 'no'}
+        ])
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in by a function that returns a promise that resolves to an array',
+        controlName: 'isSmokerPromis',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        optionsCallback: () => {
+          return new Promise( (resolve, reject) => {
+            setTimeout( () => {
+              resolve([
+                {label: 'Yes', value: 'yes'},
+                {label: 'No', value: 'no'}
+              ]);
+
+            }, 5000);
+          });
+        }
+      },
+      // this control only shows when 'isSmoker' control has value of 'yes'
+      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to simplify process of checking form fields for values
+      {
+        controlType: ControlType.INPUT,
+        inputType: 'number',
+        label: 'Smoking Regularity',
+        controlName: 'smokingRegularity',
+        placeholder: 'Packs per week',
+        flexLayoutConfig: {fxFlex: 40},
+        // showField again but this time using a helper function from the conditionalFields service
+        // this expects a form: FormGroup and config that descibes what control to watch
+        showField: this.conditionalFields.watchControlForValues,
+        // and the corresponding configuration
+        // when this function get called on the generated component,
+        // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
+        // More values can be watched for, just add them to the array
+        displayConfig: {
+          controlName: 'isSmokerArray',
+          values: ['yes']
+        }
+      },
+      {
+        label: 'Submit',
+        controlName: 'submit',
+        controlType: ControlType.BUTTON,
+      },
+    ]
+  };
 
   constructor(
     private conditionalFields: ConditionalFieldsService,
@@ -168,11 +192,11 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  formSubmitted(formValue: any) {
+  formSubmitted(formValue: FormGroup) {
     console.log('formValue', formValue);
   }
   /**
-   * example of how to pass a custom function that returns an Observable that resolves a boolean
+   * example of how to build a custom function that returns an Observable that resolves to a boolean
    *
    * notice lack of subcribe() call, the field component manages subcription for you
    * @param form entire form, used to grab the firstName formControl and listen for changes
@@ -195,11 +219,9 @@ In component.scss if adding class to field config
 ```
 
 #### Coming Soon To Dynamic Forms Module
-- abstract shared field logic to parent class somehow
-- should form config be an object instead of array?
-- enable passing of styles, classes, flex-layout attributes through config to form
 - dynamic validation logic ( to correspond with dynamic display logic e.g. if control is displayed it is required, else it is not. ??? remove control from formGroup on hide ??? )
 - more control types ( radios, button toggles, multi-select, etc.. until we have everything in the Angular Material Library covered )
+- ~~enable passing of styles, classes, flex-layout attributes through config to form~~
 - ~~handle configs with nested form groups and form arrays~~
 - ~~dynamic display logic ( show hide controls based on selected values of another control e.g. select: male | female, if female show question asking if currently pregnant )~~
 - ~~pass validators through config~~
@@ -220,4 +242,3 @@ In component.scss if adding class to field config
 
   The old library is available [here](https://github.com/nayfin/tft-library-2.0.7). There are no plans to maintain as the structure of the library has made it overly difficult to test, debug, and integrate into applications. Moving forward we plan on providing bug fixes and light maintenance for each major release for two major release cycles e.g. v6 will be maintained until v8 is release.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7

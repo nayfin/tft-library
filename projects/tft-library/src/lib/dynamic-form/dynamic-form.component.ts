@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AnyFieldConfig } from './dynamic-field-config';
+import { FormConfig } from './dynamic-field-config';
 import { IsGroupConfigPipe } from './is-group-config.pipe';
 @Component({
   selector: 'tft-dynamic-form',
@@ -9,7 +9,7 @@ import { IsGroupConfigPipe } from './is-group-config.pipe';
   providers: [IsGroupConfigPipe]
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() config: any[] = [];
+  @Input() config: FormConfig;
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
@@ -25,22 +25,25 @@ export class DynamicFormComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.submitted.emit(this.form.value);
+    this.submitted.emit({
+      form: this.form
+    });
   }
 
   /**
    * Recursively cycles through config building out form as it goes.
    * @param config defines shape of form
    */
-  buildFormGroupFromConfig(config) {
+  buildFormGroupFromConfig(config: FormConfig) {
     const group = this.fb.group({});
-    config.forEach( (controlConfig: AnyFieldConfig) => {
+    config.fields.forEach( (controlConfig: any) => {
       // if controlConfig isConfigForFormGroup then it represents another group of fields that need to be built out
       // also notice we use the pipe isGroupConfig transform method here to check if the controlConfig is actually a group configuration
       // seems weird but we need to use this in the template to improve performance so importing pipe this way let's us reuse that code
       if ( this.isGroupConfig.transform(controlConfig) ) {
+        // const subGroup = this.fb.group()
         // so we dig in recursively and start cycling throug child group
-        return this.buildFormGroupFromConfig(controlConfig);
+        group.addControl(controlConfig.controlName, this.buildFormGroupFromConfig(controlConfig));
       } else {
         // if not isGroupConfig then we build a formControl for the form
         const control = this.fb.control(

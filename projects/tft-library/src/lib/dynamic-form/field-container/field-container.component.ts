@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AnyFieldConfig } from '../dynamic-field-config';
+import { AnyFieldConfig, DynamicFieldConfig } from '../dynamic-field-config';
 import { Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class FieldContainerComponent implements OnInit {
   // the configuration object for the field
-  @Input() config: AnyFieldConfig;
+  @Input() config: DynamicFieldConfig;
   // the parent formGroup
   @Input() group: FormGroup;
   // used to determine whether or not field should be shown

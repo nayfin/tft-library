@@ -4,12 +4,15 @@ import { IsGroupConfigPipe } from './is-group-config.pipe';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
+import { DynamicFormComponent } from './dynamic-form.component';
+
 
 
 const components = {
   button: FormButtonComponent,
   input: FormInputComponent,
   select: FormSelectComponent,
+  group: DynamicFormComponent,
 };
 
 @Directive({
@@ -35,12 +38,13 @@ export class DynamicFieldDirective implements OnInit {
      *
      * if it is array it represents a formGroup and the directive doesn't have a component to create so we do nothing
      */
-    if ( !this.isGroupConfig.transform(this.config) ) {
+    // if ( !this.isGroupConfig.transform(this.config) ) {
+      // console.log({config: this.config});
       const component = components[this.config.controlType];
       const factory = this.resolver.resolveComponentFactory<any>(component);
       this.component = this.container.createComponent(factory);
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
-    }
+    // }
   }
 }
