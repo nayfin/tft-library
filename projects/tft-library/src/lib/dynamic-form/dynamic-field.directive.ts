@@ -1,9 +1,9 @@
 import { Directive, Input, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IsGroupConfigPipe } from './is-group-config.pipe';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
+import { FormArrayComponent } from './form-array/form-array.component';
 import { DynamicFormComponent } from './dynamic-form.component';
 
 
@@ -13,6 +13,7 @@ const components = {
   input: FormInputComponent,
   select: FormSelectComponent,
   group: DynamicFormComponent,
+  array: FormArrayComponent
 };
 
 @Directive({
@@ -28,23 +29,17 @@ export class DynamicFieldDirective implements OnInit {
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef,
-    private isGroupConfig: IsGroupConfigPipe
   ) {}
 
   ngOnInit() {
 
     /**
-     * if the config is not an array than it represents a form group that needs to be created,
-     *
-     * if it is array it represents a formGroup and the directive doesn't have a component to create so we do nothing
+     * create component and set values from config on its instance
      */
-    // if ( !this.isGroupConfig.transform(this.config) ) {
-      // console.log({config: this.config});
-      const component = components[this.config.controlType];
-      const factory = this.resolver.resolveComponentFactory<any>(component);
-      this.component = this.container.createComponent(factory);
-      this.component.instance.config = this.config;
-      this.component.instance.group = this.group;
-    // }
+    const component = components[this.config.controlType];
+    const factory = this.resolver.resolveComponentFactory<any>(component);
+    this.component = this.container.createComponent(factory);
+    this.component.instance.config = this.config;
+    this.component.instance.group = this.group;
   }
 }

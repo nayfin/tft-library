@@ -22,17 +22,16 @@ export class MyDynamicFormComponent implements OnInit {
   // the config holds an array of configurations for the fields you want to create
   // TODO: Figure out way to abstract the recursive types out of here
   config: FormConfig = {
-    controlType: 'group',
+    controlType: ControlType.GROUP,
     controlName: 'myForm',
     fields: [
       // configuration will create an input field in the form with the following configuration
-
       {
         controlType: ControlType.GROUP,
         controlName: 'nestedGroup',
         fields: [
           {
-            controlType: 'input',
+            controlType: ControlType.INPUT,
             label: 'Nested input',
             controlName: 'nestedInput',
             placeholder: 'Favorite band',
@@ -66,6 +65,21 @@ export class MyDynamicFormComponent implements OnInit {
             showField: this.firstNameIsNotBlank
           },
         ],
+      },
+      {
+        controlType: ControlType.ARRAY,
+        label: 'Form Array',
+        controlName: 'formArray',
+        flexLayoutConfig: {fxFlex: 40},
+        // itemConfig: {
+        //   controlType: ControlType.INPUT,
+        //   label: 'Last name',
+        //   controlName: 'lastName',
+        //   placeholder: 'Enter your last name',
+        //   flexLayoutConfig: {fxFlex: 40},
+        //   // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+        //   showField: this.firstNameIsNotBlank
+        // },
       },
       {
         controlType: ControlType.SELECT,

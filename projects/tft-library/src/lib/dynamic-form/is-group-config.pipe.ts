@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AnyFieldConfig } from './dynamic-field-config';
+import { AnyFieldConfig, ControlType } from './dynamic-field-config';
 
 @Pipe({
   name: 'isGroupConfig'
@@ -7,7 +7,7 @@ import { AnyFieldConfig } from './dynamic-field-config';
 export class IsGroupConfigPipe implements PipeTransform {
 
   transform(field: AnyFieldConfig): any {
-    // checks for controlName key to determine if configuration is for a field or group of fields
-    return field.controlType === 'group';
+    // checks for controlType to determine if configuration is for a field or group of fields
+    return field.controlType === ControlType.GROUP;
   }
 }

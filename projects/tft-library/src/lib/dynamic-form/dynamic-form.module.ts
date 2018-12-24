@@ -7,6 +7,7 @@ import { DesignModule } from '../design/public_api';
 // components
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
+import { FormArrayComponent } from './form-array/form-array.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
@@ -31,15 +32,18 @@ import { IsGroupConfigPipe } from './is-group-config.pipe';
     DynamicFieldDirective,
     FieldContainerComponent,
     IsGroupConfigPipe,
+    FormArrayComponent,
   ],
   exports: [
     DynamicFormComponent,
+    FormArrayComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
   ],
   entryComponents: [
     DynamicFormComponent,
+    FormArrayComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,

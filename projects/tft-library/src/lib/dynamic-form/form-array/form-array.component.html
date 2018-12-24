@@ -1,0 +1,33 @@
+<tft-field-container
+  [config]="config"
+  [formGroup]="group">
+  <div [formArrayName]="config.controlName">
+
+    <!-- <mat-form-field
+      *ngFor="let control of getFormArray().controls as controls; let i = index;">
+      <input
+        type="text"
+        matInput
+        [placeholder]="config.placeholder"
+        [formGroupName]="i">
+    </mat-form-field> -->
+
+    <ng-container
+      *ngFor="let control of getFormArray().controls as controls; let i = index;"
+      tftDynamicField
+      [config]="config.itemConfig"
+      [group]="group.get(config.controlName)"
+      [formGroupName]="i">
+    </ng-container>
+
+  </div>
+
+
+  <button
+    type="button"
+    mat-raised-button
+    (click)="addControl()">
+    {{addItemLabel}}
+  </button>
+
+</tft-field-container>

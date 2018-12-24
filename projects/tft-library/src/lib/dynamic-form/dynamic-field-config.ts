@@ -21,7 +21,7 @@ interface DynamicFieldConfig {
 }
 
 interface FormConfig {
-  controlType: string;
+  controlType: ControlType;
   controlName: string;
   label?: string;
   fields: AnyFieldConfig[];
@@ -37,6 +37,7 @@ interface Attr {
 enum ControlType {
   INPUT = 'input',
   SELECT = 'select',
+  ARRAY = 'array',
   BUTTON = 'button',
   GROUP = 'group'
 }
@@ -51,7 +52,7 @@ const exampleFormConfig: FormConfig = {
       controlName: 'test',
     },
     {
-      controlType: 'group',
+      controlType: ControlType.GROUP,
       controlName: 'testSubGroup',
       fields: [
         {
