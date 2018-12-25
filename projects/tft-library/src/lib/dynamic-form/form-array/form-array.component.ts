@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { FormArrayConfig } from './form-array-config';
+import { FormArrayConfig, ControlType, DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFormService } from '../dynamic-form.service';
 
 @Component({
   selector: 'tft-form-array',
@@ -13,30 +14,26 @@ export class FormArrayComponent implements OnInit {
   group: FormGroup;
 
   addItemLabel = 'Add Item';
-
+  controlType = ControlType;
   constructor(
-    private fb: FormBuilder,
+    private dynamicFormService: DynamicFormService
+    // private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
-    console.log({formArrayConfig: this.config});
+    // console.log({formArrayConfig: this.config});
 
-    console.log('group', this.group);
+    // console.log('group', this.group);
     // this.inputType = this.config. || 'text';
   }
 
-  getFormArray(): FormArray {
-    const formArr = this.group.get(this.config.controlName) as FormArray;
-    // console.log({formArr});
+  getFormArray(controlName: string): FormArray {
+    const formArr = this.group.get(controlName) as FormArray;
+    console.log({formArr});
     return formArr;
   }
 
   addControl() {
-    this.getFormArray().push( this.fb.group( this.fb.control('name', null) ) );
-  }
-
-  createControl( config: any) {
-    console.log('creating', config);
-    const group = this.fb.group({ });
+    this.getFormArray(this.config.controlName).push(this.dynamicFormService.getControlForType(this.config.itemConfig) );
   }
 }

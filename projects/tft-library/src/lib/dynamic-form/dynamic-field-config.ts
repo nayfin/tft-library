@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SelectFieldConfig } from './form-select/select-field-config';
 import { WatchControlConfig } from './conditional-fields.service';
 import { InputFieldConfig } from './form-input/input-field-config';
+import { FormArrayConfig } from './form-array/form-array-config';
 
 interface DynamicFieldConfig {
   controlType: string;
@@ -27,7 +28,7 @@ interface FormConfig {
   fields: AnyFieldConfig[];
 }
 
-type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormConfig;
+type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormArrayConfig| FormConfig;
 
 interface Attr {
   name: string;
@@ -64,4 +65,4 @@ const exampleFormConfig: FormConfig = {
   ]
 };
 
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormConfig, Attr};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormArrayConfig, FormConfig, Attr};
