@@ -11,9 +11,7 @@
         [placeholder]="config.placeholder"
         [formGroupName]="i">
     </mat-form-field> -->
-    {{config.itemConfig.controlType}}
     <ng-container *ngIf="config.itemConfig.controlType === controlType.GROUP else control">
-      hello
       <ng-container
         *ngFor="let control of getFormArray(config.controlName).controls as controls; let i = index;"
         tftDynamicField
@@ -25,15 +23,13 @@
     </ng-container>
 
     <ng-template #control>
-      control
       <ng-container
         *ngFor="let control of getFormArray(config.controlName).controls as controls; let i = index;"
         tftDynamicField
         [config]="config.itemConfig"
-        [group]=""
+        [group]="controls"
         [formControlName]="i">
       </ng-container>
-
     </ng-template>
 
   </div>

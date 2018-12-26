@@ -29,7 +29,7 @@ export class FormArrayComponent implements OnInit {
 
   getFormArray(controlName: string): FormArray {
     const formArr = this.group.get(controlName) as FormArray;
-    console.log({formArr});
+    // console.log({formArr});
     return formArr;
   }
 
