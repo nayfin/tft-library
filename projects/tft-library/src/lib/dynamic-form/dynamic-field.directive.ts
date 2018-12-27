@@ -4,7 +4,7 @@ import { FormButtonComponent } from './form-button/form-button.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormArrayComponent } from './form-array/form-array.component';
-import { DynamicFormComponent } from './dynamic-form.component';
+import { FormGroupComponent } from './form-group/form-group.component';
 
 
 
@@ -12,7 +12,7 @@ const components = {
   button: FormButtonComponent,
   input: FormInputComponent,
   select: FormSelectComponent,
-  group: DynamicFormComponent,
+  group: FormGroupComponent,
   array: FormArrayComponent
 };
 

@@ -12,23 +12,18 @@ export class DynamicFormComponent implements OnInit {
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
-  group: FormGroup;
-
+  form: FormGroup;
   constructor(
     private dynamicFormService: DynamicFormService
-  ) {
-    console.log('constructor', this.group);
-
-  }
+  ) { }
 
   ngOnInit() {
-    this.group = this.dynamicFormService.buildFormGroupFromConfig(this.config);
-    console.log('onInit', this.group);
+    this.form = this.dynamicFormService.buildFormGroupFromConfig(this.config);
   }
 
   handleSubmit() {
     this.submitted.emit({
-      form: this.group
+      form: this.form
     });
   }
 }

@@ -1,12 +1,12 @@
-<form
-  class="dynamic-form"
-  [formGroup]="form"
-  (ngSubmit)="handleSubmit()">
+<div [formGroup]="group">
+  <div
+  [formGroupName]="config.controlName">
   <ng-container
     *ngFor="let field of config.fields;"
     tftDynamicField
     [config]="field"
-    [group]="form">
+    [group]="subGroup">
   </ng-container>
 
-</form>
+  </div>
+</div>

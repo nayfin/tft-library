@@ -35,28 +35,28 @@ export class MyDynamicFormComponent implements OnInit {
         // showField: this.firstNameIsNotBlank
       },
       // configuration will create an input field in the form with the following configuration
-      {
-        controlType: ControlType.ARRAY,
-        label: 'Form Array',
-        controlName: 'formArray',
-        flexLayoutConfig: {fxFlex: 100},
-        itemConfig: {
-          controlType: ControlType.GROUP,
-          controlName: 'myForm',
-          fields: [
-            // configuration will create an input field in the form with the following configuration
-            {
-              controlType: ControlType.INPUT,
-              label: 'Nested INPUT',
-              controlName: 'nestedInput',
-              placeholder: 'Favorite band',
-              flexLayoutConfig: {fxFlex: 100},
-              // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-              // showField: this.firstNameIsNotBlank
-            },
-          ]
-        },
-      },
+      // {
+      //   controlType: ControlType.ARRAY,
+      //   label: 'Form Array',
+      //   controlName: 'formArray',
+      //   flexLayoutConfig: {fxFlex: 100},
+      //   itemConfig: {
+      //     controlType: ControlType.GROUP,
+      //     controlName: 'myForm',
+      //     fields: [
+      //       // configuration will create an input field in the form with the following configuration
+      //       {
+      //         controlType: ControlType.INPUT,
+      //         label: 'Nested INPUT',
+      //         controlName: 'nestedInput',
+      //         placeholder: 'Favorite band',
+      //         flexLayoutConfig: {fxFlex: 100},
+      //         // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+      //         // showField: this.firstNameIsNotBlank
+      //       },
+      //     ]
+      //   },
+      // },
       {
         controlType: ControlType.GROUP,
         controlName: 'nestedGroup',
