@@ -35,45 +35,56 @@ export class MyDynamicFormComponent implements OnInit {
         // showField: this.firstNameIsNotBlank
       },
       // configuration will create an input field in the form with the following configuration
-      // {
-      //   controlType: ControlType.ARRAY,
-      //   label: 'Form Array',
-      //   controlName: 'formArray',
-      //   flexLayoutConfig: {fxFlex: 100},
-      //   itemConfig: {
-      //     controlType: ControlType.GROUP,
-      //     controlName: 'myForm',
-      //     fields: [
-      //       // configuration will create an input field in the form with the following configuration
-      //       {
-      //         controlType: ControlType.INPUT,
-      //         label: 'Nested INPUT',
-      //         controlName: 'nestedInput',
-      //         placeholder: 'Favorite band',
-      //         flexLayoutConfig: {fxFlex: 100},
-      //         // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-      //         // showField: this.firstNameIsNotBlank
-      //       },
-      //     ]
-      //   },
-      // },
+      {
+        controlType: ControlType.GROUP_LIST,
+        label: 'Test Form Array',
+        controlName: 'testFormArray',
+        flexLayoutConfig: {fxFlex: 100},
+        itemConfig: {
+          controlType: ControlType.GROUP,
+          controlName: 'arrayGroup',
+          fields: [
+            // configuration will create an input field in the form with the following configuration
+            {
+              controlType: ControlType.INPUT,
+              label: 'Nested text input',
+              controlName: 'arrayGroupInput',
+              placeholder: 'Tell us about yourself...',
+              flexLayoutConfig: {fxFlex: 100},
+              // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+              // showField: this.firstNameIsNotBlank
+            },
+            {
+              controlType: ControlType.INPUT,
+              label: 'Nested number input',
+              inputType: 'number',
+
+              controlName: 'arrayGroupNumber',
+              placeholder: 'How many?',
+              flexLayoutConfig: {fxFlex: 100},
+              // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+              // showField: this.firstNameIsNotBlank
+            },
+          ]
+        },
+      },
       {
         controlType: ControlType.GROUP,
-        controlName: 'nestedGroup',
+        controlName: 'testNestedGroup',
         fields: [
           {
             controlType: ControlType.INPUT,
             label: 'Nested input',
             controlName: 'nestedInput',
             placeholder: 'Favorite band',
-            flexLayoutConfig: {fxFlex: 40},
+            flexLayoutConfig: {fxFlex: 100},
             // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
             // showField: this.firstNameIsNotBlank
           },
           {
             controlType: ControlType.INPUT,
-            label: 'First name',
-            inputType: 'text',
+            label: 'test input number',
+            inputType: 'number',
             controlName: 'firstName',
             placeholder: 'Enter your first name',
             classes: [],
@@ -99,44 +110,50 @@ export class MyDynamicFormComponent implements OnInit {
       },
       {
         controlType: ControlType.SELECT,
-        label: 'Select with options passed in as an array',
-        controlName: 'isSmokerArray',
-        flexLayoutConfig: {fxFlex: 40},
-        placeholder: 'Have you smoked in the last six months',
-        options: [
-          {label: 'YES', value: 'yes'},
-          {label: 'NO',  value: 'no'}
-        ]
-      },
-      {
-        controlType: ControlType.SELECT,
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
         flexLayoutConfig: {fxFlex: 40},
         placeholder: 'Have you smoked in the last six months',
+        // use the options$ parameter to easily tie to app state with an Obserbable
         options$: of([
-          {label: 'Yes', value: 'yes'},
-          {label: 'No', value: 'no'}
+          { label: 'Yes', value: 'yes' },
+          { label: 'No',  value: 'no'  }
         ])
       },
       {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in by a function that returns a promise that resolves to an array',
-        controlName: 'isSmokerPromis',
+        controlName: 'isSmokerPromise',
         flexLayoutConfig: {fxFlex: 40},
-        placeholder: 'Have you smoked in the last six months',
+        classes: [], // TODO: configure class to highlight correct answer
+        placeholder: 'What is best',
+        // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
         optionsCallback: () => {
           return new Promise( (resolve, reject) => {
+            // make an http request here
             setTimeout( () => {
               resolve([
-                {label: 'Yes', value: 'yes'},
-                {label: 'No', value: 'no'}
+                {label: 'BLUE',     value: false } ,
+                {label: 'DR. DOG',  value: true  },
+                {label: 'GOLD',     value: false }
               ]);
-
             }, 5000);
           });
         }
       },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as an array',
+        controlName: 'isSmokerArray',
+        flexLayoutConfig: {fxFlex: 40},
+        placeholder: 'Have you smoked in the last six months',
+        // or just pass in a simple array of options
+        options: [
+          {label: 'YES', value: 'yes'},
+          {label: 'NO',  value: 'no'}
+        ]
+      },
+
       // this control only shows when 'isSmoker' control has value of 'yes'
       // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
       {

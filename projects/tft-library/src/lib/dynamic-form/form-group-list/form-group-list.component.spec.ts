@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormArrayComponent } from './form-array.component';
+import { FormGroupListComponent } from './form-group-list.component';
 
-describe('FormArrayComponent', () => {
-  let component: FormArrayComponent;
-  let fixture: ComponentFixture<FormArrayComponent>;
+describe('FormGroupListComponent', () => {
+  let component: FormGroupListComponent;
+  let fixture: ComponentFixture<FormGroupListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormArrayComponent ]
+      declarations: [ FormGroupListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormArrayComponent);
+    fixture = TestBed.createComponent(FormGroupListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

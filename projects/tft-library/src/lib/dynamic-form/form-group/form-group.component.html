@@ -1,12 +1,12 @@
 <div [formGroup]="group">
   <div
-  [formGroupName]="config.controlName">
-  <ng-container
-    *ngFor="let field of config.fields;"
-    tftDynamicField
-    [config]="field"
-    [group]="subGroup">
-  </ng-container>
-
+    [formGroupName]="config.controlName">
+    <ng-container
+      *ngFor="let field of config.fields;"
+      tftDynamicField
+      [config]="field"
+      [group]="subGroup">
+    </ng-container>
   </div>
 </div>
+

@@ -24,7 +24,7 @@ export class DynamicFormService {
   getControlForType(controlConfig: DynamicFieldConfig) {
     // build form control out based on the control type
     return controlConfig.controlType === ControlType.GROUP ? this.buildFormGroupFromConfig(controlConfig as FormConfig)
-      : controlConfig.controlType === ControlType.ARRAY ? this.fb.array([])
+      : controlConfig.controlType === ControlType.GROUP_LIST ? this.fb.array([])
       : this.fb.control(
         controlConfig.value || null,
         controlConfig.validators || null

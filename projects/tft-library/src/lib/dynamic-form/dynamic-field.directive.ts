@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
-import { FormArrayComponent } from './form-array/form-array.component';
+import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { FormGroupComponent } from './form-group/form-group.component';
 
 
@@ -13,7 +13,7 @@ const components = {
   input: FormInputComponent,
   select: FormSelectComponent,
   group: FormGroupComponent,
-  array: FormArrayComponent
+  groupList: FormGroupListComponent
 };
 
 @Directive({
@@ -24,6 +24,7 @@ export class DynamicFieldDirective implements OnInit {
   @Input() config;
   @Input() group: FormGroup;
 
+  // TODO: strongly type component
   component;
 
   constructor(

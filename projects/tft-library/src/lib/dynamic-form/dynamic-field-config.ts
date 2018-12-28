@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { SelectFieldConfig } from './form-select/select-field-config';
 import { WatchControlConfig } from './conditional-fields.service';
 import { InputFieldConfig } from './form-input/input-field-config';
-import { FormArrayConfig } from './form-array/form-array-config';
+import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 
 interface DynamicFieldConfig {
   controlType: string;
@@ -28,7 +28,7 @@ interface FormConfig {
   fields: AnyFieldConfig[];
 }
 
-type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormArrayConfig| FormConfig;
+type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormGroupListConfig| FormConfig;
 
 interface Attr {
   name: string;
@@ -38,31 +38,9 @@ interface Attr {
 enum ControlType {
   INPUT = 'input',
   SELECT = 'select',
-  ARRAY = 'array',
   BUTTON = 'button',
-  GROUP = 'group'
+  GROUP = 'group',
+  GROUP_LIST = 'groupList'
 }
 
-const exampleFormConfig: FormConfig = {
-  controlType: ControlType.GROUP,
-  controlName: 'testGroup',
-  label: 'Some Label',
-  fields: [
-    {
-      controlType: ControlType.INPUT,
-      controlName: 'test',
-    },
-    {
-      controlType: ControlType.GROUP,
-      controlName: 'testSubGroup',
-      fields: [
-        {
-          controlType: ControlType.INPUT,
-          controlName: 'test'
-        }
-      ]
-    }
-  ]
-};
-
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormArrayConfig, FormConfig, Attr};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig, Attr};

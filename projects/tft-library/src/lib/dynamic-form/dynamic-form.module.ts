@@ -7,7 +7,6 @@ import { DesignModule } from '../design/public_api';
 // components
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
-import { FormArrayComponent } from './form-array/form-array.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
@@ -17,6 +16,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
 import { ConditionalFieldsService } from './conditional-fields.service';
 import { IsGroupConfigPipe } from './is-group-config.pipe';
 import { FormGroupComponent } from './form-group/form-group.component';
+import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 
 @NgModule({
   imports: [
@@ -33,20 +33,20 @@ import { FormGroupComponent } from './form-group/form-group.component';
     DynamicFieldDirective,
     FieldContainerComponent,
     IsGroupConfigPipe,
-    FormArrayComponent,
     FormGroupComponent,
+    FormGroupListComponent,
   ],
   exports: [
     DynamicFormComponent,
     FormGroupComponent,
-    FormArrayComponent,
+    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
   ],
   entryComponents: [
     FormGroupComponent,
-    FormArrayComponent,
+    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
