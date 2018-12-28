@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AnyFieldConfig, DynamicFieldConfig } from '../dynamic-field-config';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { DynamicFieldConfig } from '../dynamic-field-config';
 import { Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'tft-field-container',
   templateUrl: './field-container.component.html',
-  styleUrls: ['./field-container.component.scss']
+  styleUrls: ['./field-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FieldContainerComponent implements OnInit {
   // the configuration object for the field

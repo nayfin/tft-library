@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ControlType, FormConfig, DynamicFieldConfig } from './dynamic-field-config';
+import { AnyFieldConfig } from 'tft-library/public_api';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,13 @@ export class DynamicFormService {
     return group;
   }
 
-  getControlForType(controlConfig: DynamicFieldConfig) {
+  getControlForType(controlConfig: DynamicFieldConfig | FormConfig) {
     // build form control out based on the control type
     return controlConfig.controlType === ControlType.GROUP ? this.buildFormGroupFromConfig(controlConfig as FormConfig)
       : controlConfig.controlType === ControlType.GROUP_LIST ? this.fb.array([])
       : this.fb.control(
-        controlConfig.value || null,
-        controlConfig.validators || null
-      );
+        (controlConfig as DynamicFieldConfig).value || null,
+        (controlConfig as DynamicFieldConfig).validators || null
+      ) ;
   }
 }

@@ -7,8 +7,8 @@ import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 
 interface DynamicFieldConfig {
-  controlType: string;
   controlName: string;
+  controlType: string;
   label?: string;
   placeholder?: string;
   classes?: string[];
@@ -22,7 +22,7 @@ interface DynamicFieldConfig {
 }
 
 interface FormConfig {
-  controlType: ControlType;
+  controlType?: ControlType;
   controlName: string;
   label?: string;
   fields: AnyFieldConfig[];

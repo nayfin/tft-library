@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormConfig } from './dynamic-field-config';
 import { DynamicFormService } from './dynamic-form.service';
@@ -6,6 +6,7 @@ import { DynamicFormService } from './dynamic-form.service';
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
   templateUrl: 'dynamic-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit {
   @Input() config: FormConfig;

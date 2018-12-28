@@ -5,7 +5,7 @@
 
   <div [formArrayName]="config.controlName">
 
-    <div *ngFor="let control of getFormArray(group, config.controlName).controls; let i = index;">
+    <div *ngFor="let control of formArray.controls; let i = index;">
       <div
         [formGroupName]="i">
         <ng-container

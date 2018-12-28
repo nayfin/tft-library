@@ -20,26 +20,22 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 export class MyDynamicFormComponent implements OnInit {
 
   // the config holds an array of configurations for the fields you want to create
-  // TODO: Figure out way to abstract the recursive types out of here
   config: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
     fields: [
+      // a basic input field in the form with the following configuration
       {
         controlType: ControlType.INPUT,
         label: 'Favorite Band',
         controlName: 'favoriteBand',
         placeholder: 'Favorite band',
-        flexLayoutConfig: {fxFlex: 40},
-        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-        // showField: this.firstNameIsNotBlank
       },
-      // configuration will create an input field in the form with the following configuration
+      // a form array of form groups
       {
         controlType: ControlType.GROUP_LIST,
         label: 'Test Form Array',
         controlName: 'testFormArray',
-        flexLayoutConfig: {fxFlex: 100},
         itemConfig: {
           controlType: ControlType.GROUP,
           controlName: 'arrayGroup',
@@ -50,9 +46,7 @@ export class MyDynamicFormComponent implements OnInit {
               label: 'Nested text input',
               controlName: 'arrayGroupInput',
               placeholder: 'Tell us about yourself...',
-              flexLayoutConfig: {fxFlex: 100},
-              // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-              // showField: this.firstNameIsNotBlank
+
             },
             {
               controlType: ControlType.INPUT,
@@ -61,9 +55,7 @@ export class MyDynamicFormComponent implements OnInit {
 
               controlName: 'arrayGroupNumber',
               placeholder: 'How many?',
-              flexLayoutConfig: {fxFlex: 100},
-              // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-              // showField: this.firstNameIsNotBlank
+
             },
           ]
         },
@@ -77,9 +69,7 @@ export class MyDynamicFormComponent implements OnInit {
             label: 'Nested input',
             controlName: 'nestedInput',
             placeholder: 'Favorite band',
-            flexLayoutConfig: {fxFlex: 100},
-            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
-            // showField: this.firstNameIsNotBlank
+
           },
           {
             controlType: ControlType.INPUT,
@@ -88,7 +78,6 @@ export class MyDynamicFormComponent implements OnInit {
             controlName: 'firstName',
             placeholder: 'Enter your first name',
             classes: [],
-            flexLayoutConfig: {fxFlex: 40},
             validators: [Validators.required],
           },
           // another input with conditional display logic
@@ -96,13 +85,12 @@ export class MyDynamicFormComponent implements OnInit {
           // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
           // ( form: FormGroup, config?: any ) => Observable<boolean>
           // you get the observable from form.get('someControlName').valueChanges
-          // as demonstrated in this.firstnameIsNotBlank, and implement below
+          // as demonstrated in this.firstnameIsNotBlank implemented below the class constructor
           {
             controlType: ControlType.INPUT,
             label: 'Last name',
             controlName: 'lastName',
             placeholder: 'Enter your last name',
-            flexLayoutConfig: {fxFlex: 40},
             // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
             showField: this.firstNameIsNotBlank
           },
@@ -112,7 +100,6 @@ export class MyDynamicFormComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
-        flexLayoutConfig: {fxFlex: 40},
         placeholder: 'Have you smoked in the last six months',
         // use the options$ parameter to easily tie to app state with an Obserbable
         options$: of([
@@ -124,7 +111,6 @@ export class MyDynamicFormComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in by a function that returns a promise that resolves to an array',
         controlName: 'isSmokerPromise',
-        flexLayoutConfig: {fxFlex: 40},
         classes: [], // TODO: configure class to highlight correct answer
         placeholder: 'What is best',
         // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
@@ -145,7 +131,6 @@ export class MyDynamicFormComponent implements OnInit {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in as an array',
         controlName: 'isSmokerArray',
-        flexLayoutConfig: {fxFlex: 40},
         placeholder: 'Have you smoked in the last six months',
         // or just pass in a simple array of options
         options: [
@@ -162,7 +147,6 @@ export class MyDynamicFormComponent implements OnInit {
         label: 'Smoking Regularity',
         controlName: 'smokingRegularity',
         placeholder: 'Packs per week',
-        flexLayoutConfig: {fxFlex: 40},
         // showField again but this time using a helper function from the conditionalFields service
         // this expects a form: FormGroup and config that descibes what control to watch
         showField: this.conditionalFields.watchControlForValues,

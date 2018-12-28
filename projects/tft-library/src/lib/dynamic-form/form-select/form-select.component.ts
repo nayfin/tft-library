@@ -2,13 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DEFAULT_EMPTY_OPTIONS_MESSAGE } from './select-field-config';
 import { SelectFieldConfig, SelectOption } from './select-field-config';
-import { Observable } from 'rxjs';
-// import { Observable } from 'rxjs';
 
 @Component({
   selector: 'tft-form-select',
   templateUrl: './form-select.component.html',
   styleUrls: ['./form-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormSelectComponent implements OnInit {
 
