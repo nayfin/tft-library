@@ -33,7 +33,7 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
-### DynamicFormModule ( BETA: Regular breaking changes until stabilized. ETA: late October )
+### DynamicFormModule ( BETA: Regular breaking changes until stabilized. ETA: late 2019 )
 
 
 A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto, then expanded to enable recursively nested formGroups and conditionally showing form fields, and add Material Design components. More features to come
@@ -75,96 +75,137 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
   styleUrls: ['./dynamic-form.component.scss']
 })
 export class DynamicFormComponent implements OnInit {
-  // configuration object used to build out form
+  // the config holds an array of configurations for the fields you want to create
   config: FormConfig = {
-    controlType: 'group',
+    controlType: ControlType.GROUP,
     controlName: 'myForm',
-    // the fields array holds an array of configurations for the fields you want to create, including nested form group configs
     fields: [
+      // a basic input field in the form with the following configuration
       {
         controlType: ControlType.INPUT,
-        label: 'First name',
-        inputType: 'text',
-        controlName: 'firstName',
-        placeholder: 'Enter your first name',
-        classes: [],
-        flexLayoutConfig: {fxFlex: 40},
-        validators: [Validators.required],
+        label: 'Favorite Band',
+        controlName: 'favoriteBand',
+        placeholder: 'Favorite band',
       },
-      // an input with conditional display logic
-      // the showField parameter takes a function that that returns an observable that resolve to a boolean
-      // you get the observable from form.get('someControlName').valueChanges
-      // as demonstrated in this.firstnameIsNotBlank defined below
+      // a form array of form groups
       {
-        controlType: ControlType.INPUT,
-        label: 'Last name',
-        controlName: 'lastName',
-        placeholder: 'Enter your last name',
-        flexLayoutConfig: {fxFlex: 40},
-        showField: this.firstNameIsNotBlank
+        controlType: ControlType.GROUP_LIST,
+        label: 'Test Form Array',
+        controlName: 'testFormArray',
+        itemLabelBuilder: (index: number) => {
+          return `This is item number ${index}`;
+        },
+        itemConfig: {
+          controlType: ControlType.GROUP,
+          controlName: 'arrayGroup',
+          fields: [
+            // configuration will create an input field in the form with the following configuration
+            {
+              controlType: ControlType.INPUT,
+              label: 'Nested text input',
+              controlName: 'arrayGroupInput',
+              placeholder: 'Tell us about yourself...',
+
+            },
+            {
+              controlType: ControlType.INPUT,
+              label: 'Nested number input',
+              inputType: 'number',
+
+              controlName: 'arrayGroupNumber',
+              placeholder: 'How many?',
+
+            },
+          ]
+        },
       },
       {
         controlType: ControlType.GROUP,
-        controlName: 'nestedGroup',
+        controlName: 'testNestedGroup',
         fields: [
           {
-            controlType: 'input',
+            controlType: ControlType.INPUT,
             label: 'Nested input',
             controlName: 'nestedInput',
             placeholder: 'Favorite band',
-            flexLayoutConfig: {fxFlex: 40},
-          }
+
+          },
+          {
+            controlType: ControlType.INPUT,
+            label: 'test input number',
+            inputType: 'number',
+            controlName: 'firstName',
+            placeholder: 'Enter your first name',
+            classes: [],
+            validators: [Validators.required],
+          },
+          // another input with conditional display logic
+          // the showField parameter takes a function that that returns an observable that resolve to a boolean
+          // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
+          // ( form: FormGroup, config?: any ) => Observable<boolean>
+          // you get the observable from form.get('someControlName').valueChanges
+          // as demonstrated in this.firstnameIsNotBlank implemented below the class constructor
+          {
+            controlType: ControlType.INPUT,
+            label: 'Last name',
+            controlName: 'lastName',
+            placeholder: 'Enter your last name',
+            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            showField: this.firstNameIsNotBlank
+          },
         ],
-      },
-      {
-        controlType: ControlType.SELECT,
-        label: 'Select with options passed in as an array',
-        controlName: 'isSmokerArray',
-        flexLayoutConfig: {fxFlex: 40},
-        placeholder: 'Have you smoked in the last six months',
-        options: [
-          {label: 'YES', value: 'yes'},
-          {label: 'NO',  value: 'no'}
-        ]
       },
       {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
-        flexLayoutConfig: {fxFlex: 40},
         placeholder: 'Have you smoked in the last six months',
+        // use the options$ parameter to easily tie to app state with an Obserbable
         options$: of([
-          {label: 'Yes', value: 'yes'},
-          {label: 'No', value: 'no'}
+          { label: 'Yes', value: 'yes' },
+          { label: 'No',  value: 'no'  }
         ])
       },
       {
         controlType: ControlType.SELECT,
         label: 'Select with options passed in by a function that returns a promise that resolves to an array',
-        controlName: 'isSmokerPromis',
-        flexLayoutConfig: {fxFlex: 40},
-        placeholder: 'Have you smoked in the last six months',
+        controlName: 'isSmokerPromise',
+        classes: [], // TODO: configure class to highlight correct answer
+        placeholder: 'What is best',
+        // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
         optionsCallback: () => {
           return new Promise( (resolve, reject) => {
+            // make an http request here
             setTimeout( () => {
               resolve([
-                {label: 'Yes', value: 'yes'},
-                {label: 'No', value: 'no'}
+                {label: 'BLUE',     value: false } ,
+                {label: 'DR. DOG',  value: true  },
+                {label: 'GOLD',     value: false }
               ]);
-
             }, 5000);
           });
         }
       },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Select with options passed in as an array',
+        controlName: 'isSmokerArray',
+        placeholder: 'Have you smoked in the last six months',
+        // or just pass in a simple array of options
+        options: [
+          {label: 'YES', value: 'yes'},
+          {label: 'NO',  value: 'no'}
+        ]
+      },
+
       // this control only shows when 'isSmoker' control has value of 'yes'
-      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to simplify process of checking form fields for values
+      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
       {
         controlType: ControlType.INPUT,
         inputType: 'number',
         label: 'Smoking Regularity',
         controlName: 'smokingRegularity',
         placeholder: 'Packs per week',
-        flexLayoutConfig: {fxFlex: 40},
         // showField again but this time using a helper function from the conditionalFields service
         // this expects a form: FormGroup and config that descibes what control to watch
         showField: this.conditionalFields.watchControlForValues,
@@ -196,7 +237,7 @@ export class DynamicFormComponent implements OnInit {
     console.log('formValue', formValue);
   }
   /**
-   * example of how to build a custom function that returns an Observable that resolves to a boolean
+   * example of how to build a custom function that returns an Observable that resolves a boolean
    *
    * notice lack of subcribe() call, the field component manages subcription for you
    * @param form entire form, used to grab the firstName formControl and listen for changes

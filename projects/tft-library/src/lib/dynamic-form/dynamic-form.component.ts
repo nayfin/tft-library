@@ -23,8 +23,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.submitted.emit({
-      form: this.form
-    });
+    this.submitted.emit(this.form);
   }
 }
