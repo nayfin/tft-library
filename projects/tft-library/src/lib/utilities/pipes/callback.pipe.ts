@@ -16,8 +16,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CallbackPipe implements PipeTransform {
 
   transform(value: any | any[], callback: PipeCallback ): any {
-    // check that parameters exist
-    if (!value || !callback) { return ''; }
+    // check that parameters exist, but accept 0 as a value
+    if ((!value && value !== 0) || !callback) { return ''; }
     // if value is an array, spread into callback arguments
     if (Array.isArray(value)) {
       return callback(...value);

@@ -6,6 +6,8 @@
   <div [formArrayName]="config.controlName">
 
     <div *ngFor="let control of formArray.controls; let i = index;">
+      <!-- TODO: use content projection to allow custom item label component -->
+      <h3 class="mat-h3" *ngIf="config.itemLabelBuilder"> {{ i | callback : config.itemLabelBuilder }} </h3>
       <div
         [formGroupName]="i">
         <ng-container

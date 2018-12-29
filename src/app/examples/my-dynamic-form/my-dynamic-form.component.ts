@@ -36,6 +36,9 @@ export class MyDynamicFormComponent implements OnInit {
         controlType: ControlType.GROUP_LIST,
         label: 'Test Form Array',
         controlName: 'testFormArray',
+        itemLabelBuilder: (index: number) => {
+          return `This is item number ${index}`;
+        },
         itemConfig: {
           controlType: ControlType.GROUP,
           controlName: 'arrayGroup',
