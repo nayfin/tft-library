@@ -30,6 +30,7 @@ import {
   MatExpansionModule,
   MatPaginatorModule,
   MatBadgeModule,
+  MatTableModule,
 } from '@angular/material';
 
 const TFT_DESIGN_MODULES = [
@@ -62,6 +63,7 @@ const TFT_DESIGN_MODULES = [
   MatSnackBarModule,
   MatExpansionModule,
   MatBadgeModule,
+  MatTableModule
   // DragDropModule
 ];
 
