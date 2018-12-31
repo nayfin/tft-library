@@ -5,5 +5,4 @@ export interface FormGroupListConfig extends DynamicFieldConfig {
   itemConfig: FormConfig;
   addItemLabel?: string;
   itemLabelBuilder?: (index: number) => string;
-  values?: any[];
 }

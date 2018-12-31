@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'tft-field-container',
   templateUrl: './field-container.component.html',
   styleUrls: ['./field-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FieldContainerComponent implements OnInit {
   // the configuration object for the field

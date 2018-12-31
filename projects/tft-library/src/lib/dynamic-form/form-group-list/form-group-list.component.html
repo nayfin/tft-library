@@ -4,8 +4,7 @@
   [formGroup]="group">
 
   <div [formArrayName]="config.controlName">
-
-    <div *ngFor="let control of formArray.controls; let i = index;">
+    <div *ngFor="let control of this.formArray.controls; let i = index;">
       <!-- TODO: use content projection to allow custom item label component -->
       <h3 class="mat-h3" *ngIf="config.itemLabelBuilder"> {{ i | callback : config.itemLabelBuilder }} </h3>
       <div
@@ -23,7 +22,7 @@
   <button
     type="button"
     mat-raised-button
-    (click)="addControl()">
+    (click)="addGroup()">
     {{addItemLabel}}
   </button>
 

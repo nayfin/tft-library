@@ -6,10 +6,11 @@ import { DynamicFormService } from './dynamic-form.service';
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
   templateUrl: 'dynamic-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit {
   @Input() config: FormConfig;
+  @Input() value: any = null;
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
@@ -19,7 +20,7 @@ export class DynamicFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form = this.dynamicFormService.buildFormGroupFromConfig(this.config);
+    this.form = this.dynamicFormService.buildFormGroupFromConfig(this.config, this.value);
   }
 
   handleSubmit() {

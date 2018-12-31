@@ -19,6 +19,27 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 })
 export class MyDynamicFormComponent implements OnInit {
 
+  value = {
+    favoriteBand: 'Dr. Dog',
+    testFormArray: [
+      {
+        arrayGroupInput: 'Old Navy',
+        arrayGroupNumber: 89
+      },
+      {
+        arrayGroupInput: 'New Navy',
+        arrayGroupNumber: 45
+      }
+    ],
+    testNestedGroup: {
+      nestedInput: 'POTUS',
+      firstName: 'alfed'
+    },
+    isSmokerArray: 'no',
+    isSmokerObservable: 'yes',
+    isSmokerPromise: 'blue'
+  };
+
   // the config holds an array of configurations for the fields you want to create
   config: FormConfig = {
     controlType: ControlType.GROUP,
@@ -55,10 +76,8 @@ export class MyDynamicFormComponent implements OnInit {
               controlType: ControlType.INPUT,
               label: 'Nested number input',
               inputType: 'number',
-
               controlName: 'arrayGroupNumber',
               placeholder: 'How many?',
-
             },
           ]
         },
@@ -76,8 +95,7 @@ export class MyDynamicFormComponent implements OnInit {
           },
           {
             controlType: ControlType.INPUT,
-            label: 'test input number',
-            inputType: 'number',
+            label: 'First Name',
             controlName: 'firstName',
             placeholder: 'Enter your first name',
             classes: [],
@@ -122,9 +140,9 @@ export class MyDynamicFormComponent implements OnInit {
             // make an http request here
             setTimeout( () => {
               resolve([
-                {label: 'BLUE',     value: false } ,
-                {label: 'DR. DOG',  value: true  },
-                {label: 'GOLD',     value: false }
+                {label: 'BLUE',     value: 'blue' } ,
+                {label: 'DR. DOG',  value: 'dr. dog'  },
+                {label: 'GOLD',     value: 'gold' }
               ]);
             }, 5000);
           });
@@ -154,7 +172,7 @@ export class MyDynamicFormComponent implements OnInit {
         // this expects a form: FormGroup and config that descibes what control to watch
         showField: this.conditionalFields.watchControlForValues,
         // and the corresponding configuration
-        // when this function get called on the generated component,
+        // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
         displayConfig: {

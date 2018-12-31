@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray, FormControl } from '@angular/forms';
 
 import { DynamicFormService } from '../dynamic-form.service';
 import { FormGroupListConfig } from './form-group-list.config';
@@ -8,7 +8,7 @@ import { FormGroupListConfig } from './form-group-list.config';
   selector: 'tft-form-group-list',
   templateUrl: './form-group-list.component.html',
   styleUrls: ['./form-group-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormGroupListComponent implements OnInit {
 
@@ -30,8 +30,8 @@ export class FormGroupListComponent implements OnInit {
     return group.get(controlName) as FormArray;
   }
 
-  addControl() {
-    this.formArray.push(this.dynamicFormService.getControlForType(this.config.itemConfig));
+  addGroup(value = null) {
+    this.formArray.push( this.dynamicFormService.getControlForType(this.config.itemConfig, value) );
   }
 }
 

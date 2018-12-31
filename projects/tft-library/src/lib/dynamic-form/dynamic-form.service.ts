@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormArray } from '@angular/forms';
 import { ControlType, FormConfig, DynamicFieldConfig, AnyFieldConfig, FormGroupListConfig } from './dynamic-field-config';
 
 @Injectable({
@@ -11,23 +11,33 @@ export class DynamicFormService {
     private fb: FormBuilder,
   ) { }
 
-  buildFormGroupFromConfig(config: FormConfig) {
+  buildFormGroupFromConfig(config: FormConfig, value: any = null) {
     const group = this.fb.group({});
 
-    config.fields.forEach( (controlConfig: any) => {
+    config.fields.forEach( (controlConfig: AnyFieldConfig) => {
+      // if it's not a button config
+      if (controlConfig.controlType !== ControlType.BUTTON) {
       // then add a control to the group using the controlName from configuration
-      group.addControl(controlConfig.controlName, this.getControlForType(controlConfig));
+        const controlValue = value && value[controlConfig.controlName] ? value[controlConfig.controlName] : null;
+        group.addControl(controlConfig.controlName, this.getControlForType(controlConfig, controlValue));
+      }
     });
     return group;
   }
 
-  getControlForType(controlConfig: AnyFieldConfig) {
+  getControlForType(controlConfig: AnyFieldConfig, value: any) {
     // build form control out based on the control type
-    return controlConfig.controlType === ControlType.GROUP ? this.buildFormGroupFromConfig(controlConfig as FormConfig)
-      : controlConfig.controlType === ControlType.GROUP_LIST ? this.fb.array((controlConfig as FormGroupListConfig).values || [])
+    const control = controlConfig.controlType === ControlType.GROUP ? this.buildFormGroupFromConfig(controlConfig as FormConfig, value)
+      : controlConfig.controlType === ControlType.GROUP_LIST ? this.fb.array([])
       : this.fb.control(
-        (controlConfig as DynamicFieldConfig).value || null,
+        value || null,
         (controlConfig as DynamicFieldConfig).validators || null
-      ) ;
+      );
+    if (controlConfig.controlType === ControlType.GROUP_LIST && Array.isArray(value)) {
+      value.forEach( item => {
+        (control as FormArray).push( this.getControlForType((controlConfig as FormGroupListConfig).itemConfig, item));
+      });
+    }
+    return control;
   }
 }
