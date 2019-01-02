@@ -20,10 +20,31 @@ export class DynamicFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // build out the form and set it on the class
     this.form = this.dynamicFormService.buildFormGroupFromConfig(this.config, this.value);
+    // If values are passed in trigger onChanges on each control so that showField controlled fields respond appropriately
+    if (this.value) {
+      setTimeout( () => {
+        this.triggerOnChangesForChildren(this.form);
+      });
+    }
   }
 
   handleSubmit() {
     this.submitted.emit(this.form);
+  }
+  /**
+   * Runs through a FormGroup controls recursively triggering valueChanges on all descendants controls
+   * @param formGroup formGroup that needs all its controls to have valueChanges triggered
+   */
+  triggerOnChangesForChildren( formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach( (controlName) => {
+      const control = formGroup.get(controlName);
+      control.updateValueAndValidity({emitEvent: true, onlySelf: true});
+      // if the control is a formGroup or FormArray dig in recursively
+      if (!!control.hasOwnProperty('controls')) {
+        this.triggerOnChangesForChildren((control as FormGroup) );
+      }
+    });
   }
 }

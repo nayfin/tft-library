@@ -20,7 +20,7 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 export class MyDynamicFormComponent implements OnInit {
 
   value = {
-    favoriteBand: 'Dr. Dog',
+    firstName: 'Nayfin',
     testFormArray: [
       {
         arrayGroupInput: 'Old Navy',
@@ -35,7 +35,7 @@ export class MyDynamicFormComponent implements OnInit {
       nestedInput: 'POTUS',
       firstName: 'alfed'
     },
-    isSmokerArray: 'no',
+    isSmokerArray: 'yes',
     isSmokerObservable: 'yes',
     isSmokerPromise: 'blue'
   };
@@ -48,9 +48,25 @@ export class MyDynamicFormComponent implements OnInit {
       // a basic input field in the form with the following configuration
       {
         controlType: ControlType.INPUT,
-        label: 'Favorite Band',
-        controlName: 'favoriteBand',
-        placeholder: 'Favorite band',
+        label: 'First Name',
+        controlName: 'firstName',
+        placeholder: 'Enter your first name',
+        classes: [],
+        validators: [Validators.required],
+      },
+      // another input with conditional display logic
+      // the showField parameter takes a function that that returns an observable that resolve to a boolean
+      // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
+      // ( form: FormGroup, config?: any ) => Observable<boolean>
+      // you get the observable from form.get('someControlName').valueChanges
+      // as demonstrated in this.firstnameIsNotBlank implemented below the class constructor
+      {
+        controlType: ControlType.INPUT,
+        label: 'Last name',
+        controlName: 'lastName',
+        placeholder: 'Enter your last name',
+        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+        showField: this.firstNameIsNotBlank
       },
       // a form array of form groups
       {
@@ -84,6 +100,7 @@ export class MyDynamicFormComponent implements OnInit {
       },
       {
         controlType: ControlType.GROUP,
+        label: 'Nested Group',
         controlName: 'testNestedGroup',
         fields: [
           {
