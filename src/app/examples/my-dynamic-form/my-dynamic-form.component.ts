@@ -36,7 +36,7 @@ export class MyDynamicFormComponent implements OnInit {
       firstName: 'alfed'
     },
     isSmokerArray: 'yes',
-    isSmokerObservable: 'yes',
+    isSmokerObservable: ['yes'],
     isSmokerPromise: 'blue'
   };
 
@@ -139,6 +139,7 @@ export class MyDynamicFormComponent implements OnInit {
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
         placeholder: 'Have you smoked in the last six months',
+        multiple: true,
         // use the options$ parameter to easily tie to app state with an Obserbable
         options$: of([
           { label: 'Yes', value: 'yes' },

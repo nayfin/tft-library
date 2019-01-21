@@ -6,8 +6,7 @@
     [formGroup]="group">
      <mat-select
       [formControlName]="config.controlName"
-      [placeholder]="config.placeholder"
-      [multiple]="config.multiple">
+      [placeholder]="config.placeholder">
       <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
 
       <ng-container *ngIf="config.options$ | async as options$; else selectOptions">

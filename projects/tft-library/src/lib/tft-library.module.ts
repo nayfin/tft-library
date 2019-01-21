@@ -6,7 +6,6 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 import { UtilitiesModule } from './utilities/utilities.module';
 import { FileUploadModule } from './file-upload/file-upload.module';
 
-
 const MODULES = [
   CoreModule,
   DesignModule,
