@@ -39,7 +39,7 @@ cd 'projects/tft-library' && npm version "${update_type}" && cd ../../
 #  build the library and prepare to publish
 npm run package
 # copy schematics into npm package
-cp -r ./projects/tft-library-schematics ./dist/
+cp -r ./projects/tft-library-schematics ./dist/tft-library
 
 npm publish dist/tft-library
 
