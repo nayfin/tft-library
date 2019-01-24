@@ -1,0 +1,7 @@
+<<%= selector %>-form
+  (formSubmitted)="create<%= classify(name) %>($event)"
+  [<%= singular(camelize(name)) %>]="new<%= singular(classify(name)) %>">
+  <h2 class="mat-h2 title"> Create new <%= classify(name) %></h2>
+  <p class="mat-p title"> Copy of {{copied<%= singular(classify(name)) %>.name}}</p>
+
+</<%= selector %>-form>

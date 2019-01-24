@@ -1,0 +1,48 @@
+<ng-template #loading>Loading...</ng-template>
+
+<h2 class="mat-h2"> <%= singular(camelize(name)) %> List </h2>
+<div class="mat-elevation-z8 <%= dasherize(name) %>-list">
+  <table mat-table [dataSource]="<%= camelize(name) %>$ | async">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let <%= singular(camelize(name)) %>"> {{<%= singular(camelize(name)) %>.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let <%= singular(camelize(name)) %>"> {{<%= singular(camelize(name)) %>.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let <%= singular(camelize(name)) %>">
+        <button
+          mat-icon-button
+          (click)="edit(<%= singular(camelize(name)) %>.id)"
+          matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="remove(<%= singular(camelize(name)) %>.id)"
+          matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="copy(<%= singular(camelize(name)) %>.id)"
+          matTooltip="Copy and modify">
+          <mat-icon>filter_none</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-card>
+    <button mat-raised-button (click)="add<%= singular(camelize(name)) %>()">
+      ADD <%= singular(classify(name)) %>
+    </button>
+  </mat-card>
+</div>

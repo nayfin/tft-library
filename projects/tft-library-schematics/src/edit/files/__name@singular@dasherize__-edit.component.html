@@ -1,0 +1,5 @@
+<<%= selector %>-form
+  (formSubmitted)="update<%= classify(name) %>($event)"
+  [<%= singular(camelize(name)) %>]="<%= singular(camelize(name)) %>">
+  <h2 class="title"> Edit <%= classify(name) %></h2>
+</<%= selector %>-form>

@@ -1,0 +1,89 @@
+{
+  "extends": ["@schematics/angular"],
+  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "feature": {
+      "aliases": ["af"],
+      "factory": "./feature",
+      "schema": "./feature/schema.json",
+      "description": "Add feature state"
+    },
+    "store": {
+      "aliases": ["as"],
+      "description": "A store",
+      "factory": "./store/index",
+      "schema": "./store/schema.json"
+    },
+    "query": {
+      "aliases": ["aq"],
+      "description": "A query",
+      "factory": "./query/index",
+      "schema": "./query/schema.json"
+    },
+    "entity-store": {
+      "aliases": ["aes"],
+      "description": "An entity store",
+      "factory": "./entity-store/index",
+      "schema": "./entity-store/schema.json"
+    },
+    "entity-query": {
+      "aliases": ["aeq"],
+      "description": "An entity query",
+      "factory": "./entity-query/index",
+      "schema": "./entity-query/schema.json"
+    },
+    "model": {
+      "aliases": ["am"],
+      "description": "A model",
+      "factory": "./model/index",
+      "schema": "./model/schema.json"
+    },
+    "service": {
+      "aliases": ["asr"],
+      "description": "A service",
+      "factory": "./service/index",
+      "schema": "./service/schema.json"
+    },
+    "withModule": {
+      "description": "A module",
+      "factory": "./module/index",
+      "schema": "./module/schema.json"
+    },
+    "withComponent": {
+      "aliases": ["cml"],
+      "description": "A component",
+      "factory": "./component/index",
+      "schema": "./component/schema.json"
+    },
+    "list": {
+      "description": "A list design to facilitate content management",
+      "factory": "./list/index",
+      "schema": "./list/schema.json"
+    },
+    "new": {
+      "description": "A new item form designed to reduce content management boilerplate",
+      "factory": "./new/index",
+      "schema": "./new/schema.json"
+    },
+    "edit": {
+      "description": "A edit item form designed to reduce content management boilerplate",
+      "factory": "./edit/index",
+      "schema": "./edit/schema.json"
+    },
+    "copy": {
+      "description": "A copy item form designed to reduce content management boilerplate",
+      "factory": "./copy/index",
+      "schema": "./copy/schema.json"
+    },
+    "form": {
+      "description": "A dumb form designed to take an initial form value and emit the form on submission",
+      "factory": "./form/index",
+      "schema": "./form/schema.json"
+    },
+    "state-barrel": {
+      "description": "A barrel for exporting the state",
+      "factory": "./state-barrel/index",
+      "schema": "./state-barrel/schema.json"
+    }
+  }
+}

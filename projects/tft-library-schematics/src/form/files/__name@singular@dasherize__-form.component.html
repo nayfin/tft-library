@@ -1,0 +1,11 @@
+<mat-card>
+  <ng-content selector=".title"></ng-content>
+  <tft-dynamic-form
+    [config]="<%= singular(camelize(name)) %>Config"
+    (submitted)="onSubmit($event)"
+    [value]="<%= singular(camelize(name)) %>">
+  </tft-dynamic-form>
+  <pre>
+    {{  <%= singular(camelize(name)) %> | json }}
+  </pre>
+</mat-card>

@@ -34,15 +34,16 @@ then
   echo "Not a valid semantic update, try 'patch', 'minor', or 'major'"
   exit 1
 fi
-
+# go into the library, bump the version according to update type then get out
 cd 'projects/tft-library' && npm version "${update_type}" && cd ../../
-
+#  build the library and prepare to publish
 npm run package
+# copy schematics into npm package
+cp -r ../projects/tft-library-schematics ../dist/
 
-# TODO: Maybe pass algolia image with library 'assets/images/, maybe serve from cdn
 npm publish dist/tft-library
 
-# TODO: 
+# TODO:
 # # replace package.json with next version
 # # sed -i.bak "s/${actual_version}/${next_version}/g" src/version.ts
 # # sed -i.bak "s/${actual_version}/${next_version}/g" dist/package.json
