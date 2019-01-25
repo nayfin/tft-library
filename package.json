@@ -14,7 +14,7 @@
     "npm-pack": "cd dist/tft-library && npm pack",
     "package": "npm run build-lib && npm run npm-pack && npm run schematics:build",
     "release": "bash ./scripts/release.sh",
-    "schematics:build": "tsc -p projects/tft-library-schematics/tsconfig.json",
+    "schematics:build": "tsc -p projects/tft-library/tsconfig.schematics.json",
     "compodoc:lib": "compodoc -p projects/tft-library/tsconfig.lib.json -s -o -w",
     "compodoc:app": "./node_modules/.bin/compodoc -p src/tsconfig.app.json -s --port 8081"
   },

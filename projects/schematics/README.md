@@ -22,8 +22,6 @@ add it to your `angular.json`:
 ng config cli.defaultCollection tft-library-schematics
 ```
 
-The [collection schema](https://github.com/datorama/tft-library-schematics/blob/master/src/collection.json) also has aliases to the most common schematics used to generate files.
-
 The `tft-library-schematics` extend the default `@schematics/angular` collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from `@schematics/angular` to `tft-library-schematics` in `angular.json`:
 
 ```json
