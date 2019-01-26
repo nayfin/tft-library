@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "../schematics",
+    "rootDir": "./schematics",
     "outDir": "../../dist/tft-library/schematics",
     "lib": ["es2017", "dom"],
     "declaration": true,
@@ -21,6 +21,6 @@
     "target": "es6",
     "types": ["node"]
   },
-  "include": ["../schematics/src/**/*"],
-  "exclude": ["../schematics/src/**/*.test.ts", "../schematics/src/*/files/**/*"]
+  "include": ["./schematics/**/*"],
+  "exclude": ["./schematics/**/*.test.ts", "./schematics/*/files/**/*"]
 }
