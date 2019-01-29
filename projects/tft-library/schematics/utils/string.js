@@ -124,4 +124,3 @@ function featurePath(group, flat, path, name) {
     return group ? `../${path}/` : './';
 }
 exports.featurePath = featurePath;
-//# sourceMappingURL=string.js.map

@@ -144,4 +144,3 @@ function default_1(options) {
     };
 }
 exports.default = default_1;
-//# sourceMappingURL=index.js.map

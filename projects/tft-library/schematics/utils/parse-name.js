@@ -14,4 +14,3 @@ function parseName(options) {
     };
 }
 exports.parseName = parseName;
-//# sourceMappingURL=parse-name.js.map

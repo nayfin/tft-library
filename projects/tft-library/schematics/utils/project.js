@@ -28,4 +28,3 @@ function isWorkspaceSchema(workspace) {
     return !!(workspace && workspace.projects);
 }
 exports.isWorkspaceSchema = isWorkspaceSchema;
-//# sourceMappingURL=project.js.map

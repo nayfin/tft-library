@@ -18,4 +18,3 @@ exports.stringUtils = {
     featurePath: string_1.featurePath,
     singular: string_1.singular
 };
-//# sourceMappingURL=index.js.map

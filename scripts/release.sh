@@ -38,12 +38,15 @@ fi
 cd 'projects/tft-library' && npm version "${update_type}" && cd ../../
 #  build the library and prepare to publish
 npm run package
+# TODO: use webpack for this stuff?
 # copy schematics into dist folder before publishing
+cp -r ./projects/tft-library/schematics ./dist/tft-library
+# copy collection configuration into dist folder before publishing
 cp ./projects/tft-library/schematics/collection.json ./dist/tft-library
 # share it
 npm publish dist/tft-library
 
-# TODO:
+# TODO: implement or delete below scripts
 # # replace package.json with next version
 # # sed -i.bak "s/${actual_version}/${next_version}/g" src/version.ts
 # # sed -i.bak "s/${actual_version}/${next_version}/g" dist/package.json

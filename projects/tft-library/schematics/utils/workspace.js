@@ -17,4 +17,3 @@ function getWorkspace(host) {
     return JSON.parse(config);
 }
 exports.getWorkspace = getWorkspace;
-//# sourceMappingURL=workspace.js.map
