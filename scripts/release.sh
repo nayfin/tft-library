@@ -42,7 +42,7 @@ npm run package
 # copy schematics into dist folder before publishing
 cp -r ./projects/tft-library/schematics ./dist/tft-library
 # copy collection configuration into dist folder before publishing
-cp ./projects/tft-library/schematics/collection.json ./dist/tft-library
+cp ./projects/tft-library/collection.json ./dist/tft-library
 # share it
 npm publish dist/tft-library
 
