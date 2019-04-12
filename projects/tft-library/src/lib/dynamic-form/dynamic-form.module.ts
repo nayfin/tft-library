@@ -17,6 +17,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
 import { ConditionalFieldsService } from './conditional-fields.service';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
+import { ValidationHandlingModule } from '../validation-handling/public_api';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { FormGroupListComponent } from './form-group-list/form-group-list.compon
     ReactiveFormsModule,
     DesignModule,
     CoreModule,
-    UtilitiesModule
+    UtilitiesModule,
+    ValidationHandlingModule,
   ],
   declarations: [
     DynamicFormComponent,

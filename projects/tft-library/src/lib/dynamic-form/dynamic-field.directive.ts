@@ -6,8 +6,6 @@ import { FormSelectComponent } from './form-select/form-select.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { FormGroupComponent } from './form-group/form-group.component';
 
-
-
 const components = {
   button: FormButtonComponent,
   input: FormInputComponent,
