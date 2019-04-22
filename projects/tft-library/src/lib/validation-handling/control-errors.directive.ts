@@ -4,7 +4,7 @@ import {
 import { NgControl } from '@angular/forms';
 import { Subscription, EMPTY, Observable, merge, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { FORM_ERRORS } from './form-errors';
+import { defaultErrors, ErrorDictionary } from './form-errors';
 import { FormSubmitDirective } from './form-submit.directive';
 import { ControlErrorComponent } from './control-error/control-error.component';
 import { ControlErrorContainerDirective } from './control-error-container.directive';
@@ -21,7 +21,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   submit$: Observable<{}>;
   blur$ = new Subject();
   subs: Subscription[] = [];
-
+  errors: ErrorDictionary;
   // we need to make our own Observable of the blur event as it's not provided by the formControl
   @HostListener('blur')
   handleBlur() {
@@ -30,14 +30,16 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   constructor(
     @Self() private control: NgControl,
-    @Optional() @Host() private form: FormSubmitDirective,
+    @Optional() private form: FormSubmitDirective,
     @Optional() controlErrorContainer: ControlErrorContainerDirective,
-    @Inject(FORM_ERRORS) private errors,
     private vcr: ViewContainerRef,
     private resolver: ComponentFactoryResolver,
   ) {
-    this.submit$ = this.form ? this.form.submit$ : EMPTY;
+    this.submit$ = form ? form.submit$ : EMPTY;
     this.container = controlErrorContainer ? controlErrorContainer.vcr : vcr;
+    this.errors = form && form.errorDictionary
+      ? { ...defaultErrors, ...form.errorDictionary}
+      : defaultErrors;
   }
 
   ngOnInit() {
@@ -47,10 +49,10 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
         this.blur$,
         this.control.valueChanges
       ).pipe(
-        this.handleErrors(),
-        tap( errorMessage => {
+        tap( event => {
+          const errorMessage = this.handleErrors();
           // prevents displaying error messages before user interaction
-          if (this.control.touched) {
+          if (this.control.touched || event === 'submitted') {
             this.setError(errorMessage);
           }
         })
@@ -71,7 +73,6 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
 
   handleErrors() {
-    return map(() => {
       const controlErrors = this.control.errors;
       if (controlErrors) {
         const firstKey = Object.keys(controlErrors)[0];
@@ -81,7 +82,6 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
       } else {
         return null;
       }
-    });
   }
 }
 

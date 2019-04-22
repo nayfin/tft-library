@@ -44,6 +44,9 @@ export class MyDynamicFormComponent implements OnInit {
   config: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
+    errorDictionary: {
+      'required': () => 'testing'
+    },
     fields: [
       // a basic input field in the form with the following configuration
       {

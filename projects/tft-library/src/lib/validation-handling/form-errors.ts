@@ -1,8 +1,9 @@
-import { InjectionToken } from '@angular/core';
+interface ErrorDictionary { [key: string]: ErrorFactory; }
 
+type ErrorFactory = (...args: any[]) => string;
 
-export const defaultErrors = {
-  default: 'A default error occurred',
+export const defaultErrors: ErrorDictionary = {
+  default: () => `A default error occurred`,
   required: () => `This field is required`,
   // TODO: the below error won't called unless using a custom validator
   // We are hoping that the @angular/forms team will accept our proposal to rename key in error object
@@ -15,9 +16,4 @@ export const defaultErrors = {
   pattern: ({requiredPattern, actualValue}) => `${actualValue} fails to match pattern ${requiredPattern}`,
 };
 
-export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
-  providedIn: 'root',
-  factory: () => defaultErrors
-});
-
-
+export { ErrorDictionary, ErrorFactory };

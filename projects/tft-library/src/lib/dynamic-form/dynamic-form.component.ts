@@ -9,12 +9,13 @@ import { DynamicFormService } from './dynamic-form.service';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit {
+
+  form: FormGroup;
   @Input() config: FormConfig;
   @Input() value: any = null;
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
-  form: FormGroup;
   constructor(
     private dynamicFormService: DynamicFormService
   ) { }
