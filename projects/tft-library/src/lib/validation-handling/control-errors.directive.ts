@@ -1,8 +1,8 @@
 import {
   Directive, Self, OnInit, OnDestroy, Optional, Host,
-  ComponentRef, ComponentFactoryResolver, ViewContainerRef, Inject } from '@angular/core';
+  ComponentRef, ComponentFactoryResolver, ViewContainerRef, Inject, HostListener } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subscription, EMPTY, Observable, merge } from 'rxjs';
+import { Subscription, EMPTY, Observable, merge, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { FORM_ERRORS } from './form-errors';
 import { FormSubmitDirective } from './form-submit.directive';
@@ -12,15 +12,21 @@ import { ControlErrorContainerDirective } from './control-error-container.direct
 @Directive({
   // we want to hook into all formControls so we use these selectors
   // tslint:disable-next-line: directive-selector
-  selector: '[formControl], [formControlName]'
+  selector: '[formControl], [formControlName]',
 })
 export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   ref: ComponentRef<ControlErrorComponent>;
   container: ViewContainerRef;
   submit$: Observable<{}>;
-
+  blur$ = new Subject();
   subs: Subscription[] = [];
+
+  // we need to make our own Observable of the blur event as it's not provided by the formControl
+  @HostListener('blur')
+  handleBlur() {
+    this.blur$.next();
+  }
 
   constructor(
     @Self() private control: NgControl,
@@ -38,11 +44,15 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     this.subs.push(
       merge(
         this.submit$,
+        this.blur$,
         this.control.valueChanges
       ).pipe(
         this.handleErrors(),
         tap( errorMessage => {
-          this.setError(errorMessage)
+          // prevents displaying error messages before user interaction
+          if (this.control.touched) {
+            this.setError(errorMessage);
+          }
         })
       ).subscribe(),
     );
@@ -62,7 +72,6 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   handleErrors() {
     return map(() => {
-      const errors = FORM_ERRORS.ngInjectableDef;
       const controlErrors = this.control.errors;
       if (controlErrors) {
         const firstKey = Object.keys(controlErrors)[0];

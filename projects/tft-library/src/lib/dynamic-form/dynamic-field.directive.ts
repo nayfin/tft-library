@@ -5,6 +5,7 @@ import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { FormGroupComponent } from './form-group/form-group.component';
+import { AnyFieldConfig } from './dynamic-field-config';
 
 const components = {
   button: FormButtonComponent,
@@ -19,11 +20,11 @@ const components = {
 })
 export class DynamicFieldDirective implements OnInit {
 
-  @Input() config;
+  @Input() config: AnyFieldConfig;
   @Input() group: FormGroup;
 
   // TODO: strongly type component
-  component;
+  component: any;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -37,8 +38,8 @@ export class DynamicFieldDirective implements OnInit {
      */
     const component = components[this.config.controlType];
     const factory = this.resolver.resolveComponentFactory<any>(component);
-    this.component = this.container.createComponent(factory);
-    this.component.instance.config = this.config;
-    this.component.instance.group = this.group;
+    this.component = this.container.createComponent(factory).instance;
+    this.component.config = this.config;
+    this.component.group = this.group;
   }
 }
