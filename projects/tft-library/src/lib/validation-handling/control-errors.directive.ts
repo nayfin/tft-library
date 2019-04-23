@@ -1,11 +1,11 @@
 import {
-  Directive, Self, OnInit, OnDestroy, Optional, Host,
-  ComponentRef, ComponentFactoryResolver, ViewContainerRef, Inject, HostListener } from '@angular/core';
+  Directive, Self, OnInit, OnDestroy, Optional, ComponentRef,
+  ComponentFactoryResolver, ViewContainerRef, HostListener } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subscription, EMPTY, Observable, merge, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { defaultErrors, ErrorDictionary } from './form-errors';
-import { FormSubmitDirective } from './form-submit.directive';
+import { ControlErrorsFormDirective } from './control-errors-form.directive';
 import { ControlErrorComponent } from './control-error/control-error.component';
 import { ControlErrorContainerDirective } from './control-error-container.directive';
 
@@ -30,7 +30,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
 
   constructor(
     @Self() private control: NgControl,
-    @Optional() private form: FormSubmitDirective,
+    @Optional() private form: ControlErrorsFormDirective,
     @Optional() controlErrorContainer: ControlErrorContainerDirective,
     private vcr: ViewContainerRef,
     private resolver: ComponentFactoryResolver,
@@ -43,25 +43,32 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // build array of subscriptions
     this.subs.push(
-      merge(
-        this.submit$,
-        this.blur$,
-        this.control.valueChanges
-      ).pipe(
-        tap( event => {
-          const errorMessage = this.handleErrors();
-          // prevents displaying error messages before user interaction
-          if (this.control.touched || event === 'submitted') {
-            this.setError(errorMessage);
-          }
-        })
-      ).subscribe(),
+      this.getInteractionHandler().subscribe(),
     );
   }
 
   ngOnDestroy() {
+    // close subscriptions
     this.subs.forEach(sub => sub.unsubscribe);
+  }
+
+  // merges ui events into a single stream and handles events displaying errors when appropriate
+  getInteractionHandler() {
+    return merge(
+      this.submit$,
+      this.blur$,
+      this.control.valueChanges
+    ).pipe(
+      tap( event => {
+        // prevents displaying error messages before user interaction unless submitting
+        if (this.control.touched || event === 'submitted') {
+          const errorMessage = this.getErrorMessage();
+          this.setError(errorMessage);
+        }
+      })
+    );
   }
 
   setError(text: string) {
@@ -72,7 +79,7 @@ export class ControlErrorsDirective implements OnInit, OnDestroy {
     this.ref.instance.text = text;
   }
 
-  handleErrors() {
+  getErrorMessage() {
       const controlErrors = this.control.errors;
       if (controlErrors) {
         const firstKey = Object.keys(controlErrors)[0];
