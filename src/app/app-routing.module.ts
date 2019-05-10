@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'dynamic-form',           component: MyDynamicFormComponent },
   { path: 'utilities',              component: UtilsComponent },
   { path: 'file-upload',            component: MyFileUploadComponent },
+  { path: 'url-sync-state',         loadChildren: './examples/url-sync-state/url-sync-state.module#UrlSyncStateModule'},
   { path: '**'  , redirectTo: 'home' },
 ];
 
