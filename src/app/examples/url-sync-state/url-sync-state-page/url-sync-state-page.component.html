@@ -1,0 +1,2 @@
+<app-url-sync-state-filter (searched)="onSearched($event)" [searchTerm]="(filter$ | async)"></app-url-sync-state-filter>
+<app-url-sync-state-list [items]="filteredItems$ | async"></app-url-sync-state-list>

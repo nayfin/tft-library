@@ -36,6 +36,11 @@ export class AppComponent {
       path: 'file-upload',
       description: `Example of file upload`
     },
+    {
+      title: 'Url Sync State',
+      path: 'url-sync-state',
+      description: `Leveraging Url for simple state management`
+    }
 
   ];
 
