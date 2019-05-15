@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
  *
  * returns false if blank else true
  */
-const isNotBlank = () => map( (value: string) => !!value.trim().length );
+const isNotBlank = () => map( (value: string) => value ? !!value.trim().length : false );
 
 @Component({
   selector: 'app-my-dynamic-form',
@@ -20,7 +20,7 @@ const isNotBlank = () => map( (value: string) => !!value.trim().length );
 export class MyDynamicFormComponent implements OnInit {
 
   value = {
-    firstName: 'Nayfin',
+    // firstName: 'Nayfin',
     testFormArray: [
       {
         arrayGroupInput: 'Old Navy',
@@ -33,7 +33,7 @@ export class MyDynamicFormComponent implements OnInit {
     ],
     testNestedGroup: {
       nestedInput: 'POTUS',
-      firstName: 'alfed'
+      firstName: ''
     },
     isSmokerArray: 'yes',
     isSmokerObservable: ['yes'],
@@ -44,6 +44,9 @@ export class MyDynamicFormComponent implements OnInit {
   config: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
+    errorDictionary: {
+      'required': () => 'testing'
+    },
     fields: [
       // a basic input field in the form with the following configuration
       {
@@ -52,7 +55,7 @@ export class MyDynamicFormComponent implements OnInit {
         controlName: 'firstName',
         placeholder: 'Enter your first name',
         classes: [],
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.minLength(5)],
       },
       // another input with conditional display logic
       // the showField parameter takes a function that that returns an observable that resolve to a boolean
@@ -65,6 +68,7 @@ export class MyDynamicFormComponent implements OnInit {
         label: 'Last name',
         controlName: 'lastName',
         placeholder: 'Enter your last name',
+        validators: [Validators.required, Validators.minLength(3)],
         // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
         showField: this.firstNameIsNotBlank
       },
