@@ -4,9 +4,15 @@
   [formGroup]="group">
 
   <div [formArrayName]="config.controlName">
+    <!-- TODO: add sortBy function -->
     <div *ngFor="let control of this.formArray.controls; let i = index;">
       <!-- TODO: use content projection to allow custom item label component -->
-      <h3 class="mat-h3" *ngIf="config.itemLabelBuilder"> {{ i | callback : config.itemLabelBuilder }} </h3>
+      <span class="mat-h3" *ngIf="config.itemLabelBuilder"> {{ i | callback : config.itemLabelBuilder }} </span>
+      <button 
+        mat-icon-button 
+        *ngIf="i + 1 > minListLength">
+        <mat-icon (click)="deleteGroup(i)">delete</mat-icon>
+      </button>
       <div
         [formGroupName]="i">
         <ng-container

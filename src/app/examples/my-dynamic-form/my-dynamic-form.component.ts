@@ -81,6 +81,7 @@ export class MyDynamicFormComponent implements OnInit {
         itemLabelBuilder: (index: number) => {
           return `This is item number ${index}`;
         },
+        minListLength: 0,
         itemConfig: {
           controlType: ControlType.GROUP,
           controlName: 'arrayGroup',

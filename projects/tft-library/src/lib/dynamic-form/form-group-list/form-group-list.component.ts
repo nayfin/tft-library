@@ -17,12 +17,14 @@ export class FormGroupListComponent implements OnInit {
   group: FormGroup;
   addItemLabel: string;
   formArray: FormArray;
+  minListLength: number;
   constructor(
     private dynamicFormService: DynamicFormService
   ) { }
 
   ngOnInit() {
     this.addItemLabel = this.config.addItemLabel || 'ADD ITEM';
+    this.minListLength = Number.isInteger(this.config.minListLength) ? this.config.minListLength : 1;
     this.formArray = this.getFormArray(this.group, this.config.controlName);
   }
 
@@ -32,6 +34,10 @@ export class FormGroupListComponent implements OnInit {
 
   addGroup(value = null) {
     this.formArray.push( this.dynamicFormService.getControlForType(this.config.itemConfig, value) );
+  }
+
+  deleteGroup(index: number) {
+    this.formArray.removeAt(index);
   }
 }
 
