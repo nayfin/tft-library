@@ -45,7 +45,8 @@ export class MyDynamicFormComponent implements OnInit {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
     errorDictionary: {
-      'required': () => 'testing'
+      'required': () => `testing`,
+      'minlength': ({requiredLength, actualLength}) => `min: ${requiredLength}, actual: ${actualLength}`
     },
     fields: [
       // a basic input field in the form with the following configuration
