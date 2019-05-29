@@ -1,5 +1,6 @@
 import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AutocompleteFieldConfig } from './form-autocomplete/autocomplete-field-config';
 
 import { SelectFieldConfig } from './form-select/select-field-config';
 import { WatchControlConfig } from './conditional-fields.service';
@@ -28,7 +29,7 @@ interface FormConfig {
   fields: AnyFieldConfig[];
 }
 
-type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormGroupListConfig| FormConfig;
+type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormGroupListConfig| FormConfig | AutocompleteFieldConfig;
 
 interface Attr {
   name: string;
@@ -36,6 +37,7 @@ interface Attr {
 }
 
 enum ControlType {
+  AUTOCOMPLETE = 'autocomplete',
   INPUT = 'input',
   SELECT = 'select',
   BUTTON = 'button',

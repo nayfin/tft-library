@@ -17,6 +17,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
 import { ConditionalFieldsService } from './conditional-fields.service';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
+import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 
 @NgModule({
   imports: [
@@ -27,29 +28,32 @@ import { FormGroupListComponent } from './form-group-list/form-group-list.compon
     UtilitiesModule
   ],
   declarations: [
+    DynamicFieldDirective,
+    FieldContainerComponent,
     DynamicFormComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
-    DynamicFieldDirective,
-    FieldContainerComponent,
     FormGroupComponent,
     FormGroupListComponent,
+    FormAutocompleteComponent,
   ],
   exports: [
     DynamicFormComponent,
-    FormGroupComponent,
-    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
+    FormGroupComponent,
+    FormGroupListComponent,
+    FormAutocompleteComponent,
   ],
   entryComponents: [
-    FormGroupComponent,
-    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
+    FormGroupComponent,
+    FormGroupListComponent,
+    FormAutocompleteComponent,
   ]
 })
 export class DynamicFormModule {

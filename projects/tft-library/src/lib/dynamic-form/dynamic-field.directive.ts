@@ -5,6 +5,7 @@ import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { FormGroupComponent } from './form-group/form-group.component';
+import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 
 
 
@@ -13,7 +14,9 @@ const components = {
   input: FormInputComponent,
   select: FormSelectComponent,
   group: FormGroupComponent,
-  groupList: FormGroupListComponent
+  groupList: FormGroupListComponent,
+  autocomplete: FormAutocompleteComponent
+
 };
 
 @Directive({

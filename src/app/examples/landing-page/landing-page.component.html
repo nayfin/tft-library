@@ -1,14 +1,15 @@
+<div class="page-container-which-should-be-unnecessary">
+  <ais-instantsearch [config]="searchConfig">
 
-<ais-instantsearch [config]="searchConfig">
+    <tft-search-box></tft-search-box>
 
-  <tft-search-box></tft-search-box>
+    <tft-filter-select attributeName="brand">
+    </tft-filter-select>
 
-  <tft-filter-select attributeName="brand">
-  </tft-filter-select>
+    <tft-pagination></tft-pagination>
 
-  <tft-pagination></tft-pagination>
+    <ais-hits>
+    </ais-hits>
 
-  <ais-hits>
-  </ais-hits>
-
-</ais-instantsearch>
+  </ais-instantsearch>
+</div>
