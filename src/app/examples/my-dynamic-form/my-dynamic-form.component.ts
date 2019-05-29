@@ -36,7 +36,7 @@ export class MyDynamicFormComponent implements OnInit {
       firstName: ''
     },
     isSmokerArray: 'yes',
-    isSmokerObservable: ['yes'],
+    // isSmokerObservable: ['yes'],
     isSmokerPromise: 'blue'
   };
 
@@ -141,16 +141,24 @@ export class MyDynamicFormComponent implements OnInit {
         ],
       },
       {
-        controlType: ControlType.SELECT,
+        controlType: ControlType.AUTOCOMPLETE,
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
         placeholder: 'Have you smoked in the last six months',
         multiple: true,
         // use the options$ parameter to easily tie to app state with an Obserbable
-        options$: of([
-          { label: 'Yes', value: 'yes' },
-          { label: 'No',  value: 'no'  }
-        ])
+        options: () => {
+          return new Promise( (resolve, reject) => {
+            // make an http request here
+            setTimeout( () => {
+              resolve([
+                {label: 'BLUE',     value: 'blue' } ,
+                {label: 'DR. DOG',  value: 'dr. dog'  },
+                {label: 'GOLD',     value: 'gold' }
+              ]);
+            }, 5000);
+          });
+        }
       },
       {
         controlType: ControlType.SELECT,

@@ -18,6 +18,7 @@ import { ConditionalFieldsService } from './conditional-fields.service';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { ValidationHandlingModule } from '../validation-handling/public_api';
+import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 
 @NgModule({
   imports: [
@@ -29,29 +30,32 @@ import { ValidationHandlingModule } from '../validation-handling/public_api';
     ValidationHandlingModule,
   ],
   declarations: [
+    DynamicFieldDirective,
+    FieldContainerComponent,
     DynamicFormComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
-    DynamicFieldDirective,
-    FieldContainerComponent,
     FormGroupComponent,
     FormGroupListComponent,
+    FormAutocompleteComponent,
   ],
   exports: [
     DynamicFormComponent,
-    FormGroupComponent,
-    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
+    FormGroupComponent,
+    FormGroupListComponent,
+    FormAutocompleteComponent,
   ],
   entryComponents: [
-    FormGroupComponent,
-    FormGroupListComponent,
     FormInputComponent,
     FormSelectComponent,
     FormButtonComponent,
+    FormGroupComponent,
+    FormGroupListComponent,
+    FormAutocompleteComponent,
   ]
 })
 export class DynamicFormModule {
