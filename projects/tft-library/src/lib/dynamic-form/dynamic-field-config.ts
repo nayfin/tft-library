@@ -5,6 +5,7 @@ import { SelectFieldConfig } from './form-select/select-field-config';
 import { WatchControlConfig } from './conditional-fields.service';
 import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
+import { ErrorDictionary } from '../validation-handling/public_api';
 
 interface DynamicFieldConfig {
   controlName: string;
@@ -25,6 +26,7 @@ interface FormConfig {
   controlType?: ControlType;
   controlName: string;
   label?: string;
+  errorDictionary?: ErrorDictionary;
   fields: AnyFieldConfig[];
 }
 
