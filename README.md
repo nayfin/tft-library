@@ -1,3 +1,5 @@
+Angular v 7 cut
+
 # TftLibrary
 
 This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.
