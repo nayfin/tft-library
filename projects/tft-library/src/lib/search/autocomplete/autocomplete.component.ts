@@ -2,7 +2,7 @@ import { Component, Inject, forwardRef, OnInit, Input, Output, EventEmitter, Cha
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { BaseWidget, NgAisInstantSearch } from 'angular-instantsearch';
 import { connectAutocomplete } from 'instantsearch.js/es/connectors';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { <%= singular(classify(name)) %> } from '../../state';
 import { ControlType, FormConfig } from 'tft-library';

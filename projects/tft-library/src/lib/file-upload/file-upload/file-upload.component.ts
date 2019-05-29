@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize, tap, map, switchMap } from 'rxjs/operators';
@@ -75,6 +75,7 @@ export class FileUploadComponent implements OnDestroy {
     console.log({task: this.task});
 
     // Progress monitoring
+
     this.percentage$ = this.task.percentageChanges();
     this.snapshot$ = this.task.snapshotChanges();
 

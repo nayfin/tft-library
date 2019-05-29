@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { MatAutocompleteTrigger } from '@angular/material';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { DEFAULT_EMPTY_OPTIONS_MESSAGE } from './autocomplete-field-config';
 import { AutocompleteFieldConfig, AutocompleteOption } from './autocomplete-field-config';
 import { Observable, of, isObservable, from } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'tft-form-select',
