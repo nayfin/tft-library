@@ -15,7 +15,7 @@ import { switchMap, map } from 'rxjs/operators';
 })
 export class FormAutocompleteComponent implements OnInit {
 
-  @ViewChild('autoInput', { read: MatAutocompleteTrigger}) autoInput: MatAutocompleteTrigger;
+  @ViewChild('autoInput', { read: MatAutocompleteTrigger, static: true }) autoInput: MatAutocompleteTrigger;
 
   config: AutocompleteFieldConfig;
   group: FormGroup;

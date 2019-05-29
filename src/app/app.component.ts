@@ -7,7 +7,7 @@ import { MatSidenav } from '@angular/material';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
   title = 'app';
 
   linksToExamples = [
