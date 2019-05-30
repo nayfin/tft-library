@@ -6,7 +6,7 @@ import { DynamicFormService } from './dynamic-form.service';
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
   templateUrl: 'dynamic-form.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent implements OnInit {
 

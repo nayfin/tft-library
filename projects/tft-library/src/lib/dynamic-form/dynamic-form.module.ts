@@ -11,14 +11,14 @@ import { FieldContainerComponent } from './field-container/field-container.compo
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
-// directives
-import { DynamicFieldDirective } from './dynamic-field.directive';
-// providers
-import { ConditionalFieldsService } from './conditional-fields.service';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { ValidationHandlingModule } from '../validation-handling/public_api';
 import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
+// directives
+import { DynamicFieldDirective } from './dynamic-field.directive';
+// providers
+import { ConditionalFieldsService } from './conditional-fields.service';
 
 @NgModule({
   imports: [

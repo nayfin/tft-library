@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { ControlType, FormConfig } from 'tft-library';
 import { ConditionalFieldsService } from 'tft-library';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -70,7 +70,7 @@ export class MyDynamicFormComponent implements OnInit {
         controlName: 'lastName',
         placeholder: 'Enter your last name',
         validators: [Validators.required, Validators.minLength(3)],
-        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+        // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
         showField: this.firstNameIsNotBlank
       },
       // a form array of form groups
@@ -135,7 +135,7 @@ export class MyDynamicFormComponent implements OnInit {
             label: 'Last name',
             controlName: 'lastName',
             placeholder: 'Enter your last name',
-            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
             showField: this.firstNameIsNotBlank
           },
         ],
@@ -167,13 +167,13 @@ export class MyDynamicFormComponent implements OnInit {
         classes: [], // TODO: configure class to highlight correct answer
         placeholder: 'What is best',
         // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
-        optionsCallback: () => {
+        options: () => {
           return new Promise( (resolve, reject) => {
             // make an http request here
             setTimeout( () => {
               resolve([
                 {label: 'BLUE',     value: 'blue' } ,
-                {label: 'DR. DOG',  value: 'dr. dog'  },
+                {label: 'DR. DOG',  value: 'dr. dog'},
                 {label: 'GOLD',     value: 'gold' }
               ]);
             }, 5000);
@@ -207,7 +207,7 @@ export class MyDynamicFormComponent implements OnInit {
         // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
-        displayConfig: {
+        showFieldConfig: {
           controlName: 'isSmokerArray',
           values: ['yes']
         }

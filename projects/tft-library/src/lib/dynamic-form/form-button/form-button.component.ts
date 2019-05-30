@@ -6,7 +6,7 @@ import { DynamicFieldConfig } from '../dynamic-field-config';
   selector: 'tft-form-button',
   templateUrl: './form-button.component.html',
   styleUrls: ['./form-button.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormButtonComponent implements OnInit {
 

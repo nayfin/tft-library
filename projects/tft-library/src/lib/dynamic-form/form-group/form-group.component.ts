@@ -6,7 +6,7 @@ import { FormConfig } from '../dynamic-field-config';
   selector: 'tft-form-group',
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormGroupComponent implements OnInit {
 

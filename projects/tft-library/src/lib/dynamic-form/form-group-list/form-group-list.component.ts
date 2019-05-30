@@ -8,7 +8,7 @@ import { FormGroupListConfig } from './form-group-list.config';
   selector: 'tft-form-group-list',
   templateUrl: './form-group-list.component.html',
   styleUrls: ['./form-group-list.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormGroupListComponent implements OnInit {
 

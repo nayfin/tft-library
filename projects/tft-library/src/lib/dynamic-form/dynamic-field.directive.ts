@@ -17,7 +17,6 @@ const components = {
   group: FormGroupComponent,
   groupList: FormGroupListComponent,
   autocomplete: FormAutocompleteComponent
-
 };
 
 @Directive({

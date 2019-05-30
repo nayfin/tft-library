@@ -13,7 +13,7 @@ export interface Item {
   selector: 'app-url-sync-state-page',
   templateUrl: './url-sync-state-page.component.html',
   styleUrls: ['./url-sync-state-page.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UrlSyncStatePageComponent implements OnInit {
 
@@ -23,15 +23,15 @@ export class UrlSyncStatePageComponent implements OnInit {
       title: 'cab'
     },
     {
-      id: 'asldkfa',
+      id: 'asldkfb',
       title: 'cabin'
     },
     {
-      id: 'asldkfa',
+      id: 'asla',
       title: 'cabby'
     },
     {
-      id: 'asldkfa',
+      id: 'askfa',
       title: 'dab'
     },
     {
@@ -43,7 +43,7 @@ export class UrlSyncStatePageComponent implements OnInit {
       title: 'bald'
     },
     {
-      id: 'asldkfa',
+      id: 'asldkfc',
       title: 'robin'
     },
   ];

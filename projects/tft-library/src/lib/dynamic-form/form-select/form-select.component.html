@@ -8,22 +8,12 @@
       [formControlName]="config.controlName"
       [placeholder]="config.placeholder"
       [multiple]="config.multiple">
-      <!-- <mat-option>{{ config.placeholder }}</mat-option> -->
 
-      <ng-container *ngIf="config.options$ | async as options$; else selectOptions">
-        <mat-option
-          *ngFor="let option of options$"
-          [value]="option.value">
-          {{ option.label }}
-        </mat-option>
-      </ng-container>
-      <ng-template #selectOptions>
-        <mat-option
-          *ngFor="let option of options"
-          [value]="option.value">
-          {{ option.label }}
-        </mat-option>
-      </ng-template>
+      <mat-option
+        *ngFor="let option of options$ | async"
+        [value]="option.value">
+        {{ option.label }}
+      </mat-option>
 
     </mat-select>
   </mat-form-field>

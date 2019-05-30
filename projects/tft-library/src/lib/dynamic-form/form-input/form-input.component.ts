@@ -6,7 +6,7 @@ import { InputFieldConfig } from './input-field-config';
   selector: 'tft-form-input',
   templateUrl: './form-input.component.html',
   styleUrls: ['./form-input.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 
 })
 
