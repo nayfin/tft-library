@@ -1,6 +1,6 @@
 import { Component, Input, Inject, PLATFORM_ID, OnInit, OnChanges, forwardRef } from '@angular/core';
 import { connectPagination } from 'instantsearch.js/es/connectors';
-import { noop, range } from 'lodash-es';
+import { noop } from 'lodash-es';
 // import { NgAisHitsPerPage } from 'angular-instantsearch/hits-per-page/hits-per-page';
 import { BaseWidget, NgAisModule, NgAisInstantSearch } from 'angular-instantsearch';
 // import { TftInstantSearchInstance } from '../instantsearch/instantsearch-instance';

@@ -10,7 +10,7 @@ import { ErrorDictionary } from '../validation-handling/public_api';
 
 interface DynamicFieldConfig {
   controlName: string;
-  controlType: string;
+  controlType: ControlType;
   label?: string;
   placeholder?: string;
   classes?: string[];

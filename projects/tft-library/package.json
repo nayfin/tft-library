@@ -10,8 +10,10 @@
     "@angular/flex-layout": "^8.0.0-beta.26",
     "@angular/router": "^8.0.0",
     "@angular/fire": "~5.2.0-rc.1",
+    "angular-instantsearch": "~2.2.0",
     "firebase": "5.5.3",
     "rxjs": "^6.5.2",
-    "lodash-es": "^4.17.10"
+    "lodash-es": "^4.17.10",
+    "@types/lodash-es":"^4.17.0"
   }
 }

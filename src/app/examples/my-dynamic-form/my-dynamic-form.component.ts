@@ -167,13 +167,13 @@ export class MyDynamicFormComponent implements OnInit {
         classes: [], // TODO: configure class to highlight correct answer
         placeholder: 'What is best',
         // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
-        optionsCallback: () => {
+        options: () => {
           return new Promise( (resolve, reject) => {
             // make an http request here
             setTimeout( () => {
               resolve([
                 {label: 'BLUE',     value: 'blue' } ,
-                {label: 'DR. DOG',  value: 'dr. dog'  },
+                {label: 'DR. DOG',  value: 'dr. dog'},
                 {label: 'GOLD',     value: 'gold' }
               ]);
             }, 5000);

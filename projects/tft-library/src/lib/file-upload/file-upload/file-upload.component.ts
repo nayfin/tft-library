@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, Subscription } from 'rxjs';
-import { finalize, tap, map, switchMap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 export enum ImageQuality {
   THUMBNAIL = '48',
