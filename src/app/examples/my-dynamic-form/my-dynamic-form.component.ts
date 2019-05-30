@@ -70,7 +70,7 @@ export class MyDynamicFormComponent implements OnInit {
         controlName: 'lastName',
         placeholder: 'Enter your last name',
         validators: [Validators.required, Validators.minLength(3)],
-        // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+        // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
         showField: this.firstNameIsNotBlank
       },
       // a form array of form groups
@@ -135,7 +135,7 @@ export class MyDynamicFormComponent implements OnInit {
             label: 'Last name',
             controlName: 'lastName',
             placeholder: 'Enter your last name',
-            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
             showField: this.firstNameIsNotBlank
           },
         ],
@@ -207,7 +207,7 @@ export class MyDynamicFormComponent implements OnInit {
         // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
-        displayConfig: {
+        showFieldConfig: {
           controlName: 'isSmokerArray',
           values: ['yes']
         }

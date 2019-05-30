@@ -2,7 +2,7 @@
 
 This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.
 
-This library is in pre-alpha. Breaking changes will accur often and documentation will be limited.
+This library is in pre-alpha. Breaking changes will occur often and documentation will be limited.
 
 Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository
 
@@ -29,7 +29,7 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
   - filter-chiplist: Similar to `<tft-filter-select>` but consists of an autocompleting chiplist, with the results of `<ais-hits>` limited to filter on values of selected chips.
 
-  - algolia-attribution: 'Powered by Algolia' attribution to display where necesarry
+  - algolia-attribution: 'Powered by Algolia' attribution to display where necessary
 
   Better documentation of component usage will be available in coming months, but for now examples of usage can be found in the [repository](https://github.com/nayfin/tft-library) under /src/app/examples.
 
@@ -37,6 +37,14 @@ A library of customized `angular-instantsearch` components built with `@angular/
 
 
 A module design to generate forms when passed a JSON configuration. Created following this excellent [guide](https://toddmotto.com/angular-dynamic-components-forms) by Todd Motto, then expanded to enable recursively nested formGroups and conditionally showing form fields, and add Material Design components. More features to come
+
+#### Breaking changes in 8.0.0
+
+- form-select api
+The form-select component allows for passing in an array of options, an observable that resolves an array of options, or a function that returns a promise that resolve to an array of options. Previously, end users would pass these through the `options`, `optionsCallback`, or `options$` parameters respectively. Now, all three methods for configuring options will be passed to the `options` parameter. This makes for a simpler api and allowed us to clean the source code significantly. Additionally, we've added an autocomplete component that utilizes the new api.
+
+- showField api
+The parameter name for the `showField` configuration object has changed from `displayConfig` to `showFieldConfig`.
 
 #### Breaking changes in 7.1.0
 The shape of the group config object had to change to enable recursively checking for subgroups inside the main form group. So, now instead of being an array of control configs the FormConfig is an object with a controlName, controlGroup, and a fields array. New usage below. Additionally, instead of emitting the form.value on submission the the dynamic-form-component emits the whole form object. This gives the end developer the power to check form validity, disabled status and anything else available on the FormGroup object.
@@ -150,7 +158,7 @@ export class DynamicFormComponent implements OnInit {
             label: 'Last name',
             controlName: 'lastName',
             placeholder: 'Enter your last name',
-            // note that because function doesn't require a displayConfig, control config doesn't have a displayConfig prop
+            // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
             showField: this.firstNameIsNotBlank
           },
         ],
@@ -160,8 +168,8 @@ export class DynamicFormComponent implements OnInit {
         label: 'Select with options passed in as observable',
         controlName: 'isSmokerObservable',
         placeholder: 'Have you smoked in the last six months',
-        // use the options$ parameter to easily tie to app state with an Obserbable
-        options$: of([
+        // pass an observable that resolves an array of options
+        options: of([
           { label: 'Yes', value: 'yes' },
           { label: 'No',  value: 'no'  }
         ])
@@ -172,8 +180,8 @@ export class DynamicFormComponent implements OnInit {
         controlName: 'isSmokerPromise',
         classes: [], // TODO: configure class to highlight correct answer
         placeholder: 'What is best',
-        // pass a function that resolves a promise in order to do asynchronous things, like fetch data from an endpoint
-        optionsCallback: () => {
+        // pass a function that returns a promise that resolves an array of options in order to do asynchronous things, like fetch data from an endpoint
+        options: () => {
           return new Promise( (resolve, reject) => {
             // make an http request here
             setTimeout( () => {
@@ -213,7 +221,7 @@ export class DynamicFormComponent implements OnInit {
         // when this function get called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
-        displayConfig: {
+        showFieldConfig: {
           controlName: 'isSmokerArray',
           values: ['yes']
         }

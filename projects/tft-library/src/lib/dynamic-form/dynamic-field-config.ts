@@ -16,9 +16,11 @@ interface DynamicFieldConfig {
   classes?: string[];
   attrs?: Attr[];
   flexLayoutConfig?: any;
+  // computeField?: (form: FormGroup, config?: any ) => Observable<any>;
+  // computeFieldConfig?: {};
   // function that returns an observable that resolves to a boolean
   showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
-  displayConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
+  showFieldConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
   validators?: ValidatorFn[];
   value?: string | number;
 }

@@ -12,7 +12,7 @@ import { observablifyOptions } from '../dynamic-form.utils';
   selector: 'tft-form-select',
   templateUrl: './form-autocomplete.component.html',
   styleUrls: ['./form-autocomplete.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormAutocompleteComponent implements OnInit {
 

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   selector: 'tft-form-select',
   templateUrl: './form-select.component.html',
   styleUrls: ['./form-select.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormSelectComponent implements OnInit {
 
