@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     TftSearchModule,
-    DynamicFormModule.forRoot(),
+    DynamicFormModule,
     ValidationHandlingModule,
     NgAisModule.forRoot(),
     FormsModule,

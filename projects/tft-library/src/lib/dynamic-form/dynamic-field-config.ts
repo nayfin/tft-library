@@ -16,8 +16,8 @@ interface DynamicFieldConfig {
   classes?: string[];
   attrs?: Attr[];
   flexLayoutConfig?: any;
-  // computeField?: (form: FormGroup, config?: any ) => Observable<any>;
-  // computeFieldConfig?: {};
+  computeField?: (form: FormGroup, config?: any ) => Observable<any>;
+  computeFieldConfig?: {};
   // function that returns an observable that resolves to a boolean
   showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
   showFieldConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
@@ -49,4 +49,4 @@ enum ControlType {
   GROUP_LIST = 'groupList'
 }
 
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig, Attr};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig};

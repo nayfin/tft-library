@@ -59,12 +59,12 @@ import { ConditionalFieldsService } from './conditional-fields.service';
   ]
 })
 export class DynamicFormModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: DynamicFormModule,
-      providers: [
-        ConditionalFieldsService
-      ]
-    };
-  }
+  // static forRoot(): ModuleWithProviders {
+  //   return {
+  //     ngModule: DynamicFormModule,
+  //     providers: [
+  //       ConditionalFieldsService
+  //     ]
+  //   };
+  // }
  }
