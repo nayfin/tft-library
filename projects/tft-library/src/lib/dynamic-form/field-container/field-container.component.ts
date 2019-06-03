@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DynamicFieldConfig } from '../dynamic-field-config';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./field-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldContainerComponent implements OnInit {
+export class FieldContainerComponent implements OnInit, OnDestroy {
   // the configuration object for the field
   @Input() config: DynamicFieldConfig;
   // the parent formGroup
@@ -17,15 +17,32 @@ export class FieldContainerComponent implements OnInit {
   // used to determine whether or not field should be shown
   showField: Observable<boolean>;
 
+  subs: Subscription[] = [];
+
   constructor() { }
 
   ngOnInit() {
     this.showField = this.connectShowField(this.group, this.config);
+    if (this.config.computeField && this.config.computeFieldConfig) {
+      // if no controlNameToSet is specified use this control's controlName
+      // TODO: this might not be the best place to set defaults...
+      const computeFieldConfig = {
+        controlNameToSet: this.config.controlName,
+        ...this.config.computeFieldConfig
+      };
+      this.subs.push(
+        this.config.computeField(this.group, computeFieldConfig).subscribe()
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => sub.unsubscribe);
   }
   /**
-   * used to pass formGroup and an optional configuration file to the showField parameter
-   *
-   * if function exists on config then will pass it to parameter, else passes observable of true
+   * If the showField function exists on the config then call it with the showFieldConfig as a parameter.
+   * otherwise return an observable of true. We call it here because it will effect all form fields and
+   * we have easy access to the form group and field configuration here.
    * @param group used to get valueChanges from control
    * @param config configuration object used to
    */

@@ -41,7 +41,7 @@
     <ul>
       <ng-container *ngFor="let number of numbers">
         <!-- so is this -->
-        <li *ngIf="[number, 3] | callback : isDivisableBy"> {{ number }}   </li>
+        <li *ngIf="[number, 3] | callback : isDivisibleBy"> {{ number }}   </li>
       </ng-container>
     </ul>
     <h3 class="warning">WARNING: Callback pipe is a pure pipe. It does NOT update on change when watching a referenced variable</h3>

@@ -8,18 +8,29 @@ import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 import { ErrorDictionary } from '../validation-handling/public_api';
 
+export interface ComputeFieldConfig {
+  controlNameToSet?: string;
+  controlNamesToWatch: string[];
+  reducer: (
+    accumulator: any,
+    current: any,
+    index?: number,
+    array?: any[]
+  ) => any;
+  initialAccumulator?: any;
+}
+
 interface DynamicFieldConfig {
   controlName: string;
   controlType: ControlType;
   label?: string;
   placeholder?: string;
   classes?: string[];
-  attrs?: Attr[];
   flexLayoutConfig?: any;
-  // computeField?: (form: FormGroup, config?: any ) => Observable<any>;
-  // computeFieldConfig?: {};
+  computeField?: ( group: FormGroup, config: ComputeFieldConfig) => Observable<any>;
+  computeFieldConfig?: ComputeFieldConfig;
   // function that returns an observable that resolves to a boolean
-  showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
+  showField?: (group: FormGroup, config?: any ) => Observable<boolean>;
   showFieldConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
   validators?: ValidatorFn[];
   value?: string | number;
@@ -49,4 +60,4 @@ enum ControlType {
   GROUP_LIST = 'groupList'
 }
 
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig, Attr};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig};

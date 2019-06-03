@@ -6,6 +6,17 @@ This library is in pre-alpha. Breaking changes will occur often and documentatio
 
 Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository
 
+
+##Installation
+
+`npm install`
+## Development
+watch the library
+`npm run watch-lib`
+In a separate terminal
+serve the sandbox
+`ng serve`
+
 ## Generate Documentation
 
 We use the fantastic [compodoc](https://compodoc.app) library to generate our documentation. Simply run `npm run compodoc:lib` from the root folder to build and serve library docs locally on `localhost:8080`, or run `npm run compodoc:app` to build and serve sandbox app docs at `localhost:8081`. We are fleshing out the docs more everyday so definitions and examples should become the norm for all modules. It does have trouble watching for changes so you may need to rerun regulary if you're expecting the documentation to keep up while developing.

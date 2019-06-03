@@ -24,7 +24,7 @@ export class UtilsComponent implements OnInit {
     return a * b;
   }
 
-  multiplybyTwo(value: number) {
+  multiplyByTwo(value: number) {
     return value * 2;
   }
   // will not update on change when passed an array
@@ -42,24 +42,24 @@ export class UtilsComponent implements OnInit {
     this.obj.a = val;
   }
 
-  isEven(num, message) {
+  isEven(num: number, message: any) {
     console.log({message, num});
-    // logging the calls method that calls the function to allow perfomance comparison
+    // logging the calls method that calls the function to allow performance comparison
     return num % 2 === 0;
   }
 
-  isDivisableBy(dividend, divisor) {
+  isDivisibleBy(dividend: number, divisor: number) {
     return dividend % divisor === 0;
   }
 
   addNextNumber(value: number) {
-    const lastNumber = this.getGreatesNumber();
+    const lastNumber = this.getGreatestNumber();
     if (!Number.isNaN(value)) {
       this.numbers.push(+value);
     }
   }
 
-  getGreatesNumber() {
+  getGreatestNumber() {
     return this.numbers[this.numbers.length - 1];
   }
 
