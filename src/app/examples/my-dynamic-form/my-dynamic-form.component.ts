@@ -238,10 +238,9 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
       // a basic input field in the form with the following configuration
       {
         controlType: ControlType.SELECT,
-        label: 'First Name',
-        controlName: 'firstName',
-        placeholder: 'Enter your first name',
-        classes: ['blue'],
+        label: 'What is Best',
+        controlName: 'showFieldController',
+        placeholder: 'What is Best',
         options: () => {
           return new Promise((resolve, reject) => {
             // make an http request here
@@ -254,6 +253,24 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
             }, 200);
           });
         },
+        validators: [Validators.required, Validators.minLength(5)],
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'Can you see me',
+        controlName: 'conditionalField',
+        placeholder: 'Can you see me',
+        showField: this.conditionalFields.watchControlForValues,
+        showFieldConfig: {
+          controlName: 'showFieldController',
+          values: ['gold']
+        },
+        classes: ['blue'],
+        options: of([
+          { label: 'BLUE', value: 'blue' },
+          { label: 'DR. DOG', value: 'dr. dog' },
+          { label: 'GOLD', value: 'gold' }
+        ]),
         validators: [Validators.required, Validators.minLength(5)],
       },
       {
@@ -280,11 +297,9 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
       {
         controlType: ControlType.INPUT,
         inputType: 'number',
-        label: 'Product of Factors',
-        controlName: 'product',
-        placeholder: 'Packs per week',
-        // showField again but this time using a helper function from the conditionalFields service
-        // this expects a form: FormGroup and config that describes what control to watch
+        label: 'Computed Value',
+        controlName: 'computedValue',
+        placeholder: 'Computed Total',
         computeField: this.conditionalFields.computeValue,
         // and the corresponding configuration
         // when this function gets called on the generated component,
@@ -294,24 +309,21 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           controlNamesToWatch: ['factorA', 'factorB', 'factorC'],
           initialAccumulator: 0,
           reducer: (acc, curr, index, arr) => {
-            console.log({acc, curr, index, arr});
+            // check for strings or null values that will break calculations
+            const accumulator = +acc || 0;
+            const current = +curr || 0;
             if (index === 0) {
-              return +(acc);
-            }
-            if (index === 1) {
-              return +(acc || 0) + +(curr || 0);
-            } if (index === 2) {
-              return +(acc || 0) * +(curr || 0);
-            } else {
-
+              return accumulator;
+            } else if (index === 1) {
+              return accumulator + current;
+            } else if (index === 2) {
+              return accumulator * current;
             }
           },
         }
       },
     ]
-  }
-
-  // @ViewChild(DynamicFormComponent, {static: true}) dynamicForm: DynamicFormComponent;
+  };
 
   afterInitFieldConfig = {
     controlType: ControlType.INPUT,

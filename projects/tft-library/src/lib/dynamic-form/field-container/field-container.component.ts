@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DynamicFieldConfig } from '../dynamic-field-config';
 import { Observable, of, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./field-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldContainerComponent implements OnInit, AfterContentChecked, OnDestroy {
+export class FieldContainerComponent implements OnInit, OnDestroy {
   // the configuration object for the field
   @Input() config: DynamicFieldConfig;
   // the parent formGroup
@@ -23,10 +23,6 @@ export class FieldContainerComponent implements OnInit, AfterContentChecked, OnD
 
   ngOnInit() {
     this.showField = this.connectShowField(this.group, this.config);
-  }
-
-  ngAfterContentChecked(): void {
-
     if (this.config.computeField && this.config.computeFieldConfig) {
       // if no controlNameToSet is specified use this control's controlName
       // TODO: this might not be the best place to set defaults...
@@ -35,7 +31,6 @@ export class FieldContainerComponent implements OnInit, AfterContentChecked, OnD
         ...this.config.computeFieldConfig
       };
       this.subs.push(
-        // this.config.computeField.
         this.config.computeField(this.group, computeFieldConfig).subscribe()
       );
     }
@@ -45,9 +40,9 @@ export class FieldContainerComponent implements OnInit, AfterContentChecked, OnD
     this.subs.forEach(sub => sub.unsubscribe);
   }
   /**
-   * if the showField function exists on config then call it with the showFieldConfig as a parameter.
-   * otherwise return observable of true. We call it here because it will effect all form fields and 
-   * we have easy access to the form group and field configuration
+   * If the showField function exists on the config then call it with the showFieldConfig as a parameter.
+   * otherwise return an observable of true. We call it here because it will effect all form fields and
+   * we have easy access to the form group and field configuration here.
    * @param group used to get valueChanges from control
    * @param config configuration object used to
    */

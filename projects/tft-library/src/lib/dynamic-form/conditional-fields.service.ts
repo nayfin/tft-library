@@ -39,7 +39,7 @@ export class ConditionalFieldsService {
    */
   computeValue(group: FormGroup, computeFieldsConfig: ComputeFieldConfig): Observable<any> {
     // TODO: better checking
-    const {controlNamesToWatch, controlNameToSet} = computeFieldsConfig;
+    const { controlNamesToWatch, controlNameToSet } = computeFieldsConfig;
     const controlToSet = group.get(controlNameToSet);
     const valueChanges = controlNamesToWatch.map(controlNameToWatch => getValueChanges(group, controlNameToWatch));
     return combineLatest(
@@ -49,7 +49,6 @@ export class ConditionalFieldsService {
         const value = valuesArray.reduce((acc: any, curr: any, i: number, arr: any[]) => {
           return computeFieldsConfig.reducer(acc, curr, i, arr);
         }, computeFieldsConfig.initialAccumulator || valuesArray[0]);
-        console.log(valuesArray, value);
         controlToSet.setValue(value);
       })
     );

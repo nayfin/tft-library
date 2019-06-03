@@ -30,7 +30,7 @@ interface DynamicFieldConfig {
   computeField?: ( group: FormGroup, config: ComputeFieldConfig) => Observable<any>;
   computeFieldConfig?: ComputeFieldConfig;
   // function that returns an observable that resolves to a boolean
-  showField?: (form: FormGroup, config?: any ) => Observable<boolean>;
+  showField?: (group: FormGroup, config?: any ) => Observable<boolean>;
   showFieldConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
   validators?: ValidatorFn[];
   value?: string | number;
