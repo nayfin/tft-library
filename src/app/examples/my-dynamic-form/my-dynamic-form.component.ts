@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
-import { ControlType, FormConfig } from 'tft-library';
-import { ConditionalFieldsService } from 'tft-library';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  ControlType,
+  FormConfig,
+  ConditionalFieldsService,
+  DynamicFormComponent
+} from 'tft-library';
 
 /**
  * Custom rxjs operator determines if string is blank after trim
@@ -17,7 +21,7 @@ const isNotBlank = () => map((value: string) => value ? !!value.trim().length : 
   templateUrl: './my-dynamic-form.component.html',
   styleUrls: ['./my-dynamic-form.component.scss']
 })
-export class MyDynamicFormComponent implements OnInit {
+export class MyDynamicFormComponent implements OnInit, AfterViewInit {
 
   // value = {
   //   // firstName: 'Nayfin',
@@ -219,6 +223,14 @@ export class MyDynamicFormComponent implements OnInit {
   //     },
   //   ]
   // };
+  form: FormGroup = new FormGroup({});
+
+  value = {
+    firstName: 'blue',
+    factorA: 0,
+    factorB: 4,
+    factorC: 3,
+  };
   config: FormConfig = {
     controlType: ControlType.GROUP,
     controlName: 'myForm',
@@ -246,30 +258,80 @@ export class MyDynamicFormComponent implements OnInit {
       },
       {
         controlType: ControlType.INPUT,
-        inputType: 'text',
-        label: 'Smoking Regularity',
-        controlName: 'smokingRegularity',
+        inputType: 'number',
+        label: 'factor a',
+        controlName: 'factorA',
+        placeholder: 'Factor A',
+      },
+      {
+        controlType: ControlType.INPUT,
+        inputType: 'number',
+        label: 'factor B',
+        controlName: 'factorB',
+        placeholder: 'Factor B',
+      },
+      {
+        controlType: ControlType.INPUT,
+        inputType: 'number',
+        label: 'factor C',
+        controlName: 'factorC',
+        placeholder: 'Factor C',
+      },
+      {
+        controlType: ControlType.INPUT,
+        inputType: 'number',
+        label: 'Product of Factors',
+        controlName: 'product',
         placeholder: 'Packs per week',
         // showField again but this time using a helper function from the conditionalFields service
-        // this expects a form: FormGroup and config that descibes what control to watch
-        computeField: this.conditionalFields.carryForwardValue,
+        // this expects a form: FormGroup and config that describes what control to watch
+        computeField: this.conditionalFields.computeValue,
         // and the corresponding configuration
         // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
         computeFieldConfig: {
-          controlNameToWatch: 'firstName',
-          controlNameToSet: 'smokingRegularity'
+          controlNamesToWatch: ['factorA', 'factorB', 'factorC'],
+          initialAccumulator: 0,
+          reducer: (acc, curr, index, arr) => {
+            console.log({acc, curr, index, arr});
+            if (index === 0) {
+              return +(acc);
+            }
+            if (index === 1) {
+              return +(acc || 0) + +(curr || 0);
+            } if (index === 2) {
+              return +(acc || 0) * +(curr || 0);
+            } else {
+
+            }
+          },
         }
       },
     ]
   }
+
+  // @ViewChild(DynamicFormComponent, {static: true}) dynamicForm: DynamicFormComponent;
+
+  afterInitFieldConfig = {
+    controlType: ControlType.INPUT,
+    inputType: 'number',
+    label: 'afterInitFieldConfig',
+    controlName: 'afterInitFieldConfig',
+    placeholder: 'afterInitFieldConfig',
+  };
+
 
   constructor(
     private conditionalFields: ConditionalFieldsService,
   ) { }
 
   ngOnInit() {
+    // console.log('onInit', this.dynamicForm.form);
+  }
+
+  ngAfterViewInit(): void {
+    // console.log('afterViewInit', this.dynamicForm.form);
   }
 
   formSubmitted(formValue: FormGroup) {

@@ -3,6 +3,7 @@ import { of, Observable, combineLatest, OperatorFunction } from 'rxjs';
 import { FormGroup, FormControl } from '@angular/forms';
 import { valueIn } from './conditional-fields.operators';
 import { tap } from 'rxjs/operators';
+import { ComputeFieldConfig } from './dynamic-field-config';
 // import { map, tap, debounceTime } from 'rxjs/operators';
 
 export interface WatchControlConfig {
@@ -31,25 +32,28 @@ export class ConditionalFieldsService {
       return of(true);
     }
   }
-
-  carryForwardValue(group: FormGroup, computeFieldsConfig: CarryForwardConfig): Observable<boolean> {
+  /**
+   * 
+   * @param group 
+   * @param computeFieldsConfig 
+   */
+  computeValue(group: FormGroup, computeFieldsConfig: ComputeFieldConfig): Observable<any> {
     // TODO: better checking
-    const {controlNameToWatch, controlNameToSet} = computeFieldsConfig;
+    const {controlNamesToWatch, controlNameToSet} = computeFieldsConfig;
     const controlToSet = group.get(controlNameToSet);
-    const valueChanges = getValueChanges(group, controlNameToWatch);
-    console.log({controlToSet, valueChanges});
-    return pipeOperatorsIntoObservable(valueChanges, [
-      tap((watchedValue) => {
-        console.log({watchedValue});
-        controlToSet.setValue(watchedValue);
+    const valueChanges = controlNamesToWatch.map(controlNameToWatch => getValueChanges(group, controlNameToWatch));
+    return combineLatest(
+      valueChanges
+    ).pipe(
+      tap( valuesArray => {
+        const value = valuesArray.reduce((acc: any, curr: any, i: number, arr: any[]) => {
+          return computeFieldsConfig.reducer(acc, curr, i, arr);
+        }, computeFieldsConfig.initialAccumulator || valuesArray[0]);
+        console.log(valuesArray, value);
+        controlToSet.setValue(value);
       })
-    ]);
+    );
   }
-}
-
-interface CarryForwardConfig {
-  controlNameToWatch: string;
-  controlNameToSet: string;
 }
 
 function getValueChanges(group: FormGroup, controlName: string) {

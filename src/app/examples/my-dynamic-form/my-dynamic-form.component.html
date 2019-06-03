@@ -2,6 +2,11 @@
   <tft-dynamic-form
     [config]="config"
     [value]="value"
+    [form]="form"
     (submitted)="formSubmitted($event)">
   </tft-dynamic-form>
 </div>
+<pre>
+
+  {{ form.value | json }}
+</pre>

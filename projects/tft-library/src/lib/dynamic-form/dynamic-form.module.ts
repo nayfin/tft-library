@@ -68,3 +68,14 @@ export class DynamicFormModule {
   //   };
   // }
  }
+
+ export {
+  DynamicFormComponent,
+  FormInputComponent,
+  FormSelectComponent,
+  FormButtonComponent,
+  FormGroupComponent,
+  FormGroupListComponent,
+  FormAutocompleteComponent
+};
+
