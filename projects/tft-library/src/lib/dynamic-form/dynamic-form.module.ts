@@ -18,7 +18,6 @@ import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete
 // directives
 import { DynamicFieldDirective } from './dynamic-field.directive';
 // providers
-import { ConditionalFieldsService } from './conditional-fields.service';
 
 @NgModule({
   imports: [
@@ -58,18 +57,9 @@ import { ConditionalFieldsService } from './conditional-fields.service';
     FormAutocompleteComponent,
   ]
 })
-export class DynamicFormModule {
-  // static forRoot(): ModuleWithProviders {
-  //   return {
-  //     ngModule: DynamicFormModule,
-  //     providers: [
-  //       ConditionalFieldsService
-  //     ]
-  //   };
-  // }
- }
+export class DynamicFormModule { }
 
- export {
+export {
   DynamicFormComponent,
   FormInputComponent,
   FormSelectComponent,

@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 
-import { DynamicFormService } from '../dynamic-form.service';
 import { FormGroupListConfig } from './form-group-list.config';
+import { createControlForType } from '../dynamic-form.utils';
 
 @Component({
   selector: 'tft-form-group-list',
@@ -12,15 +12,11 @@ import { FormGroupListConfig } from './form-group-list.config';
 })
 export class FormGroupListComponent implements OnInit {
 
-
   config: FormGroupListConfig;
   group: FormGroup;
   addItemLabel: string;
   formArray: FormArray;
   minListLength: number;
-  constructor(
-    private dynamicFormService: DynamicFormService
-  ) { }
 
   ngOnInit() {
     this.addItemLabel = this.config.addItemLabel || 'ADD ITEM';
@@ -33,7 +29,7 @@ export class FormGroupListComponent implements OnInit {
   }
 
   addGroup(value = null) {
-    this.formArray.push( this.dynamicFormService.getControlForType(this.config.itemConfig, value) );
+    this.formArray.push( createControlForType(this.config.itemConfig, value) );
   }
 
   deleteGroup(index: number) {

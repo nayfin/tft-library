@@ -3,23 +3,31 @@ import { Observable } from 'rxjs';
 import { AutocompleteFieldConfig } from './form-autocomplete/autocomplete-field-config';
 
 import { SelectFieldConfig } from './form-select/select-field-config';
-import { WatchControlConfig } from './conditional-fields.service';
 import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 import { ErrorDictionary } from '../validation-handling/public_api';
 
-export interface ComputeFieldConfig {
+interface ComputeFieldConfig {
   controlNameToSet?: string;
   controlNamesToWatch: string[];
-  reducer: (
-    accumulator: any,
-    current: any,
-    index?: number,
-    array?: any[]
-  ) => any;
-  initialAccumulator?: any;
+  computeCallback: (
+    values: (string | number)[]
+  ) => string | number;
 }
 
+interface WatchControlConfig {
+  controlName: string;
+  values: string[];
+  evaluate: (any) => boolean;
+}
+
+interface DisplayFieldConfig {
+  controlName: string;
+  watchConfigs: WatchControlConfig[];
+  evaluate: (
+    bools: boolean[]
+  ) => boolean;
+}
 interface DynamicFieldConfig {
   controlName: string;
   controlType: ControlType;
@@ -60,4 +68,4 @@ enum ControlType {
   GROUP_LIST = 'groupList'
 }
 
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig, WatchControlConfig, DisplayFieldConfig, ComputeFieldConfig};

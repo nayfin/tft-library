@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormConfig } from './dynamic-field-config';
-import { DynamicFormService } from './dynamic-form.service';
+import { buildFormGroupFromConfig } from './dynamic-form.utils';
 @Component({
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
@@ -16,14 +16,12 @@ export class DynamicFormComponent implements OnInit {
 
   @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private dynamicFormService: DynamicFormService
-  ) { }
+  constructor( ) { }
 
   ngOnInit() {
     // build out the form, not we pass in the form as the third argument and the function modifies it
-    // TODO: code smell, a function modifies the state of one of its arguments. there should be a better way to do this
-    this.dynamicFormService.buildFormGroupFromConfig(this.config, this.value, this.form);
+    // TODO: code smell, a function modifies the state of one of its arguments (this.form). There should be a better way to do this
+    buildFormGroupFromConfig(this.config, this.value, this.form);
     // If values are passed in trigger onChanges on each control so that showField controlled fields respond appropriately
     if (this.value) {
       setTimeout( () => {
@@ -42,10 +40,12 @@ export class DynamicFormComponent implements OnInit {
   triggerOnChangesForChildren( formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach( (controlName) => {
       const control = formGroup.get(controlName);
-      control.updateValueAndValidity({emitEvent: true, onlySelf: true});
-      // if the control is a formGroup or FormArray dig in recursively
-      if (!!control.hasOwnProperty('controls')) {
-        this.triggerOnChangesForChildren((control as FormGroup) );
+      if (!!control) {
+        control.updateValueAndValidity({emitEvent: true, onlySelf: true});
+        // if the control is a formGroup or FormArray dig in recursively
+        if (!!control.hasOwnProperty('controls')) {
+          this.triggerOnChangesForChildren((control as FormGroup) );
+        }
       }
     });
   }

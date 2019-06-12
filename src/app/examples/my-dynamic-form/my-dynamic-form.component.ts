@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators';
 import {
   ControlType,
   FormConfig,
-  ConditionalFieldsService,
-  DynamicFormComponent
+  watchControlForValues,
+  watchControlsForValues,
+  computeValue,
 } from 'tft-library';
 
 /**
@@ -226,7 +227,6 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
   form: FormGroup = new FormGroup({});
 
   value = {
-    firstName: 'blue',
     factorA: 0,
     factorB: 4,
     factorC: 3,
@@ -239,7 +239,26 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
       {
         controlType: ControlType.SELECT,
         label: 'What is Best',
-        controlName: 'showFieldController',
+        controlName: 'showFieldControllerA',
+        placeholder: 'What is Best',
+        options: () => {
+          return new Promise((resolve, reject) => {
+            // make an http request here
+            setTimeout(() => {
+              resolve([
+                { label: 'BLUE', value: 'blue' },
+                { label: 'DR. DOG', value: 'dr. dog' },
+                { label: 'GOLD', value: 'gold' }
+              ]);
+            }, 200);
+          });
+        },
+        validators: [Validators.required, Validators.minLength(5)],
+      },
+      {
+        controlType: ControlType.SELECT,
+        label: 'What is Best',
+        controlName: 'showFieldControllerB',
         placeholder: 'What is Best',
         options: () => {
           return new Promise((resolve, reject) => {
@@ -260,11 +279,25 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'Can you see me',
         controlName: 'conditionalField',
         placeholder: 'Can you see me',
-        showField: this.conditionalFields.watchControlForValues,
-        showFieldConfig: {
-          controlName: 'showFieldController',
-          values: ['gold']
+        showField: watchControlsForValues,
+        showFieldConfig:  {
+
+          watchConfigs: [
+            { controlName: 'showFieldControllerA', values: ['gold'] },
+            { controlName: 'showFieldControllerB', values: ['gold'] }
+          ],
+          evaluate: (bools: boolean[]) => {
+            return bools[0] && !bools[1]
+          }
         },
+        // showField: watchControlForValues,
+        // showFieldConfig: { 
+        //   controlName: 'showFieldControllerA', 
+        //   values: ['gold'],
+        //   evaluate: (bool: boolean) => !bool
+        // },
+            // { controlName: 'showFieldControllerB', values: ['gold'] },
+        
         classes: ['blue'],
         options: of([
           { label: 'BLUE', value: 'blue' },
@@ -300,27 +333,30 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'Computed Value',
         controlName: 'computedValue',
         placeholder: 'Computed Total',
-        computeField: this.conditionalFields.computeValue,
+        computeField: computeValue,
         // and the corresponding configuration
         // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
         // More values can be watched for, just add them to the array
         computeFieldConfig: {
+          // we pass in the names of the controls who's values we want to watch and transform
+          // note: for now we can only hook up to sibling controls of this control. 
+          // I am working on an API to give the consuming component access to the entire form group
           controlNamesToWatch: ['factorA', 'factorB', 'factorC'],
-          initialAccumulator: 0,
-          reducer: (acc, curr, index, arr) => {
-            // check for strings or null values that will break calculations
-            const accumulator = +acc || 0;
-            const current = +curr || 0;
-            if (index === 0) {
-              return accumulator;
-            } else if (index === 1) {
-              return accumulator + current;
-            } else if (index === 2) {
-              return accumulator * current;
-            }
+          // here we are expecting three numeric values because we are watching three input fields of input type number
+          computeCallback: (values: number[]) => {
+            // we make sure we're dealing with numbers
+            const numericValues = values.map( value => +value);
+            // and we will return the value of factorA times the value of factorB and added to the value of factorC
+            // and set the value for field this field
+            return numericValues[0] * numericValues[1] + numericValues[2]
           },
         }
+      },
+      {
+        label: 'Submit',
+        controlName: 'submit',
+        controlType: ControlType.BUTTON,
       },
     ]
   };
@@ -335,7 +371,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
 
 
   constructor(
-    private conditionalFields: ConditionalFieldsService,
+    // private conditionalFields: ConditionalFieldsService,
   ) { }
 
   ngOnInit() {
@@ -352,13 +388,15 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
   /**
    * example of how to build a custom function that returns an Observable that resolves a boolean
    *
-   * notice lack of subcribe() call, the field component manages subcription for you
+   * notice lack of subscribe() call, the field-container.component manages the subscription for you
    * @param form entire form, used to grab the firstName formControl and listen for changes
    * @returns an observable that listen for changes on the firstName formControl and resolves to true when value string is longer than zero
    */
   firstNameIsNotBlank(form: FormGroup): Observable<boolean> {
     return form.get('firstName').valueChanges.pipe(
       // implementing custom rxjs operator from top of file
+      // it simply checks the firstName control return true if the field isn't blank false if it is
+      // that's all the showField control needs is a function that returns an observable which resolves a boolean 
       isNotBlank()
     );
   }
