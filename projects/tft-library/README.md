@@ -2,12 +2,12 @@
 
 This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.
 
-This library is in pre-alpha. Breaking changes will occur often and documentation will be limited.
+This library is in pre-alpha. Breaking changes will occur often and documentation will be limited. As of right now I am the only contributor to the project, so it's hard to do all the things required to have a robust, stable, well-tested library. That being said Version 8.0.0 brings a lot of really nice features, especially to the DynamicForms piece. From here the focus will be on organizing the source, stabilizing the API, building robust docs and examples, and back-filling unit test before V9. Additionally, all modules will be abstracted into a separate libraries, this way end users can cherry pick the pieces they need instead of having to pull in all code and dependencies. 
 
 Major versions will attempt to keep in line with Angular releases and we will keep past major versions available on branches in the repository
 
 
-##Installation
+## Installation
 
 `npm install`
 ## Development
@@ -24,7 +24,7 @@ We use the fantastic [compodoc](https://compodoc.app) library to generate our do
 ## Modules:
 
 ### DesignModule:
-Imports and exports all `@angular/material` componenst and `@angular/flex-layout` to be used with components for this library. Can be used to import all components into the app code if desired.
+Imports and exports all `@angular/material` components and `@angular/flex-layout` to be used with components for this library. Can be used to import all components into the app code if desired.
 
 ### SearchModule:
 A library of customized `angular-instantsearch` components built with `@angular/material` library.
@@ -218,7 +218,7 @@ export class DynamicFormComponent implements OnInit {
       },
 
       // this control only shows when 'isSmoker' control has value of 'yes'
-      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
+      // it uses a helper function, checkControlForValues from the ConditionalFieldsService to
       {
         controlType: ControlType.INPUT,
         inputType: 'number',
@@ -227,7 +227,7 @@ export class DynamicFormComponent implements OnInit {
         placeholder: 'Packs per week',
         // showField again but this time using a helper function from the conditionalFields service
         // this expects a form: FormGroup and config that descibes what control to watch
-        showField: this.conditionalFields.watchControlForValues,
+        showField: checkControlForValues,
         // and the corresponding configuration
         // when this function get called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.

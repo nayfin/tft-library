@@ -6,7 +6,7 @@ import { SelectOption } from '../form-select/select-field-config';
 
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import { observablifyOptions } from '../dynamic-form.utils';
+import { observablifyOptions } from '../dynamic-form.helpers';
 
 @Component({
   selector: 'tft-form-select',
@@ -30,7 +30,7 @@ export class FormAutocompleteComponent implements OnInit {
 
   ngOnInit() {
     // sort out if options are passed in as an Observable, Array, or Promise then convert it into an observable
-    this.options$ = observablifyOptions(this.config.options);
+    this.options$ = observablifyOptions(this.config, this.group);
     // filter options by the search string using either the default filter function or one passed in through config
     this.filteredOptions$ = this.control.valueChanges.pipe(
       // this prevents errors when value changes is not a string because the filter function is expecting on
@@ -44,7 +44,7 @@ export class FormAutocompleteComponent implements OnInit {
                 // use if found
                 return this.config.filterFunction(options, searchString);
               } catch (error) {
-                console.error(error, 'falling back to default filter');
+                console.error(error, 'Error running filterFunction, falling back to default filter');
               } 
             }
             // fallback to default in the absence of custom filter function or on error
@@ -69,9 +69,9 @@ export class FormAutocompleteComponent implements OnInit {
   }
   /**   
    * To follow ARIA standards we want to select the active option on blur.
-   * @param event blur event that trigger the handle blur, TODO: remove this parameter if not used by 7/4/19
+   * @param event blur event that triggers the handle blur, TODO: remove this parameter if not used by 7/4/19
    */
-  handleBlur(event: FocusEvent) {
+  handleBlur(_event: FocusEvent) {
     if (this.autoInput.activeOption) {
       this.autoInput.activeOption.select();
       this.control.setValue(this.autoInput.activeOption.value);

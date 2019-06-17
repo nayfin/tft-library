@@ -10,6 +10,9 @@
   "files": [
     "src/test.ts"
   ],
+  "exclude": [
+    "./schematics/**/*"
+  ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"

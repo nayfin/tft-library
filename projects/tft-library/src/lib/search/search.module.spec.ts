@@ -1,13 +1,13 @@
-import { SearchModule } from './search.module';
+// import { SearchModule } from './search.module';
 
-describe('SearchModule', () => {
-  let searchModule: SearchModule;
+// describe('SearchModule', () => {
+//   let searchModule: SearchModule;
 
-  beforeEach(() => {
-    searchModule = new SearchModule();
-  });
+//   beforeEach(() => {
+//     searchModule = new SearchModule();
+//   });
 
-  it('should create an instance', () => {
-    expect(searchModule).toBeTruthy();
-  });
-});
+//   it('should create an instance', () => {
+//     expect(searchModule).toBeTruthy();
+//   });
+// });

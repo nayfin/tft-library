@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 
 import { FormGroupListConfig } from './form-group-list.config';
-import { createControlForType } from '../dynamic-form.utils';
+import { createControlForType } from '../dynamic-form.helpers';
 
 @Component({
   selector: 'tft-form-group-list',

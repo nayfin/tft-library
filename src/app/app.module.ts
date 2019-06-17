@@ -6,8 +6,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { environment } from '../environments/environment';
-// import { NgAisModule } from 'angular-instantsearch';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormConfig } from './dynamic-field-config';
-import { buildFormGroupFromConfig } from './dynamic-form.utils';
+import { buildFormGroupFromConfig } from './dynamic-form.helpers';
 @Component({
   selector: 'tft-dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],

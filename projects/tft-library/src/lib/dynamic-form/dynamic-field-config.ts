@@ -6,28 +6,9 @@ import { SelectFieldConfig } from './form-select/select-field-config';
 import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 import { ErrorDictionary } from '../validation-handling/public_api';
+import { ComputeFieldConfig, CheckControlConfig, CheckControlsConfig } from './dynamic-form.helpers';
 
-interface ComputeFieldConfig {
-  controlNameToSet?: string;
-  controlNamesToWatch: string[];
-  computeCallback: (
-    values: (string | number)[]
-  ) => string | number;
-}
 
-interface WatchControlConfig {
-  controlName: string;
-  values: string[];
-  evaluate: (any) => boolean;
-}
-
-interface DisplayFieldConfig {
-  controlName: string;
-  watchConfigs: WatchControlConfig[];
-  evaluate: (
-    bools: boolean[]
-  ) => boolean;
-}
 interface DynamicFieldConfig {
   controlName: string;
   controlType: ControlType;
@@ -35,11 +16,11 @@ interface DynamicFieldConfig {
   placeholder?: string;
   classes?: string[];
   flexLayoutConfig?: any;
-  computeField?: ( group: FormGroup, config: ComputeFieldConfig) => Observable<any>;
-  computeFieldConfig?: ComputeFieldConfig;
+  computeField?: ( group: FormGroup, config: any) => Observable<any>;
+  computeFieldConfig?: ComputeFieldConfig | any;
   // function that returns an observable that resolves to a boolean
   showField?: (group: FormGroup, config?: any ) => Observable<boolean>;
-  showFieldConfig?: WatchControlConfig | any; // any is required for user defined configs, TODO: maybe offer way to add type to config
+  showFieldConfig?: CheckControlConfig | CheckControlsConfig | any; // any is required for user defined configs
   validators?: ValidatorFn[];
   value?: string | number;
 }
@@ -68,4 +49,4 @@ enum ControlType {
   GROUP_LIST = 'groupList'
 }
 
-export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig, WatchControlConfig, DisplayFieldConfig, ComputeFieldConfig};
+export {ControlType, AnyFieldConfig, DynamicFieldConfig, FormGroupListConfig, FormConfig};

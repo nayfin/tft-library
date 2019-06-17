@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SelectFieldConfig, SelectOption } from './select-field-config';
-import { observablifyOptions } from '../dynamic-form.utils';
 import { Observable } from 'rxjs';
+
+import { SelectFieldConfig, SelectOption } from './select-field-config';
+import { observablifyOptions } from '../dynamic-form.helpers';
 
 @Component({
   selector: 'tft-form-select',
@@ -20,7 +21,7 @@ export class FormSelectComponent implements OnInit {
 
   ngOnInit() {
     // If options are passed in as a function that returns a promise then account for that
-    this.options$ = observablifyOptions(this.config.options);
+    this.options$ = observablifyOptions(this.config, this.group);
   }
 }
 

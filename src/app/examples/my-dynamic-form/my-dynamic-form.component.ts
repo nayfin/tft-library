@@ -1,13 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import {
   ControlType,
   FormConfig,
-  watchControlForValues,
-  watchControlsForValues,
-  computeValue,
+  checkControlForValues,
+  checkControlsForValues,
+  computeValueFromFields,
+  SelectOption,
+  ReactiveOptionsConfig,
+  OptionsCallback
 } from 'tft-library';
 
 /**
@@ -198,7 +201,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
   //     },
 
   //     // this control only shows when 'isSmoker' control has value of 'yes'
-  //     // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
+  //     // it uses a helper function, checkControlForValues from the ConditionalFieldsService to
   //     {
   //       controlType: ControlType.INPUT,
   //       inputType: 'number',
@@ -207,7 +210,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
   //       placeholder: 'Packs per week',
   //       // showField again but this time using a helper function from the conditionalFields service
   //       // this expects a form: FormGroup and config that descibes what control to watch
-  //       showField: this.conditionalFields.watchControlForValues,
+  //       showField: this.conditionalFields.CheckControlForValues,
   //       // and the corresponding configuration
   //       // when this function gets called on the generated component,
   //       // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
@@ -241,7 +244,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'What is Best',
         controlName: 'showFieldControllerA',
         placeholder: 'What is Best',
-        options: () => {
+        options: (): Promise<any> => {
           return new Promise((resolve, reject) => {
             // make an http request here
             setTimeout(() => {
@@ -260,17 +263,26 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'What is Best',
         controlName: 'showFieldControllerB',
         placeholder: 'What is Best',
-        options: () => {
-          return new Promise((resolve, reject) => {
-            // make an http request here
-            setTimeout(() => {
-              resolve([
-                { label: 'BLUE', value: 'blue' },
-                { label: 'DR. DOG', value: 'dr. dog' },
-                { label: 'GOLD', value: 'gold' }
-              ]);
-            }, 200);
-          });
+        reactiveOptionsConfig:{ controlNamesToWatch: ['showFieldControllerA']},
+        options: (group, config: ReactiveOptionsConfig) => {
+          const controlNameToWatch = config.controlNamesToWatch[0];
+          return group.get(controlNameToWatch).valueChanges.pipe(
+            switchMap( value => {
+              switch (value) {
+                case 'gold':                 
+                  return of([ 
+                    { label: 'gold 1', value: 'g1'},
+                    { label: 'gold 2', value: 'g2'}
+                  ])
+              
+                default:
+                  return of([
+                    { label: 'default 1', value: 'd1'},
+                    { label: 'default 2', value: 'd2'},
+                  ])
+              }
+            })
+          )
         },
         validators: [Validators.required, Validators.minLength(5)],
       },
@@ -279,9 +291,8 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'Can you see me',
         controlName: 'conditionalField',
         placeholder: 'Can you see me',
-        showField: watchControlsForValues,
+        showField: checkControlsForValues,
         showFieldConfig:  {
-
           watchConfigs: [
             { controlName: 'showFieldControllerA', values: ['gold'] },
             { controlName: 'showFieldControllerB', values: ['gold'] }
@@ -290,14 +301,13 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
             return bools[0] && !bools[1]
           }
         },
-        // showField: watchControlForValues,
+        // showField: CheckControlForValues,
         // showFieldConfig: { 
         //   controlName: 'showFieldControllerA', 
         //   values: ['gold'],
         //   evaluate: (bool: boolean) => !bool
         // },
-            // { controlName: 'showFieldControllerB', values: ['gold'] },
-        
+        // { controlName: 'showFieldControllerB', values: ['gold'] }, 
         classes: ['blue'],
         options: of([
           { label: 'BLUE', value: 'blue' },
@@ -333,7 +343,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'Computed Value',
         controlName: 'computedValue',
         placeholder: 'Computed Total',
-        computeField: computeValue,
+        computeField: computeValueFromFields,
         // and the corresponding configuration
         // when this function gets called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.

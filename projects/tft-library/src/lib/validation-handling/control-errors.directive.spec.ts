@@ -1,8 +1,8 @@
-import { ControlErrorsDirective } from './control-errors.directive';
+// import { ControlErrorsDirective } from './control-errors.directive';
 
-describe('ControlErrorsDirective', () => {
-  it('should create an instance', () => {
-    const directive = new ControlErrorsDirective();
-    expect(directive).toBeTruthy();
-  });
-});
+// describe('ControlErrorsDirective', () => {
+//   it('should create an instance', () => {
+//     const directive = new ControlErrorsDirective();
+//     expect(directive).toBeTruthy();
+//   });
+// });

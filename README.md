@@ -207,7 +207,7 @@ export class DynamicFormComponent implements OnInit {
       },
 
       // this control only shows when 'isSmoker' control has value of 'yes'
-      // it uses a helper function, watchControlForValues from the ConditionalFieldsService to
+      // it uses a helper function, checkControlForValues from the ConditionalFieldsService to
       {
         controlType: ControlType.INPUT,
         inputType: 'number',
@@ -216,7 +216,7 @@ export class DynamicFormComponent implements OnInit {
         placeholder: 'Packs per week',
         // showField again but this time using a helper function from the conditionalFields service
         // this expects a form: FormGroup and config that descibes what control to watch
-        showField: this.conditionalFields.watchControlForValues,
+        showField: this.conditionalFields.CheckControlForValues,
         // and the corresponding configuration
         // when this function get called on the generated component,
         // this configuration tells the service to watch 'isSmoker' control for a value of 'yes'.
