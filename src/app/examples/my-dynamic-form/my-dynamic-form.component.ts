@@ -301,20 +301,47 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
             return bools[0] && !bools[1]
           }
         },
-        // showField: CheckControlForValues,
-        // showFieldConfig: { 
-        //   controlName: 'showFieldControllerA', 
-        //   values: ['gold'],
-        //   evaluate: (bool: boolean) => !bool
-        // },
-        // { controlName: 'showFieldControllerB', values: ['gold'] }, 
-        classes: ['blue'],
-        options: of([
-          { label: 'BLUE', value: 'blue' },
-          { label: 'DR. DOG', value: 'dr. dog' },
-          { label: 'GOLD', value: 'gold' }
-        ]),
-        validators: [Validators.required, Validators.minLength(5)],
+      },
+      {
+        controlType: ControlType.GROUP,
+        label: 'Nested Group',
+        controlName: 'testNestedGroup',
+        showField: checkControlForValues,
+        showFieldConfig: {
+          controlName: 'showFieldControllerA',
+          values: ['blue']
+        },
+        fields: [
+          {
+            controlType: ControlType.INPUT,
+            label: 'Nested input',
+            controlName: 'nestedInput',
+            placeholder: 'Favorite band',
+
+          },
+          {
+            controlType: ControlType.INPUT,
+            label: 'First Name',
+            controlName: 'firstName',
+            placeholder: 'Enter your first name',
+            classes: [],
+            validators: [Validators.required],
+          },
+          // another input with conditional display logic
+          // the showField parameter takes a function that that returns an observable that resolve to a boolean
+          // expects form of type FormGroup as its first parameter and an optional configuration object as arguments
+          // ( form: FormGroup, config?: any ) => Observable<boolean>
+          // you get the observable from form.get('someControlName').valueChanges
+          // as demonstrated in this.firstnameIsNotBlank implemented below the class constructor
+          {
+            controlType: ControlType.INPUT,
+            label: 'Last name',
+            controlName: 'lastName',
+            placeholder: 'Enter your last name',
+            // note that because function doesn't require a showFieldConfig, control config doesn't have a showFieldConfig prop
+            showField: this.firstNameIsNotBlank
+          },
+        ],
       },
       {
         controlType: ControlType.INPUT,

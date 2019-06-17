@@ -214,7 +214,7 @@ export function buildFormGroupFromConfig(config: FormConfig, value: any = null, 
 export function createControlForType(controlConfig: AnyFieldConfig, value: any) {
   // build form control out based on the control type
   const control = controlConfig.controlType === ControlType.GROUP
-    ? this.buildFormGroupFromConfig(controlConfig as FormConfig, value)
+    ? buildFormGroupFromConfig(controlConfig as FormConfig, value)
     : controlConfig.controlType === ControlType.GROUP_LIST
     ? new FormArray([], (controlConfig as FormGroupListConfig).validators)
     : new FormControl(
@@ -224,7 +224,7 @@ export function createControlForType(controlConfig: AnyFieldConfig, value: any) 
   // if it was a GROUP_LIST and it had initial values passed in, add the values to the form array
   if (controlConfig.controlType === ControlType.GROUP_LIST && Array.isArray(value)) {
     value.forEach( item => {
-      (control as FormArray).push( this.createControlForType((controlConfig as FormGroupListConfig).itemConfig, item));
+      (control as FormArray).push( createControlForType((controlConfig as FormGroupListConfig).itemConfig, item));
     });
   }
   return control;
