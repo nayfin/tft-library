@@ -9,6 +9,7 @@ import { UtilitiesModule } from '../utilities/public_api';
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
 import { FormInputComponent } from './form-input/form-input.component';
+import { FormTextareaComponent } from './form-textarea/form-textarea.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormGroupComponent } from './form-group/form-group.component';
@@ -38,6 +39,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
     FormGroupComponent,
     FormGroupListComponent,
     FormAutocompleteComponent,
+    FormTextareaComponent,
   ],
   exports: [
     DynamicFormComponent,
@@ -47,6 +49,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
     FormGroupComponent,
     FormGroupListComponent,
     FormAutocompleteComponent,
+    FormTextareaComponent
   ],
   entryComponents: [
     FormInputComponent,
@@ -55,6 +58,7 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
     FormGroupComponent,
     FormGroupListComponent,
     FormAutocompleteComponent,
+    FormTextareaComponent
   ]
 })
 export class DynamicFormModule { }
@@ -66,6 +70,7 @@ export {
   FormButtonComponent,
   FormGroupComponent,
   FormGroupListComponent,
-  FormAutocompleteComponent
+  FormAutocompleteComponent,
+  FormTextareaComponent
 };
 

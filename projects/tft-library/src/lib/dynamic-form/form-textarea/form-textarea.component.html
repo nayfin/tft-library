@@ -1,0 +1,15 @@
+<tft-field-container
+  [config]="config"
+  [group]="group">
+  <mat-form-field
+    [formGroup]="group">
+    <textarea
+      [rows]="rows"
+      matInput
+      [placeholder]="config.placeholder"
+      [formControlName]="config.controlName">
+    </textarea>
+  </mat-form-field>
+  
+
+</tft-field-container>
