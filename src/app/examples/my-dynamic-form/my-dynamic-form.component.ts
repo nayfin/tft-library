@@ -259,6 +259,15 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         validators: [Validators.required, Validators.minLength(5)],
       },
       {
+        controlType: ControlType.TEXTAREA,
+        label: 'Description',
+        controlName: 'description',
+        placeholder: 'Enter a description',
+        defaultRows: 3,
+        classes: [],
+        validators: [Validators.required],
+      },
+      {
         controlType: ControlType.SELECT,
         label: 'What is Best',
         controlName: 'showFieldControllerB',
