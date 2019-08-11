@@ -8,6 +8,7 @@ import { FormGroupComponent } from './form-group/form-group.component';
 import { AnyFieldConfig } from './dynamic-field-config';
 import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 import { FormTextareaComponent } from './form-textarea/form-textarea.component';
+import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 
 
 
@@ -18,7 +19,8 @@ const components = {
   group: FormGroupComponent,
   groupList: FormGroupListComponent,
   autocomplete: FormAutocompleteComponent,
-  textarea: FormTextareaComponent
+  textarea: FormTextareaComponent,
+  checkbox: FormCheckboxComponent
 };
 
 @Directive({
