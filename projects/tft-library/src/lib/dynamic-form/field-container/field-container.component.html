@@ -1,10 +1,11 @@
 <div
   *ngIf="showField | async"
   [ngClass]="config.classes"
+  [class.inline-field]="inlineField"
   class="field-container">
 
   <label
-    *ngIf="!!config.label"
+    *ngIf="!!config.label && showLabel"
     class="mat-h3">{{ config.label }}
   </label>
   

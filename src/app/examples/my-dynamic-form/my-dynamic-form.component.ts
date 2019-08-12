@@ -240,6 +240,121 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
     fields: [
       // a basic input field in the form with the following configuration
       {
+        controlType: ControlType.TEXTAREA,
+        label: 'Description',
+        controlName: 'description',
+        placeholder: 'Enter a description',
+        defaultRows: 3,
+        classes: [],
+        validators: [Validators.required],
+      },
+      // {
+      //   controlType: ControlType.CHECKBOX,
+      //   label: 'What programming languages do you know?',
+      //   controlName: 'yesOrNo',
+      //   placeholder: 'Yes or no',
+      //   labelPosition: 'after',
+      //   options: [
+      //     { label: 'JavaScript', controlName: 'languageJavaScript' },
+      //     { label: 'Java', controlName: 'languageJava' },
+      //     { label: 'Go', controlName: 'languageGo' },
+      //     { label: 'Python', controlName: 'languagePython' },
+      //   ],
+      //   classes: [],
+      //   validators: [Validators.required],
+      // },
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'whatProgrammingLanguages',
+        label: 'What programming languages do you know?',
+        fields: [
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'JavaScript',
+            controlName: 'javaScript',
+            labelPosition: 'after',
+            inline: true,
+            classes: [],
+            validators: [Validators.required],
+          },
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Java',
+            controlName: 'java',
+            labelPosition: 'after',
+            inline: true,
+            classes: [],
+            validators: [Validators.required],
+          },
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Go',
+            controlName: 'goLang',
+            labelPosition: 'after',
+            inline: true,
+            classes: [],
+            validators: [Validators.required],
+          },
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Python',
+            controlName: 'python',
+            labelPosition: 'after',
+            inline: true,
+            classes: [],
+            validators: [Validators.required],
+          },
+        ]
+      },
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'whatDoYouThink',
+        label: 'What do you think about these block checkboxes?',
+        fields: [
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Block checkboxes are awesome',
+            controlName: 'blockCheckboxesAwesome',
+            labelPosition: 'before',
+            inline: false,
+            classes: [],
+            validators: [Validators.required],
+          },
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Inline block checkboxes are awesome',
+            controlName: 'inlineBlockCheckboxesAwesome',
+            labelPosition: 'before',
+            classes: [],
+            validators: [Validators.required],
+          }
+        ]
+      },
+      {
+        controlType: ControlType.GROUP,
+        controlName: 'whatDoYouThinkCheckboxesBefore',
+        label: 'What do you think about checkboxes before the label?',
+        fields: [
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Checkboxes before label, always.',
+            controlName: 'checkboxesBefore',
+            labelPosition: 'after',
+            inline: false,
+            classes: [],
+            validators: [Validators.required],
+          },
+          {
+            controlType: ControlType.CHECKBOX,
+            label: 'Checkboxes after label, are good sometimes too',
+            controlName: 'inlineBlockCheckboxesAwesome',
+            labelPosition: 'after',
+            classes: [],
+            validators: [Validators.required],
+          }
+        ]
+      },
+      {
         controlType: ControlType.SELECT,
         label: 'What is Best',
         controlName: 'showFieldControllerA',
@@ -257,15 +372,6 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           });
         },
         validators: [Validators.required, Validators.minLength(5)],
-      },
-      {
-        controlType: ControlType.TEXTAREA,
-        label: 'Description',
-        controlName: 'description',
-        placeholder: 'Enter a description',
-        defaultRows: 3,
-        classes: [],
-        validators: [Validators.required],
       },
       {
         controlType: ControlType.SELECT,
