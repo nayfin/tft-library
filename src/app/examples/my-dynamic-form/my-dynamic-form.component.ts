@@ -248,21 +248,6 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         classes: [],
         validators: [Validators.required],
       },
-      // {
-      //   controlType: ControlType.CHECKBOX,
-      //   label: 'What programming languages do you know?',
-      //   controlName: 'yesOrNo',
-      //   placeholder: 'Yes or no',
-      //   labelPosition: 'after',
-      //   options: [
-      //     { label: 'JavaScript', controlName: 'languageJavaScript' },
-      //     { label: 'Java', controlName: 'languageJava' },
-      //     { label: 'Go', controlName: 'languageGo' },
-      //     { label: 'Python', controlName: 'languagePython' },
-      //   ],
-      //   classes: [],
-      //   validators: [Validators.required],
-      // },
       {
         controlType: ControlType.GROUP,
         controlName: 'whatProgrammingLanguages',
