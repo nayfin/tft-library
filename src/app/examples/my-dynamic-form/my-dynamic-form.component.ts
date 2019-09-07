@@ -244,7 +244,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         label: 'Description',
         controlName: 'description',
         placeholder: 'Enter a description',
-        defaultRows: 3,
+        rows: 3,
         classes: [],
         validators: [Validators.required],
       },
@@ -270,7 +270,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         fields: [
           {
             controlType: ControlType.CHECKBOX,
-            label: 'JavaScript',
+            text: 'JavaScript',
             controlName: 'javaScript',
             labelPosition: 'after',
             inline: true,
@@ -279,7 +279,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           },
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Java',
+            text: 'Java',
             controlName: 'java',
             labelPosition: 'after',
             inline: true,
@@ -288,7 +288,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           },
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Go',
+            text: 'Go',
             controlName: 'goLang',
             labelPosition: 'after',
             inline: true,
@@ -297,7 +297,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           },
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Python',
+            text: 'Python',
             controlName: 'python',
             labelPosition: 'after',
             inline: true,
@@ -313,7 +313,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         fields: [
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Block checkboxes are awesome',
+            text: 'Block checkboxes are awesome',
             controlName: 'blockCheckboxesAwesome',
             labelPosition: 'before',
             inline: false,
@@ -322,7 +322,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           },
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Inline block checkboxes are awesome',
+            text: 'Inline block checkboxes are awesome',
             controlName: 'inlineBlockCheckboxesAwesome',
             labelPosition: 'before',
             classes: [],
@@ -337,7 +337,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         fields: [
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Checkboxes before label, always.',
+            text: 'Checkboxes before label, always.',
             controlName: 'checkboxesBefore',
             labelPosition: 'after',
             inline: false,
@@ -346,7 +346,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
           },
           {
             controlType: ControlType.CHECKBOX,
-            label: 'Checkboxes after label, are good sometimes too',
+            text: 'Checkboxes after label are good sometimes too',
             controlName: 'inlineBlockCheckboxesAwesome',
             labelPosition: 'after',
             classes: [],

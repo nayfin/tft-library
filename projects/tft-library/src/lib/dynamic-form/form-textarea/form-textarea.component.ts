@@ -19,6 +19,6 @@ export class FormTextareaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.rows = this.config.defaultRows || 5;
+    this.rows = this.config.rows || 5;
   }
 }
