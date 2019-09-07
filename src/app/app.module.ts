@@ -25,7 +25,7 @@ import { ExamplesModule } from './examples/examples.module';
     DesignModule,
     ExamplesModule,
     PipesModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
     AngularFirestoreModule
   ],
