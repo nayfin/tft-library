@@ -1,14 +1,13 @@
 <tft-field-container
   [config]="config"
   [group]="group"
-  [showLabel]="false"
   [inlineField]="inline">
   <div
     [formGroup]="group">
     <mat-checkbox
       [labelPosition]="labelPosition"
       [formControlName]="config.controlName">
-      {{config.label}}
+      {{config.text}}
     </mat-checkbox>
   </div>
 </tft-field-container>

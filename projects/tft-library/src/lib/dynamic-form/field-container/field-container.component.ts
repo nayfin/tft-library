@@ -15,8 +15,6 @@ export class FieldContainerComponent implements OnInit, OnDestroy {
   @Input() config: DynamicFieldConfig;
   // the parent formGroup
   @Input() group: FormGroup;
-  // boolean whether to show label in container or not
-  @Input() showLabel: boolean = true;
   // boolean whether field-container is inline
   @Input() inlineField: boolean = false;
   // used to determine whether or not field should be shown
