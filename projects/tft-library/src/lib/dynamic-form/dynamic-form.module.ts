@@ -9,6 +9,8 @@ import { UtilitiesModule } from '../utilities/public_api';
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
 import { FormInputComponent } from './form-input/form-input.component';
+import { FormTextareaComponent } from './form-textarea/form-textarea.component';
+import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormGroupComponent } from './form-group/form-group.component';
@@ -18,6 +20,17 @@ import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete
 // directives
 import { DynamicFieldDirective } from './dynamic-field.directive';
 // providers
+
+const FORM_FIELD_COMPONENTS = [
+  FormInputComponent,
+  FormSelectComponent,
+  FormButtonComponent,
+  FormGroupComponent,
+  FormGroupListComponent,
+  FormAutocompleteComponent,
+  FormTextareaComponent,
+  FormCheckboxComponent
+];
 
 @NgModule({
   imports: [
@@ -32,29 +45,14 @@ import { DynamicFieldDirective } from './dynamic-field.directive';
     DynamicFieldDirective,
     FieldContainerComponent,
     DynamicFormComponent,
-    FormInputComponent,
-    FormSelectComponent,
-    FormButtonComponent,
-    FormGroupComponent,
-    FormGroupListComponent,
-    FormAutocompleteComponent,
+    ...FORM_FIELD_COMPONENTS
   ],
   exports: [
     DynamicFormComponent,
-    FormInputComponent,
-    FormSelectComponent,
-    FormButtonComponent,
-    FormGroupComponent,
-    FormGroupListComponent,
-    FormAutocompleteComponent,
+    ...FORM_FIELD_COMPONENTS
   ],
   entryComponents: [
-    FormInputComponent,
-    FormSelectComponent,
-    FormButtonComponent,
-    FormGroupComponent,
-    FormGroupListComponent,
-    FormAutocompleteComponent,
+    ...FORM_FIELD_COMPONENTS
   ]
 })
 export class DynamicFormModule { }
@@ -66,6 +64,8 @@ export {
   FormButtonComponent,
   FormGroupComponent,
   FormGroupListComponent,
-  FormAutocompleteComponent
+  FormAutocompleteComponent,
+  FormTextareaComponent,
+  FormCheckboxComponent
 };
 

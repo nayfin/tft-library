@@ -7,6 +7,8 @@ import { InputFieldConfig } from './form-input/input-field-config';
 import { FormGroupListConfig } from './form-group-list/form-group-list.config';
 import { ErrorDictionary } from '../validation-handling/public_api';
 import { ComputeFieldConfig, CheckControlConfig, CheckControlsConfig } from './dynamic-form.helpers';
+import { TextareaFieldConfig } from './form-textarea/textarea-field-config';
+import { CheckboxFieldConfig } from './form-checkbox/checkbox-field-config';
 
 
 interface DynamicFieldConfig {
@@ -33,7 +35,14 @@ interface FormConfig {
   fields: AnyFieldConfig[];
 }
 
-type AnyFieldConfig = DynamicFieldConfig | SelectFieldConfig | InputFieldConfig | FormGroupListConfig| FormConfig | AutocompleteFieldConfig;
+type AnyFieldConfig = DynamicFieldConfig
+  | SelectFieldConfig
+  | InputFieldConfig
+  | FormGroupListConfig
+  | FormConfig
+  | AutocompleteFieldConfig
+  | TextareaFieldConfig
+  | CheckboxFieldConfig;
 
 interface Attr {
   name: string;
@@ -43,6 +52,8 @@ interface Attr {
 enum ControlType {
   AUTOCOMPLETE = 'autocomplete',
   INPUT = 'input',
+  TEXTAREA = 'textarea',
+  CHECKBOX = 'checkbox',
   SELECT = 'select',
   BUTTON = 'button',
   GROUP = 'group',

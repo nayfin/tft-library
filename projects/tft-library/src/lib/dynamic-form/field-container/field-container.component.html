@@ -1,6 +1,7 @@
 <div
   *ngIf="showField | async"
   [ngClass]="config.classes"
+  [class.inline-field]="inlineField"
   class="field-container">
 
   <label
