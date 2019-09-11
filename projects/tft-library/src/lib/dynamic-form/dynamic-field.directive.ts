@@ -1,7 +1,6 @@
 import { Directive, Input, ComponentFactoryResolver, ViewContainerRef, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormButtonComponent } from './form-button/form-button.component';
-import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
 import { FormGroupComponent } from './form-group/form-group.component';
@@ -9,12 +8,11 @@ import { AnyFieldConfig } from './dynamic-field-config';
 import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 import { FormTextareaComponent } from './form-textarea/form-textarea.component';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
-
-
+import { InputFieldComponent } from './material';
 
 const components = {
   button: FormButtonComponent,
-  input: FormInputComponent,
+  input: InputFieldComponent,
   select: FormSelectComponent,
   group: FormGroupComponent,
   groupList: FormGroupListComponent,
