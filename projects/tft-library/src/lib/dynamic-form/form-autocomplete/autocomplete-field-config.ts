@@ -1,10 +1,9 @@
-import { DynamicFieldConfig } from '../dynamic-field-config';
-import { OptionsType, SelectOption, ReactiveOptionsConfig } from '../form-select/select-field-config';
+import { OptionsType, SelectOption, ReactiveOptionsConfig, DynamicFieldConfig } from '../models';
 
 export interface AutocompleteFieldConfig extends DynamicFieldConfig {
   emptyOptionsMessage?: string;
   options: OptionsType;
-  reactiveOptionsConfig: ReactiveOptionsConfig
+  reactiveOptionsConfig: ReactiveOptionsConfig;
   filterFunction?: (options: SelectOption[], searchString: string) => SelectOption[];
 }
 

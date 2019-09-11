@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { AutocompleteFieldConfig } from './autocomplete-field-config';
-import { SelectOption } from '../form-select/select-field-config';
+import { SelectOption } from '../models';
 
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';

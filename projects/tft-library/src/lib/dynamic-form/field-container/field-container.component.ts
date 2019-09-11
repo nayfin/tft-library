@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../models';
 import { Observable, of, Subscription } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { tap } from 'rxjs/operators';

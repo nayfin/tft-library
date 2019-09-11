@@ -9,10 +9,8 @@ import { UtilitiesModule } from '../utilities/public_api';
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
 
-import { FormInputComponent } from './form-input/form-input.component';
 import { FormTextareaComponent } from './form-textarea/form-textarea.component';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
-import { FormSelectComponent } from './form-select/form-select.component';
 import { FormButtonComponent } from './form-button/form-button.component';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
@@ -20,13 +18,14 @@ import { ValidationHandlingModule } from '../validation-handling/public_api';
 import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 // directives
 import { DynamicFieldDirective } from './dynamic-field.directive';
-import { InputFieldComponent } from './material';
+import { InputFieldComponent } from './material/input-field/input-field.component';
+import { SelectFieldComponent } from './material/select-field/select-field.component';
+
 // providers
 
 const FORM_FIELD_COMPONENTS = [
-  FormInputComponent,
   InputFieldComponent,
-  FormSelectComponent,
+  SelectFieldComponent,
   FormButtonComponent,
   FormGroupComponent,
   FormGroupListComponent,
@@ -48,7 +47,7 @@ const FORM_FIELD_COMPONENTS = [
     DynamicFieldDirective,
     FieldContainerComponent,
     DynamicFormComponent,
-    ...FORM_FIELD_COMPONENTS
+    ...FORM_FIELD_COMPONENTS,
   ],
   exports: [
     DynamicFormComponent,
@@ -62,8 +61,8 @@ export class DynamicFormModule { }
 
 export {
   DynamicFormComponent,
-  FormInputComponent,
-  FormSelectComponent,
+  InputFieldComponent,
+  SelectFieldComponent,
   FormButtonComponent,
   FormGroupComponent,
   FormGroupListComponent,

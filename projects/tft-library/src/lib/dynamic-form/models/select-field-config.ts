@@ -1,4 +1,4 @@
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../models';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 

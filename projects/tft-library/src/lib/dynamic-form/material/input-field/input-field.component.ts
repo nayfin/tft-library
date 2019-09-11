@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { InputFieldConfig } from './input-field-config';
+import { InputFieldConfig } from '../../models';
 
 @Component({
   selector: 'tft-input-field',
