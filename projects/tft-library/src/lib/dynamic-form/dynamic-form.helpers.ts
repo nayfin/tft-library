@@ -190,7 +190,7 @@ export function observablifyOptions(
   const options$ = reactiveOptionsConfig && options instanceof Function
   ? options(group, reactiveOptionsConfig)
   : options instanceof Function
-  ? from( (options as OptionsCallback)().then(map => map))
+  ? from( (options as OptionsCallback)().then())
   : Array.isArray(options)
   ? of(options)
   : isObservable(options)
