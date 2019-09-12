@@ -7,4 +7,4 @@ export interface AutocompleteFieldConfig extends DynamicFieldConfig {
   filterFunction?: (options: SelectOption[], searchString: string) => SelectOption[];
 }
 
-export const DEFAULT_EMPTY_OPTIONS_MESSAGE = 'No Items';
+// export const DEFAULT_EMPTY_OPTIONS_MESSAGE = 'No Items';

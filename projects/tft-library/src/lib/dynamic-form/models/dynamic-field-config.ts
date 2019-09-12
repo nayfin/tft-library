@@ -1,13 +1,10 @@
 import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AutocompleteFieldConfig } from '../form-autocomplete/autocomplete-field-config';
+import { AutocompleteFieldConfig } from '../models';
 import { FormGroupListConfig } from '../form-group-list/form-group-list.config';
 import { ErrorDictionary } from '../../validation-handling/public_api';
 import { ComputeFieldConfig, CheckControlConfig, CheckControlsConfig } from '../dynamic-form.helpers';
-import { TextareaFieldConfig } from '../form-textarea/textarea-field-config';
-import { CheckboxFieldConfig } from '../form-checkbox/checkbox-field-config';
-import { SelectFieldConfig, InputFieldConfig } from '../models';
-
+import { SelectFieldConfig, InputFieldConfig, CheckboxFieldConfig, TextareaFieldConfig } from '../models';
 
 interface DynamicFieldConfig {
   controlName: string;

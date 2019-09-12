@@ -29,7 +29,7 @@ import {
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { valueIn } from './dynamic-form.operators';
 import { map, tap, startWith } from 'rxjs/operators';
-import { AutocompleteFieldConfig } from './form-autocomplete/autocomplete-field-config';
+import { AutocompleteFieldConfig } from './models';
 
 
 /**

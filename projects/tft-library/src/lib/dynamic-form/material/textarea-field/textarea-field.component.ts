@@ -1,16 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { TextareaFieldConfig } from './textarea-field-config';
+import { TextareaFieldConfig } from '../../models';
 
 @Component({
-  selector: 'tft-form-textarea',
-  templateUrl: './form-textarea.component.html',
-  styleUrls: ['./form-textarea.component.scss'],
+  selector: 'tft-textarea-field',
+  templateUrl: './textarea-field.component.html',
+  styleUrls: ['./textarea-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-
-export class FormTextareaComponent implements OnInit {
+export class TextareaFieldComponent implements OnInit {
 
   config: TextareaFieldConfig;
   group: FormGroup;
@@ -22,3 +20,4 @@ export class FormTextareaComponent implements OnInit {
     this.rows = this.config.rows || 5;
   }
 }
+

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormTextareaComponent } from './form-textarea.component';
+import { AutocompleteFieldComponent } from './autocomplete-field.component';
 
-describe('FormTextareaComponent', () => {
-  let component: FormTextareaComponent;
-  let fixture: ComponentFixture<FormTextareaComponent>;
+describe('AutocompleteFieldComponent', () => {
+  let component: AutocompleteFieldComponent;
+  let fixture: ComponentFixture<AutocompleteFieldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormTextareaComponent ]
+      declarations: [ AutocompleteFieldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormTextareaComponent);
+    fixture = TestBed.createComponent(AutocompleteFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
