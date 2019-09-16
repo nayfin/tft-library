@@ -1,4 +1,4 @@
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../models';
 
 export interface CheckboxFieldConfig extends DynamicFieldConfig {
   labelPosition: 'before' | 'after';

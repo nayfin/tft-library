@@ -1,16 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { CheckboxFieldConfig } from './checkbox-field-config';
+import { CheckboxFieldConfig } from '../../models';
 
 @Component({
-  selector: 'tft-form-checkbox',
-  templateUrl: './form-checkbox.component.html',
-  styleUrls: ['./form-checkbox.component.scss'],
+  selector: 'tft-checkbox-field',
+  templateUrl: './checkbox-field.component.html',
+  styleUrls: ['./checkbox-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-
-export class FormCheckboxComponent implements OnInit {
+export class CheckboxFieldComponent implements OnInit {
 
   config: CheckboxFieldConfig;
   group: FormGroup;

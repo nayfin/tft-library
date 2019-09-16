@@ -7,13 +7,29 @@
  * helper functions to use with the compute field function; and other logic shared between components
  */
 
-import { SelectFieldConfig, SelectOption, DEFAULT_EMPTY_OPTIONS_MESSAGE, OptionsCallback } from './form-select/select-field-config'
-import { from, Observable, of, isObservable, combineLatest, OperatorFunction } from 'rxjs';
-import { AnyFieldConfig, FormConfig, ControlType, FormGroupListConfig, DynamicFieldConfig } from './dynamic-field-config';
+import { 
+  SelectFieldConfig,
+  SelectOption,
+  DEFAULT_EMPTY_OPTIONS_MESSAGE,
+  OptionsCallback,
+  AnyFieldConfig,
+  FormConfig,
+  ControlType,
+  FormGroupListConfig,
+  DynamicFieldConfig
+} from './models';
+import {
+  from,
+  Observable,
+  of,
+  isObservable,
+  combineLatest,
+  OperatorFunction
+} from 'rxjs';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { valueIn } from './dynamic-form.operators';
 import { map, tap, startWith } from 'rxjs/operators';
-import { AutocompleteFieldConfig } from './form-autocomplete/autocomplete-field-config';
+import { AutocompleteFieldConfig } from './models';
 
 
 /**
@@ -31,8 +47,8 @@ export interface CheckControlConfig {
 /**
 * Watches a single control for a list of values, returns true when field value matches any value in list 
 * unless an evaluate method is found on config, in which case that method is run on the returned boolean value
-* @param group the direct parent of the field we want to watch 
-* @param config 
+* @param group the direct parent of the field we want to watch
+* @param config
 */
 export function checkControlForValues(group: FormGroup, config: CheckControlConfig): Observable<boolean> {
   // check that all the pieces we need are available
@@ -43,10 +59,11 @@ export function checkControlForValues(group: FormGroup, config: CheckControlConf
       map((isValueInValues: boolean) => {
         // since we can only check if the value is in the list of watched values, the evaluate function gives us
         // a chance to make other decisions based on if the boolean returned, e.g. return true if value not in watched values
-        if ( config.evaluate && config.evaluate instanceof Function ) return config.evaluate(isValueInValues);
-        else return isValueInValues;
+        if ( config.evaluate && config.evaluate instanceof Function ) {
+          return config.evaluate(isValueInValues);
+        } else { return isValueInValues; }
       })
-    )
+    );
   } else {
     return of(true);
   }
@@ -70,7 +87,7 @@ export interface CheckControlsConfig {
  */
 export function checkControlsForValues(group: FormGroup, config: CheckControlsConfig): Observable<any> {
   // if no config is passed we just want to show the field, so we return an observable of true
-  if (!config || !config.watchConfigs) return of(true);
+  if (!config || !config.watchConfigs) { return of(true); }
   // we run checkControlForValues on every control in the list of WatchConfigs creating 
   // an array of Observable watching fields for values
   const fieldTriggers = config.watchConfigs.map(watchConfig => {
@@ -84,11 +101,13 @@ export function checkControlsForValues(group: FormGroup, config: CheckControlsCo
     startWith([true]),
     map((booleans: boolean[]) => {
       // if the user passed an evaluate function use it
-      if (config.evaluate && config.evaluate instanceof Function) return config.evaluate(booleans);
-      // otherwise we return true if any of the watched fields resolve to true
-      else return booleans.some(bool => bool);
+      if (config.evaluate && config.evaluate instanceof Function) {
+        return config.evaluate(booleans);
+      } else { // otherwise we return true if any of the watched fields resolve to true
+        return booleans.some(bool => bool);
+      }
     })
-  )
+  );
 }
 
 
@@ -171,9 +190,9 @@ export function observablifyOptions(
   const options$ = reactiveOptionsConfig && options instanceof Function
   ? options(group, reactiveOptionsConfig)
   : options instanceof Function
-  ? from( (options as OptionsCallback)().then(map => map))
+  ? from( (options as OptionsCallback)())
   : Array.isArray(options)
-  ? of(options) 
+  ? of(options)
   : isObservable(options)
   ? options
   : of([{
@@ -199,7 +218,7 @@ export function buildFormGroupFromConfig(config: FormConfig, value: any = null, 
       // if there's a value object and it has a value for this field (including zero), use it. Otherwise, default to null 
       const controlValue = value && isRealValue(value[controlName])
                          ? value[controlName]
-                         : null;  
+                         : null;
       group.addControl(controlConfig.controlName, createControlForType(controlConfig, controlValue));
     }
   });

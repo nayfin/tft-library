@@ -1,14 +1,15 @@
+
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../../models';
 
 @Component({
-  selector: 'tft-form-button',
-  templateUrl: './form-button.component.html',
-  styleUrls: ['./form-button.component.scss'],
+  selector: 'tft-raised-button',
+  templateUrl: './raised-button.component.html',
+  styleUrls: ['./raised-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormButtonComponent implements OnInit {
+export class RaisedButtonComponent implements OnInit {
 
   config: DynamicFieldConfig;
   group: FormGroup;

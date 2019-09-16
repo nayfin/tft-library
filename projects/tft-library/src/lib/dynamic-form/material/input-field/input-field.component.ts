@@ -1,16 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
-import { InputFieldConfig } from './input-field-config';
+import { FormGroup } from '@angular/forms';
+import { InputFieldConfig } from '../../models';
 
 @Component({
-  selector: 'tft-form-input',
-  templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.scss'],
+  selector: 'tft-input-field',
+  templateUrl: './input-field.component.html',
+  styleUrls: ['./input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
-
-export class FormInputComponent implements OnInit {
+export class InputFieldComponent implements OnInit {
 
   config: InputFieldConfig;
   group: FormGroup;
@@ -21,4 +19,5 @@ export class FormInputComponent implements OnInit {
   ngOnInit() {
     this.inputType = this.config.inputType || 'text';
   }
+
 }

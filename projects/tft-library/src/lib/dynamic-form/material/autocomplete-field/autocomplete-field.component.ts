@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { AutocompleteFieldConfig } from './autocomplete-field-config';
-import { SelectOption } from '../form-select/select-field-config';
+import { SelectOption, AutocompleteFieldConfig } from '../../models';
 
 import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import { observablifyOptions } from '../dynamic-form.helpers';
+import { observablifyOptions } from '../../dynamic-form.helpers';
 
 @Component({
-  selector: 'tft-form-select',
-  templateUrl: './form-autocomplete.component.html',
-  styleUrls: ['./form-autocomplete.component.scss'],
+  selector: 'tft-autocomplete-field',
+  templateUrl: './autocomplete-field.component.html',
+  styleUrls: ['./autocomplete-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormAutocompleteComponent implements OnInit {
+export class AutocompleteFieldComponent implements OnInit {
 
   @ViewChild('autoInput', { read: MatAutocompleteTrigger, static: true }) autoInput: MatAutocompleteTrigger;
 

@@ -1,35 +1,34 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 // custom modules
 import { CoreModule } from '../core/public_api';
 import { DesignModule } from '../design/public_api';
 import { UtilitiesModule } from '../utilities/public_api';
+import { ValidationHandlingModule } from '../validation-handling/public_api';
 // components
 import { DynamicFormComponent } from './dynamic-form.component';
 import { FieldContainerComponent } from './field-container/field-container.component';
-import { FormInputComponent } from './form-input/form-input.component';
-import { FormTextareaComponent } from './form-textarea/form-textarea.component';
-import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
-import { FormSelectComponent } from './form-select/form-select.component';
-import { FormButtonComponent } from './form-button/form-button.component';
+import { InputFieldComponent } from './material/input-field/input-field.component';
+import { SelectFieldComponent } from './material/select-field/select-field.component';
+import { AutocompleteFieldComponent } from './material/autocomplete-field/autocomplete-field.component';
+import { CheckboxFieldComponent } from './material/checkbox-field/checkbox-field.component';
+import { TextareaFieldComponent } from './material/textarea-field/textarea-field.component';
+import { RaisedButtonComponent } from './material/raised-button/raised-button.component';
 import { FormGroupComponent } from './form-group/form-group.component';
 import { FormGroupListComponent } from './form-group-list/form-group-list.component';
-import { ValidationHandlingModule } from '../validation-handling/public_api';
-import { FormAutocompleteComponent } from './form-autocomplete/form-autocomplete.component';
 // directives
 import { DynamicFieldDirective } from './dynamic-field.directive';
-// providers
 
 const FORM_FIELD_COMPONENTS = [
-  FormInputComponent,
-  FormSelectComponent,
-  FormButtonComponent,
+  InputFieldComponent,
+  SelectFieldComponent,
+  AutocompleteFieldComponent,
+  CheckboxFieldComponent,
+  TextareaFieldComponent,
+  RaisedButtonComponent,
   FormGroupComponent,
-  FormGroupListComponent,
-  FormAutocompleteComponent,
-  FormTextareaComponent,
-  FormCheckboxComponent
+  FormGroupListComponent
 ];
 
 @NgModule({
@@ -45,7 +44,7 @@ const FORM_FIELD_COMPONENTS = [
     DynamicFieldDirective,
     FieldContainerComponent,
     DynamicFormComponent,
-    ...FORM_FIELD_COMPONENTS
+    ...FORM_FIELD_COMPONENTS,
   ],
   exports: [
     DynamicFormComponent,
@@ -59,13 +58,13 @@ export class DynamicFormModule { }
 
 export {
   DynamicFormComponent,
-  FormInputComponent,
-  FormSelectComponent,
-  FormButtonComponent,
+  InputFieldComponent,
+  SelectFieldComponent,
+  AutocompleteFieldComponent,
+  CheckboxFieldComponent,
+  TextareaFieldComponent,
+  RaisedButtonComponent,
   FormGroupComponent,
   FormGroupListComponent,
-  FormAutocompleteComponent,
-  FormTextareaComponent,
-  FormCheckboxComponent
 };
 

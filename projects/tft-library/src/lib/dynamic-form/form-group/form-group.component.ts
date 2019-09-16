@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { FormConfig } from '../dynamic-field-config';
+import { FormConfig } from '../models';
 
 @Component({
   selector: 'tft-form-group',

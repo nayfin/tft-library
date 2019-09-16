@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormSelectComponent } from './form-select.component';
+import { AutocompleteFieldComponent } from './autocomplete-field.component';
 
-describe('FormSelectComponent', () => {
-  let component: FormSelectComponent;
-  let fixture: ComponentFixture<FormSelectComponent>;
+describe('AutocompleteFieldComponent', () => {
+  let component: AutocompleteFieldComponent;
+  let fixture: ComponentFixture<AutocompleteFieldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormSelectComponent ]
+      declarations: [ AutocompleteFieldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormSelectComponent);
+    fixture = TestBed.createComponent(AutocompleteFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

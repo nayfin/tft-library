@@ -249,6 +249,26 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
         validators: [Validators.required],
       },
       {
+        controlType: ControlType.AUTOCOMPLETE,
+        label: 'Testing Then',
+        controlName: 'isSmokerObservable',
+        placeholder: 'Have you smoked in the last six months',
+        multiple: true,
+        // use the options$ parameter to easily tie to app state with an Obserbable
+        options: (): Promise<SelectOption[]> => {
+          return new Promise( (resolve, reject) => {
+            // make an http request here
+            setTimeout( () => {
+              resolve([
+                {label: 'BLUE',     value: 'blue' } ,
+                {label: 'DR. DOG',  value: 'dr. dog'  },
+                {label: 'GOLD',     value: 'gold' }
+              ]);
+            }, 5000);
+          });
+        }
+      },
+      {
         controlType: ControlType.GROUP,
         controlName: 'whatProgrammingLanguages',
         label: 'What programming languages do you know?',

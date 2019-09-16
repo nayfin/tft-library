@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../models';
 import { Observable, of, Subscription } from 'rxjs';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { tap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class FieldContainerComponent implements OnInit, OnDestroy {
   // the parent formGroup
   @Input() group: FormGroup;
   // boolean whether field-container is inline
-  @Input() inlineField: boolean = false;
+  @Input() inlineField = false;
   // used to determine whether or not field should be shown
   showField: Observable<boolean>;
   alignFormWithView$: Observable<boolean>;

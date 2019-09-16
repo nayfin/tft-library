@@ -1,4 +1,4 @@
-import { DynamicFieldConfig } from '../dynamic-field-config';
+import { DynamicFieldConfig } from '../models';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
@@ -11,7 +11,7 @@ export interface SelectFieldConfig extends DynamicFieldConfig {
 
 export type OptionsType = SelectOption[] | Observable<SelectOption[]> | OptionsCallback | ReactiveOptionsCallback;
 
-export type OptionsCallback = () => Promise<SelectOption[]>
+export type OptionsCallback = () => Promise<SelectOption[]>;
 export type ReactiveOptionsCallback =  (group?: FormGroup, config?: ReactiveOptionsConfig) => Observable<SelectOption[]>
 export interface SelectOption {
   label: string;
