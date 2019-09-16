@@ -250,7 +250,7 @@ export class MyDynamicFormComponent implements OnInit, AfterViewInit {
       },
       {
         controlType: ControlType.AUTOCOMPLETE,
-        label: 'Select with options passed in as promise',
+        label: 'Testing Then',
         controlName: 'isSmokerObservable',
         placeholder: 'Have you smoked in the last six months',
         multiple: true,
