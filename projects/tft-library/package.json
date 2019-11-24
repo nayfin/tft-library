@@ -1,6 +1,6 @@
 {
   "name": "tft-library",
-  "version": "7.5.0",
+  "version": "8.0.0",
   "schematics": "./collection.json",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
@@ -14,6 +14,6 @@
     "firebase": "5.5.3",
     "rxjs": "^6.5.2",
     "lodash-es": "^4.17.10",
-    "@types/lodash-es":"^4.17.0"
+    "@types/lodash-es": "^4.17.0"
   }
 }

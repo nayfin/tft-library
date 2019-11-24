@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const TFT_DESIGN_MODULES = [
   MatPaginatorModule,
@@ -61,7 +62,8 @@ const TFT_DESIGN_MODULES = [
   MatSnackBarModule,
   MatExpansionModule,
   MatBadgeModule,
-  MatTableModule
+  MatTableModule,
+  MatStepperModule
   // DragDropModule
 ];
 
