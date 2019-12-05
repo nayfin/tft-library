@@ -3,13 +3,13 @@
 ## We've moved
 
 We are migrating all modules into distinct libraries under a nx workspace. Find us on
-github [here](https://github.com/nayfin/tft) under the `libs` folder. So far only a few modules have been migrated: dynamic-forms (renamed crisp-forms), validation-handling (renamed form-validation-handler). There is a new library, interact, too! It is an Angular wrapper for the fantastic [interactjs](https://interactjs.io/) drag and drop library, give it a look.
+github [here](https://github.com/nayfin/tft) under the `libs` folder. So far only a few modules have been migrated: dynamic-forms (renamed `crispr-forms`), validation-handling (renamed `form-validation-handler`). There is a new library, `interact`, too! It is an Angular wrapper for the fantastic [interactjs](https://interactjs.io/) drag and drop library, give it a look.
 
-We are making this change because having all these disparate modules in one library sucks. Consumers are forced to download a lot of dependencies they probably didn't just to use a single feature of the library.
+We are making this change because having all these disparate modules in one library sucks. Consumers are forced to download a lot of dependencies they probably didn't need just to use a single feature of the library.
 
 ## Description
 
-This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch.
+This is a library of components built with Angular Material Angular Flex-Layout and Angular InstantSearch and Firebase.
 
 This library is in pre-alpha. Breaking changes will occur often and documentation will be limited. As of right now I am the only contributor to the project, so it's hard to do all the things required to have a robust, stable, well-tested library. That being said Version 8.0.0 brings a lot of really nice features, especially to the DynamicForms piece. From here the focus will be on organizing the source, stabilizing the API, building robust docs and examples, and back-filling unit test before V9. Additionally, all modules will be abstracted into a separate libraries, this way end users can cherry pick the pieces they need instead of having to pull in all code and dependencies.
 
