@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-// import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -64,7 +63,6 @@ const TFT_DESIGN_MODULES = [
   MatBadgeModule,
   MatTableModule,
   MatStepperModule
-  // DragDropModule
 ];
 
 @NgModule({
