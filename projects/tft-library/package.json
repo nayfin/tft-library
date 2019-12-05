@@ -1,6 +1,6 @@
 {
   "name": "tft-library",
-  "version": "8.0.1",
+  "version": "8.1.0",
   "schematics": "./collection.json",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
